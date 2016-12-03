@@ -1,0 +1,220 @@
+﻿@model WebTinTuc.Models.CongChucModel
+@{
+    ViewBag.Title = "Sửa công chức";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section styles {
+    @Styles.Render("~/Content/dropzonescss")
+    @*@Styles.Render("~/Content/datepickercss")*@
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3>@ViewBag.Title</h3>
+        </div>
+        @if (TempData["Updated"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Updated"])
+            </div>
+        }
+
+    </div>
+</div>
+
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default box box-primary">
+
+                <div class="panel-body">
+                    @using (Html.BeginForm("EditCongChuc", "Rates", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form", @id = "EditCongChuc" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m=>m.CongChucId)
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.HinhAnh, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.HinhAnh, htmlAttributes: new { @class = "form-control" })
+                                <img id="ViewHinhAnh" src="@Model.HinhAnh" class="img-responsive" width="200" style="display: block;" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-8">
+                                <div id="dZUpload" class="dropzone">
+                                    <div class="dz-default dz-message" data-dz-message>
+                                        <span>Kéo tệp hình ảnh vào hoặc chọn tệp cần tải lên</span>
+                                        <span class="btn btn-primary">Chọn tệp</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TenCongChuc, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.TenCongChuc, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.TenCongChuc, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Chọn đơn vị</label>
+                            <div class="col-md-8">
+                                @{ Html.RenderAction("_SelectDonViPartial", "Rates"); }
+                                @Html.HiddenFor(m => m.DonViId, htmlAttributes: new { @id = "input_madonvi" })
+                                @Html.ValidationMessageFor(model => model.DonViId, "", new { @class = "text-danger has-error" })
+                            </div>
+                        </div>
+
+    <script>
+    $(window).on('load', function () {
+        $('#DonViId').val($('input#input_madonvi').val());
+    })
+    </script>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.NgaySinh, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon date" id="trigger-datepicker"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    @Html.EditorFor(model => model.NgaySinh)
+                                </div>
+                                @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger has-error" })
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TrinhDo, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.TrinhDo, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ChucVu, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.ChucVu, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-8">
+                                <label>
+                                    @Html.CheckBoxFor(model => model.Published) Mở/Khóa.
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-primary" type="submit">Cập nhật công chức</button>
+                                @Html.RouteLink("Xóa công chức", "AdminDeleteCongChuc", new { id = Model.CongChucId }, htmlAttributes: new { @class = "btn btn-danger" })
+                                <a href="/admin/danhsachcongchuc" class="btn btn-default">Danh sách công chức</a>
+                            </div>
+                        </div>
+
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <span>Không tìm thấy công chức.</span>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/dropzonescripts")
+    @*@Scripts.Render("~/bundles/datepickerjs")*@
+    @*<script type="text/javascript">
+            $.validator.setDefaults({
+                ignore: ""
+            });
+        </script>*@
+    <script>
+        
+
+        $(document).ready(function () {
+            $('input#HinhAnh').on('change', function () {
+                $('#ViewHinhAnh').attr('src', $(this).val()).fadeIn();
+            })    
+
+            //$('#NgaySinh').datepicker({
+            //    format: 'dd/mm/yyyy',
+            //    autoclose: true,
+            //    language: 'vi'
+            //});
+
+            //if ($('#NgaySinh').val() !== undefined || $('#NgaySinh').val() !== null) {
+            //    var nd = toDate($('#NgaySinh').val());
+            //    $('#NgaySinh').datepicker('update', nd);
+            //}
+
+            Dropzone.autoDiscover = false;
+            $("#dZUpload").dropzone({
+                url: "/Rates/SaveUploadedFile",
+                addRemoveLinks: true,
+                maxFiles: 1,
+                maxFilesize: 10,
+                uploadMultiple: true,
+                acceptedFiles: "image/*",
+                dictFallbackMessage: "Trình duyệt của bạn không hỗ trợ kéo thả tệp để tải lên.",
+                dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
+                dictFileTooBig: "Tệp có dung lượng quá lớn ({{filesize}}MiB). Dung lượng cho phép: {{maxFilesize}}MiB.",
+                dictInvalidFileType: "Tệp bạn chọn không được phép tải lên.",
+                dictResponseError: "Server responded with {{statusCode}} code.",
+                dictCancelUpload: "Hủy tải lên",
+                dictCancelUploadConfirmation: "Bạn chắc chắn muốn hủy tải lên?",
+                dictRemoveFile: "Loại bỏ tệp tin",
+                dictMaxFilesExceeded: "Bạn không thể tải lên nhiều tệp.",
+                success: function (file, response) {
+                    var imgName = response.Message;
+                    file.previewElement.classList.add("dz-success");
+                    $('input#HinhAnh').val(imgName);
+                    $('#ViewHinhAnh').attr('src', imgName).fadeIn();
+                },
+                error: function (file, response) {
+                    file.previewElement.classList.add("dz-error");
+                    $(file.previewElement).find('.dz-error-message').text(response);
+                }
+            });
+
+
+        })
+
+        $(function () {
+            $.validator.addMethod('date',
+            function (value, element) {
+                if (this.optional(element)) {
+                    return true;
+                }
+                var ok = true;
+                try {
+                    $.datepicker.parseDate('dd/mm/yy', value);
+                }
+                catch (err) {
+                    ok = false;
+                }
+                return ok;
+            });
+            $(".datefield").datepicker({ dateFormat: 'dd/mm/yy', changeYear: true });
+        });
+
+    </script>
+
+}

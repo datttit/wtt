@@ -1,0 +1,118 @@
+﻿@model PagedList.IPagedList<WebTinTuc.Models.DocumentDetail>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Danh sách tài liệu " + ViewBag.DocumentName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="category">
+    <div class="page-header cat-name">
+        <h3>Danh sách tài liệu @ViewBag.DocumentName</h3>
+    </div>
+
+
+    @using (Html.BeginForm("GetAllDocuments", "Documents", FormMethod.Get, new { @class = "form-inline", role = "form", @id = "GetAllDocuments", onsubmit = "return validate()", @style = "margin-bottom: 5px;" }))
+    {
+        <div class="form-group">
+            <input type="search" id="search_document" name="search_document" class="form-control" placeholder="Nhập tên tài liệu" style="height: 35px; padding-top: 0; padding-bottom: 0;" />
+        </div>
+        <div class="form-group">
+            @{ Html.RenderAction("_DanhMucTaiLieuPartial", "Documents"); }
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Tìm kiếm" />
+        </div>
+    }
+
+
+    <script>
+        function validate() {
+            if (document.getElementById("DocumentId").value === "" && document.getElementById("search_document").value === "") {
+                alert("Vui lòng chọn tài liệu tìm kiếm hoặc nhập tên tài liệu cần tìm.");
+                return false;
+            } else {
+                return true;
+            };
+
+        }
+
+    </script>
+
+    @if (Model.Count > 0)
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Số thứ tự</th>
+                        <th>Tên tài liệu</th>
+                        <th>Ngày đăng</th>                      
+                        <th>Tệp đính kèm</th>                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int i = 1;}
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@i</td>
+                            <td><a href="@string.Format("/tai-lieu/{0}-{1}", @item.DetailSlug, @item.DetailId)">@item.DetailName</a></td>
+                            <td>@string.Format("{0:dd/MM/yyyy HH:mm tt}", item.PublishedDate)</td>
+                            <td>
+                                @if (item.AttachModels.Count > 0)
+                                {
+                                    foreach (var attach in item.AttachModels)
+                                    {
+                                        <a style="display: block;" href="@string.Format("/Documents/DownloadDocument/{0}", @attach.AttachId)">@Html.Raw(attach.AttachFileName)</a>
+                                    }
+                                }
+                                else
+                                {
+                                    <span>Không có tệp đính kèm.</span>
+                                }
+                            </td>
+                            
+                        </tr>
+                        i++;
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="row pull-right">
+            <div class="col-md-12">
+                @Html.PagedListPager(Model, page => Url.RouteUrl("DanhSachTaiLieu", new { DocumentId = ViewBag.DocumentId, search_document = ViewBag.search_document, pg = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+            </div>
+        </div>
+    }
+    else
+    {
+        <span>Chưa có tài liệu nào</span>
+    }
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#DocumentId').on('change', function () {
+            if ($(this).val() !== "") {
+                $('#GetAllDocuments').submit();
+            }
+        })
+        
+    })
+    
+</script>
+
+@if (ViewBag.DocumentId != null)
+{
+    <script>
+        $('#DocumentId').val('@Html.Raw(ViewBag.DocumentId)');
+    </script>
+}
+
+@if (ViewBag.search_document != null)
+{
+    <script>
+        $('#search_document').val('@Html.Raw(ViewBag.search_document)');
+    </script>
+}

@@ -1,0 +1,16 @@
+﻿@model WebTinTuc.Models.DanhMucLinhVucHoiDap
+@if (Model != null)
+{
+    foreach (var item in Model.DanhMucLinhVucHoiDaps)
+    {
+        if (item != null)
+        {
+            <option value="@item.LinhVucId" class="@if(item.DanhMucLinhVucHoiDaps.Count > 0) {@Html.DisplayName("bold-option")} else {}">@item.TenLinhVuc</option>
+            if (item.DanhMucLinhVucHoiDaps.Count > 0)
+            {
+                @Html.Partial("_PartialChildSelectLinhVucHoiDap", item)
+            }
+        }
+    }
+
+}

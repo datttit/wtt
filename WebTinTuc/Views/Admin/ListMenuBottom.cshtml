@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Danh mục menu bên dưới";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3>@ViewBag.Title</h3>
+        </div>
+        @if (TempData["Deleted"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Deleted"])
+            </div>
+        }
+
+        @if (TempData["Moved"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Moved"])
+            </div>
+        }
+        
+        @if (TempData["Updated"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Updated"])
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default box box-primary">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <a href="/admin/AddNewMenu" class="btn btn-primary" style="color: #fff;">Thêm mới menu</a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div id="tree-menu-baiviet">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    <script src="~/Scripts/jquery-ui-1.12.0.min.js"></script>
+    <script src="~/Content/admin/vendor/jqueryuitreeview/jquery.techbytarun.jqueryuitreecontrol.min.js"></script>
+    <script>
+       $(document).ready(function () {
+           var _url = "/admin/GetMenuBottom";
+           $("#tree-menu-baiviet").btechcotree({
+               containerid: "tree-menu-baiviet"
+                           , url: _url
+                           , datatype: $treedatatype.Json
+                            , dataformat: $treedataformat.Linear
+                            , class_node_collapse: "ui-icon-circle-minus"
+                            , class_node_expand: "ui-icon-circle-plus"
+                            , class_node_item: "ui-icon-clipboard"
+                            , collapse_tree: false
+                            , class_node_highlight: "ui-state-highlight"
+                            , class_node_add: "ui-icon-plusthick"
+                            , class_node_remove: "ui-icon-minusthick"
+                            , show_button_check: false
+                            , show_button_add: false
+                            , show_button_remove: false
+                            , node_remove_message: "Are you sure?"
+                            , onselectednode: function (id, node, sender) {
+                                window.location.href = "/admin/EditMenu/" + id;
+                            }
+           });
+
+       });
+    </script>
+}
+

@@ -1,0 +1,52 @@
+﻿<div id="tf-below-menu" class="nav navbar-default">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-md-2half">
+                <p>
+                    @if (Model != null)
+                    {
+                        @Model
+                    }
+                </p>
+            </div>
+            <div class="col-md-7 hidden-xs">
+                <p class="" style="text-transform: uppercase;"><marquee>CHÀO MỪNG ĐẾN VỚI CỔNG THÔNG TIN ĐIỆN TỬ HUYỆN KRÔNG NĂNG.</marquee></p>
+                @*<p class="visible-xs" style="text-transform: uppercase;">CHÀO MỪNG ĐẾN VỚI CỔNG THÔNG TIN ĐIỆN TỬ UBND HUYỆN KRÔNG NĂNG.</p>*@
+            </div>
+            <div class="col-md-3 pull-right show-form-search">
+                Tìm kiếm <i class="fa fa-search"></i>
+            </div>
+        </div>
+        <div class="row" style="position: relative;">
+            @using (Html.BeginForm("Search", "Home", FormMethod.Get, htmlAttributes: new { @accept_charset = "utf-8", @class = "form-horizontal", @id = "form-search", autocomplete = "off", onsubmit = "return validate()" }))
+            {
+                <div class="input-group">
+                    @Html.TextBox("search", "", htmlAttributes: new { type = "search", @class = "form-control", placeholder = "Nhập từ khóa tìm kiếm" })
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            Tìm kiếm
+                        </button>
+                    </span>
+                </div>
+
+            }
+
+            <script>
+    function validate() {
+        if (document.getElementById("search").value === "") {
+            alert("Vui lòng nhập từ khóa tìm kiếm");
+            return false;
+        } else {
+            return true;
+        };
+
+    }
+
+            </script>
+
+
+
+        </div>
+    </div>
+</div>
+

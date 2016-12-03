@@ -1,0 +1,244 @@
+﻿@model PagedList.IPagedList<WebTinTuc.Models.HoiDapCauHois>
+@using PagedList.Mvc;
+@using Helpers;
+@{
+    ViewBag.Title = "Lĩnh vực: " + ViewBag.TenLinhVuc;
+    Layout = "~/Views/Shared/_LayoutHoiDap.cshtml";
+}
+
+@section Styles {
+    <style>
+        #TraCuuCauHoi > .page-header {
+            margin-top: 0;
+        }
+
+        #TraCuuCauHoi > .page-header > h3 {
+            margin-top: 0;
+        }
+
+            #TraCuuCauHoi .form-control {
+                height: 35px;
+                padding: 5px 10px;
+            }
+
+            #TraCuuCauHoi .control-label {
+                text-align: left;
+            }
+
+            #TraCuuCauHoi .radio,
+            #TraCuuCauHoi .checkbox {
+                padding-top: 0;
+                padding-left: 20px;
+                border-radius: 9px;
+                border: 1px solid #dfdfdf;
+                margin-bottom: 5px;
+                margin-top: 5px;
+                background: #f2f2f2;
+            }
+
+                #TraCuuCauHoi .radio label,
+                #TraCuuCauHoi .checkbox label {
+                    padding: 5px;
+                    display: block;
+                    font-weight: 600;
+                }
+
+        .cauhoi-tracuu a {
+            color: #1937eb;
+        }
+
+        .cauhoi-tracuu {
+            border: 1px solid #dfdfdf;
+            margin: 0 0 10px;
+        }
+
+
+        .red {
+            color: #ff0000;
+        }
+    </style>
+}
+
+<div class="category">
+    <div class="page-header cat-name">
+        @if (ViewBag.TenLinhVuc != null)
+        {
+            <h3>Lĩnh vực: @ViewBag.TenLinhVuc </h3>
+        }
+        else
+        {
+            <h3>Tất cả lĩnh vực</h3>
+        }
+
+    </div>
+
+
+    @using (Html.BeginForm("TraCuuCauHoi", "Home", FormMethod.Get, new { @class = "form-horizontal", role = "form", @id = "TraCuuCauHoi", onsubmit = "return validate2()", @style = "margin-bottom: 5px;" }))
+    {
+        <div class="page-header">
+            <h3><i class="fa fa-2x icon-search"></i> Tra cứu câu hỏi</h3>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <input type="search" id="search_cauhoi" name="search_cauhoi" class="form-control" placeholder="Nhập tên câu hỏi cần tìm" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                @{ Html.RenderAction("_SelectLinhVucHoiDapPartial", "Home"); }
+            </div>
+        </div>
+
+        { Html.RenderAction("_NgayThangPartial", "Home"); }
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <button class="btn btn-primary"><i class="fa icon-search"></i> Tìm kiếm</button>
+            </div>
+        </div>
+    }
+
+
+    <script>
+        function validate2() {
+            if (document.getElementById("LinhVucHoiDapId").value === "" && document.getElementById("search_cauhoi").value === "" && document.getElementById("fromdate").value === "" && document.getElementById("todate").value === "") {
+                alert("Vui lòng chọn tiêu chí tìm kiếm hoặc nhập tên câu hỏi cần tìm.");
+                return false;
+            } else {
+                return true;
+            };
+
+        }
+
+    </script>
+
+    @if (Model.Count > 0)
+    {
+        <p><b>Tổng số câu hỏi: </b> @Model.Count</p>
+        foreach (var item in Model)
+        {
+            <div class="row cauhoi-tracuu">
+                <div class="col-md-12">
+                    <p>
+                        <b class="red">Câu hỏi: </b><a data-toggle="collapse" href="#cauhoi-@item.CauHoiId" aria-expanded="false" aria-controls="cauhoi-@item.CauHoiId">@item.TenCauHoi</a>
+                        <a style="border-bottom: 1px solid #dfdfdf;" href="@string.Format("/hoi-dap/cau-hoi/{0}", @item.CauHoiId)">Xem chi tiết</a>
+                    </p>
+                    <div class="collapse" id="cauhoi-@item.CauHoiId">
+                        <div class="well">
+                            <b class="red">Nội dung: </b><br />
+                            @Html.Raw(@item.NoiDungCauHoi)
+                        </div>
+                    </div>
+                    <p>
+                        <i>Ngày gửi: @string.Format("{0:dd/MM/yyyy HH:mm tt}", item.NgayHoiDap)</i>
+                        <i>Ngày Trả lời: @string.Format("{0:dd/MM/yyyy HH:mm tt}", item.NgayTraLoi)</i>
+                    </p>
+                    <p><b>Người gửi: </b>@item.HoTenNguoiHoi, <b>Địa chỉ: </b>@item.DiaChiNguoiHoi, <b>Đơn vị trả lời: </b>@item.AspNetUser.FullName</p>
+                    <p><b class="red">Câu trả lời: </b><a data-toggle="collapse" href="#traloi-@item.CauHoiId" aria-expanded="false" aria-controls="traloi-@item.CauHoiId">@item.TDTraLoi</a></p>
+                    <div class="collapse" id="traloi-@item.CauHoiId">
+                        <ul class="nav nav-pills" role="tablist">
+                            <li role="presentation" class="active"><a href="#tab-noidung-@item.CauHoiId" aria-controls="tab-noidung-@item.CauHoiId" role="tab" data-toggle="tab">Nội dung trả lời</a></li>
+                            <li role="presentation"><a href="#tab-cauhoi-@item.CauHoiId" aria-controls="tab-cauhoi-@item.CauHoiId" role="tab" data-toggle="tab">Câu hỏi liên quan</a></li>
+                        </ul>
+                        <div class="tab-content" style="border: 1px solid #dfdfdf; padding: 10px; margin-bottom: 10px;">
+                            <div role="tabpanel" class="tab-pane active" id="tab-noidung-@item.CauHoiId">
+                                @Html.Raw(item.NDTraLoi)
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tab-cauhoi-@item.CauHoiId">
+                                @{Html.RenderAction("_CauhoiLienQuanPartial", new { id = @item.CauHoiId, linhvucid = @item.LinhVucHoiDapId });}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="col-md-12">
+            @Html.PagedListPager(Model, page => Url.RouteUrl("HoiDapTraCuuCauHoi", new { LinhVucHoiDapId = ViewBag.LinhVucHoiDapId, search_cauhoi = ViewBag.search_cauhoi, fromdate = ViewBag.FromDate, todate = ViewBag.ToDate, pg = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+        </div>
+    }
+    else
+    {
+        <span>Chưa có câu hỏi nào</span>
+    }
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#LinhVucHoiDapId').on('change', function () {
+            if ($(this).val() !== "") {
+                $('#TraCuuCauHoi').submit();
+            }
+        })
+
+    })
+
+</script>
+
+@if (ViewBag.LinhVucHoiDapId != null)
+{
+    <script>
+        $('#LinhVucHoiDapId').val('@Html.Raw(ViewBag.LinhVucHoiDapId)');
+    </script>
+}
+
+
+@if (ViewBag.search_cauhoi != null)
+{
+    <script>
+        $('#search_cauhoi').val('@Html.Raw(ViewBag.search_cauhoi)');
+    </script>
+}
+
+@if (ViewBag.FromDate != null)
+{
+    <script>
+        $('#fromdate').val('@Html.Raw(ViewBag.FromDate)');
+    </script>
+}
+
+@if (ViewBag.ToDate != null)
+{
+    <script>
+        $('#todate').val('@Html.Raw(ViewBag.ToDate)');
+    </script>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(function () {
+            $.validator.methods.date = function (value, element) {
+                if ($.browser.webkit) {
+                    var d = new Date();
+                    return this.optional(element) || !/Invalid|NaN/.test(new Date(d.toLocaleDateString(value)));
+                }
+                else {
+                    return this.optional(element) || !/Invalid|NaN/.test(new Date(value));
+                }
+            };
+        })
+
+        $(function () {
+            $.validator.addMethod('date',
+            function (value, element) {
+                if (this.optional(element)) {
+                    return true;
+                }
+                var ok = true;
+                try {
+                    $.datepicker.parseDate('yy-mm-dd', value);
+                }
+                catch (err) {
+                    ok = false;
+                }
+                return ok;
+            });
+            $(".datefield").datepicker({ dateFormat: 'yy-mm-dd', changeYear: true });
+        });
+    </script>
+
+
+}

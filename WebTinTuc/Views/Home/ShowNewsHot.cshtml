@@ -1,0 +1,47 @@
+﻿@model IEnumerable<WebTinTuc.Models.Article>
+
+<div class="panel-body">
+    <div id="example5" class="slider-pro">
+        <div class="sp-slides">
+            @if (Model.Count() > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <div class="sp-slide">
+                        <img class="sp-image" src="~/Content/sliderPro/css/images/blank.gif"
+                             data-src="@Html.Raw(item.ArticleImageBig)"
+                             data-retina="@Html.Raw(item.ArticleImageBig)" />
+
+                        <div class="sp-caption">
+                            <a href="@string.Format("/bai-viet/{0}-{1}", @item.SlugArticleTitle, @item.ArticleId)">
+                                <h3>@item.ArticleTitle</h3>
+                                <div class="sp-caption-description">@item.ArticleDescription</div>
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+
+        <div class="sp-thumbnails">
+            @if (Model.Count() > 0)
+            {
+                foreach (var item in Model)
+	            {
+                    <div class="sp-thumbnail">
+                        <div class="sp-thumbnail-image-container">
+                            <img class="sp-thumbnail-image" src="@Html.Raw(item.ArticleImageSmall)" />
+                        </div>
+                        <div class="sp-thumbnail-text">
+                            <div class="sp-thumbnail-title">@item.ArticleTitle</div>
+                            @*<div class="sp-thumbnail-description">Dolor sit amet, consectetur adipiscing</div>*@
+                        </div>
+                    </div>
+	            }
+            }
+            
+        </div>
+    </div>
+</div>
+

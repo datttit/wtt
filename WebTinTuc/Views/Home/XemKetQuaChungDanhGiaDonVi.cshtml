@@ -1,0 +1,77 @@
+﻿@model PagedList.IPagedList<WebTinTuc.Models.PhanTramDanhGiaDonViModel>
+@using PagedList.Mvc;
+@using Helpers;
+@{
+    ViewBag.Title = "Thống kê kết quả đánh giá chung đơn vị";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="category">
+    <div class="page-header cat-name">
+        <h3 style="text-transform: uppercase;">@ViewBag.Title</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped tbl-thongke">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Số thứ tự</th>
+                            <th rowspan="2">Đơn vị</th>
+                            <th colspan="2">Tiêu chí đánh giá</th>
+                        </tr>
+                        <tr>
+                            <th>Hài lòng</th>
+                            <th>Chưa hài lòng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int stt = 1;}
+                        @if (Model != null)
+                        {                            
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@stt</td>
+                                    <td><a href="@string.Format("/khaosat/xemketqua/donvi/{0}-{1}", item.SlugUrl, item.DonViId)">@item.TenDonVi</a></td>
+                                    @if (item.SoLuotDanhGia > 0)
+                                    {
+                                        <td>@Configs.PercentVote(Convert.ToDouble(item.LuotHaiLong), Convert.ToDouble(item.SoLuotDanhGia))</td>
+                                        <td>@Configs.PercentVote(Convert.ToDouble(item.LuotChuaHaiLong), Convert.ToDouble(item.SoLuotDanhGia))</td>
+                                    }else
+	                                {
+                                        <td>Chưa có đánh giá</td>
+                                        <td>Chưa có đánh giá</td>
+	                                }
+                                    
+                                </tr>
+                                stt++;
+                            }                           
+                            
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4">Chưa có đơn vị.</td>
+                            </tr>
+                        }
+                        
+                    </tbody>
+
+                </table>
+
+                @if (Model != null)
+                {
+                    if (Model.Count >= 25)
+                    {
+                        @Html.PagedListPager(Model, page => Url.RouteUrl("RXemKetQuaChungDanhGiaDonVi", new { pg = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                    }
+                }
+               
+            </div>
+        </div>
+    </div>
+
+</div>
+

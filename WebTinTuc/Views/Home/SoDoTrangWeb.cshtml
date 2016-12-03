@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Sơ đồ trang web - cổng thông tin hành chính krông năng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="category">
+    <div class="page-header cat-name">
+        <h3>@ViewBag.Title</h3>
+    </div>
+
+    <ul>
+        <li><a href="/">Trang chủ</a></li>
+
+        @{ Html.RenderAction("_DanhMucMenuPartial", "Home"); }
+        
+        <li><a href="/tin-tuc/cai-cach-hanh-chinh-42">Cải cách hành chính</a></li>
+        <li><a href="/tin-tuc/lich-cong-tac-41">Lịch công tác</a></li>
+        <li><a href="/lien-he">Liên hệ</a></li>
+        <li><a href="/hoi-dap">Hỏi đáp</a></li>
+
+    </ul>
+
+</div>
+

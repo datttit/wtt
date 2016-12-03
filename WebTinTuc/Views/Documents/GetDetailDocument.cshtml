@@ -1,0 +1,87 @@
+﻿@model WebTinTuc.Models.DocumentDetail
+@{
+    if (Model != null)
+    {
+        ViewBag.Title = Html.Raw(Model.DetailName) + " - Cổng thông tin điện tử Krông Năng";
+    }
+    else
+    {
+        ViewBag.Title = "Tài liệu không tồn tại hoặc đã bị xóa.";
+    }
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*seo*@
+@section metatags
+{
+    @if (Model != null)
+    {
+        <meta name="description" content="@Html.Raw(Model.DetailName)">
+        <meta name="keywords" content="@Html.Raw(Model.DetailName), @Helpers.Configs.splitString(Model.DetailName)">
+        <meta name="author" content="nguyenvannam, dtsoftvn.com">
+        <meta name="robots" content="index,follow,noodp">
+        <meta property="og:locale" content="vi_VN">
+        <meta property="og:type" content="Article">
+        <meta property="og:url" content="@Html.DisplayName("http://")@Request.Url.Host@Request.RawUrl.ToString()">
+        <meta property="og:title" content="@Html.Raw(Model.DetailName)">
+        <meta property="og:description" content="@Html.Raw(Model.DetailName)">
+    }
+}
+
+<article class="detail-article">
+    @if (Model != null)
+    {
+        <h3 class="art-title">@Html.DisplayTextFor(m => m.DetailName)</h3>
+        <div class="art-attv" style="width: 100%; text-align: right;">
+            <i class="fa fa-eye"></i> @Html.DisplayTextFor(m => m.CountView)
+            <i class="fa fa-calendar"></i> @string.Format("{0:dd/MM/yyyy HH:mm tt}", Model.PublishedDate)
+        </div>
+        <div class="art-content">
+            @if (Model.DetailContent != null)
+            {
+                @Model.DetailContent
+            }
+            
+            @if (Model.AttachModels.Count > 0)
+            {
+                <h3>Tệp đính kèm: </h3>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Số thứ tự</th>
+                                <th>Tệp đính kèm</th>
+                                <th>Tải xuống</th>
+                            </tr>                            
+                        </thead>
+                        <tbody>
+                            @{int i = 1;}
+                            @foreach (var item in Model.AttachModels)
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@item.AttachFileName</td>
+                                    <td><a href="/Documents/DownloadDocument/@item.AttachId">Tải xuống</a></td>
+                                </tr>
+                                i++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <p>Tài liệu không có tệp đính kèm.</p>
+            }
+        </div>
+
+
+    }
+    else
+    {
+        <div class="art-content">
+            <p>Tài liệu không tồn tại hoặc không tìm thấy. Vui lòng kiểm tra lại địa chỉ có chính xác không.</p>
+        </div>
+    }
+</article>

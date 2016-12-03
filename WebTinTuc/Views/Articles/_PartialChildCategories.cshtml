@@ -1,0 +1,19 @@
+﻿@model WebTinTuc.Models.DanhMucBaiViet
+
+
+@foreach (var item in Model.DanhMucBaiViets)
+{
+    if (item != null)
+    {
+        if (item.DanhMucBaiViets.Count > 0)
+        {
+            <optgroup label="@item.CatName">
+                @Html.Partial("_PartialChildCategories", item)
+            </optgroup>
+        }
+        else
+        {
+            <option value="@item.CatId">@item.CatName</option>
+        }
+    }
+}

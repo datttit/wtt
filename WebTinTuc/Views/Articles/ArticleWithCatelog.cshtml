@@ -1,0 +1,33 @@
+﻿@model IEnumerable<WebTinTuc.Models.Article>
+
+
+
+<div class="art-more">
+    <h3>Các bài viết cùng danh mục</h3>
+    <ul id="list-article-like-cat">
+        @foreach (var item in Model)
+        {
+            <li><a href="@string.Format("/bai-viet/{0}-{1}", @item.SlugArticleTitle, @item.ArticleId)">@item.ArticleTitle (@item.PublishedDate)</a></li>
+        }
+    </ul>
+
+    <a href="#" id="loadMore" class="btn btn-primary">Xem thêm các bài viết cũ hơn</a>
+</div>
+
+<script>
+    $(document).ready(function () {
+        size_li = $("#list-article-like-cat li").size();
+        x = 5;
+        $('#list-article-like-cat li:lt(' + x + ')').show();
+        $('#loadMore').on('click',function (e) {
+            e.preventDefault();
+            x = (x + 5 <= size_li) ? x + 5 : size_li;
+            $('#list-article-like-cat li:lt(' + x + ')').fadeIn('200');
+        });
+
+        //$('#showLess').click(function () {
+        //    x = (x - 5 < 0) ? 3 : x - 5;
+        //    $('#myList li').not(':lt(' + x + ')').hide();
+        //});
+    });
+</script>

@@ -1,0 +1,189 @@
+﻿@model WebTinTuc.Models.EditCategoryModel
+@{
+    ViewBag.Title = "Sửa danh mục";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3>@ViewBag.Title</h3>
+        </div>
+        @if (TempData["Updated"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Updated"])
+            </div>
+        }
+
+    </div>
+</div>
+
+@if (Model != null)
+{
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default box box-primary">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <h3>Sửa danh mục <b>@Html.Raw(Model.CategoryName)</b></h3>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("EditCategory", "Admin", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form", @id = "EditCategory" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m => m.CategoryId)
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.CategoryName, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SlugCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.SlugCategory, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                            @*<div class="col-md-2">
+                                    <span class="btn btn-primary">Tạo SLug URL</span>
+                                </div>*@
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Chọn danh mục cha</label>
+                            <div class="col-md-8">
+                                @{ Html.RenderAction("_CategoryPartial", "Admin"); }
+                                @*@Html.Action("_CategoryPartial", "Admin")*@
+                                @Html.HiddenFor(m => m.ParentCategoryId, htmlAttributes: new { @id = "input_ParentId" })
+                                @Html.ValidationMessageFor(model => model.ParentCategoryId, "", new { @class = "text-danger has-error" })
+                            </div>
+                        </div>
+                        
+                        <script>
+                            $(window).on('load',function () {
+                                $("#ParentCategoryId").val($('#input_ParentId').val());
+                            })
+                        </script>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PositionIndex, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(model => model.PositionIndex, htmlAttributes: new { @class = "form-control", type = "number" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-2">
+                                <label>
+                                    @Html.CheckBoxFor(model => model.ViewHome) Danh mục nổi bật - Vị trí:
+                                </label>
+                            </div>
+
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(model => model.PositionHome, htmlAttributes: new { @class = "form-control", type = "number" })
+                                <div class="help-block">
+                                    Danh mục này sẽ được hiện thị trên trang chủ
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-8">
+                                <label>
+                                    @Html.CheckBoxFor(model => model.Published) Published.
+                                </label>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" class="btn btn-primary" value="Cập nhật danh mục" />
+                                @Html.ActionLink("Xóa danh mục", "DeleteCategory", new { id = Model.CategoryId }, htmlAttributes: new { @class = "btn btn-danger" })
+                                @Html.ActionLink("Di chuyển danh mục", "MoveCategory", new { id = Model.CategoryId }, htmlAttributes: new { @class = "btn btn-info" }) 
+                                <a href="/admin/categories" class="btn btn-default">Trở lại danh mục bài viết</a>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <span>Không tìm thấy danh mục</span>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $('input#CategoryName').change(function () {
+                var $val = $(this).val();
+                var $output = $('input#SlugCategory');
+                $output.empty();
+                if ($val !== "" && $val.length > 0) {
+                    $.ajax({
+                        url: '@Url.Action("GenerateSlugUrl", "Admin")',
+                        type: "POST",
+                        async: true,
+                        cache: false,
+                        dataType: "json",
+                        data: { strText: $val },
+                        success: function (data) {
+                            $output.val(data);
+                        },
+                        error: function (error) {
+                            alert('Mất kết nối tới máy chủ');
+                        }
+                    })
+                }
+            })
+
+            //$('select#ParentCategoryId').on('change', function () {
+            //    alert(this.value);
+            //})
+
+        })
+
+        function getDanhMuc(x) {
+            if (x.value !== "") {
+                $('input#PositionIndex').empty();
+                //alert(id.value);
+                var _id = x.value;
+                $.ajax({
+                    url: '@Url.Action("SetPositionCatNew", "Admin")',
+                    type: "POST",
+                    async: true,
+                    cache: false,
+                    dataType: "json",
+                    data: { id: _id },
+                    success: function (data) {
+                        console.log(data);
+                        $('input#PositionIndex').val(data);
+                    },
+                    error: function (error) {
+                        alert('Mất kết nối tới máy chủ');
+                    }
+                })
+            }
+        }
+    </script>
+
+}
+
+

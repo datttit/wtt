@@ -1,0 +1,19 @@
+﻿@using WebTinTuc.Models;
+@model List<Menu>
+
+<nav id="tf-menu-bottom" class="navbar navbar-default menu-bottom">
+    <div class="container">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="">
+            <ul class="nav navbar-nav">
+                @if (Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <li><a href="@item.MenuUrl" class="scroll">@item.MenuName</a></li>
+                    }
+                }
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>

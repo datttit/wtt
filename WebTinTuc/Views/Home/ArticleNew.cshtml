@@ -1,0 +1,22 @@
+﻿@model WebTinTuc.Models.Article
+
+@if (Model != null)
+{
+    <div class="panel-newscat">        
+        <div class="col-md-9 col-md-push-3">
+            <h3><a href="@string.Format("/bai-viet/{0}-{1}", @Model.SlugArticleTitle, @Model.ArticleId)">@Model.ArticleTitle</a></h3>
+            <p>@string.Format("{0:dd/MM/yyyy HH:mm tt}", Model.PublishedDate)</p>
+            <p>@Html.Raw(Model.ArticleDescription)</p>
+        </div>
+        <div class="col-md-3 col-md-pull-9">
+            <div class="thumbnail">
+                <img class="img-responsive" src="@Model.ArticleImageSmall" />
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    
+    <p>Chưa có bài viết.</p>
+}

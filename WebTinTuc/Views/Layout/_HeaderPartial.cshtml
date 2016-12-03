@@ -1,0 +1,16 @@
+﻿@model WebTinTuc.Models.Config
+@if (Model != null)
+{
+
+    <style>
+        #tf-header {
+            background: @Html.Raw(Model.BgColorHeader);
+            height: auto;
+        }
+    </style>
+    <div id="tf-header" class="hidden-xs">
+        <div class="container">
+            <img class="img-responsive" src="@Html.Raw(Model.BgImageHeader)" />
+        </div>
+    </div>
+}

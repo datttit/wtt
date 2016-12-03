@@ -1,0 +1,183 @@
+﻿@model PagedList.IPagedList<WebTinTuc.Models.Menu>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Danh mục menu bên trái";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3>@ViewBag.Title <a href="/admin/AddNewMenu" class="btn btn-primary pull-right" style="color: #fff;">Thêm mới menu</a></h3>
+        </div>
+        @if (TempData["Deleted"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Deleted"])
+            </div>
+        }
+
+        @if (TempData["Moved"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Moved"])
+            </div>
+        }
+        
+        @if (TempData["Updated"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Updated"])
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default box box-primary">
+            <div class="panel-heading">
+                @using (Html.BeginForm("ListMenuLeft", "Admin", FormMethod.Get, new { @class = "form-inline", role = "form", @id = "search-ListMenuLeft", onsubmit = "return validate()" }))
+                {
+                    <div class="form-group">
+                        <label for="searchQuery" class="control-label">Tìm kiếm: </label>
+                        @Html.TextBox("search", "", new { @class = "form-control", placeholder = "Nhập tên menu" })
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Tìm kiếm" />
+                    </div>
+                }
+            </div>
+
+            <script>
+    function validate() {
+        if (document.getElementById("search").value === "") {
+            alert("Vui lòng nhập từ khóa tìm kiếm");
+            return false;
+        } else {
+            return true;
+        };
+
+    }
+
+            </script>
+
+
+
+            <div class="panel-body">
+                @*<div id="tree-menu-baiviet">
+
+                </div>*@
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Số thứ tự</th>
+                                <th>Tên menu</th>
+                                <th>Menu Cha</th>
+                                <th>Vị trí</th>
+                                <th>Tình trạng</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int i = 1;}
+                            @if (Model != null)
+                            {
+                                if (Model.Count > 0)
+                                {                                   
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>@item.MenuName</td>
+                                            <td>
+                                                @if (item.Menu1 != null)
+                                                {
+                                                    @item.Menu1.MenuName
+                                                }
+                                                
+                                            </td>
+
+                                            <td>@item.PositionIndex</td>
+                                            <td>
+                                                @if (@item.Published == true)
+                                                {
+                                                    <span>Mở</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Khóa</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Sửa", "EditMenu", new { id = item.MenuId }, htmlAttributes: new { @class = "btn btn-primary" })
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <tr>Không có menu</tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                @if (Model != null)
+                {
+                    if (Model.Count >= 25)
+                    {
+                        @Html.PagedListPager(Model, page => Url.Action("ListMenuLeft", new { search = ViewBag.search, pg = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    @*<script src="~/Scripts/jquery-ui-1.12.0.min.js"></script>
+    <script src="~/Content/admin/vendor/jqueryuitreeview/jquery.techbytarun.jqueryuitreecontrol.min.js"></script>
+    <script>
+       $(document).ready(function () {
+           var _url = "/admin/GetMenuLeft";
+           $("#tree-menu-baiviet").btechcotree({
+               containerid: "tree-menu-baiviet"
+                           , url: _url
+                           , datatype: $treedatatype.Json
+                            , dataformat: $treedataformat.Linear
+                            , class_node_collapse: "ui-icon-circle-minus"
+                            , class_node_expand: "ui-icon-circle-plus"
+                            , class_node_item: "ui-icon-clipboard"
+                            , collapse_tree: false
+                            , class_node_highlight: "ui-state-highlight"
+                            , class_node_add: "ui-icon-plusthick"
+                            , class_node_remove: "ui-icon-minusthick"
+                            , show_button_check: false
+                            , show_button_add: false
+                            , show_button_remove: false
+                            , node_remove_message: "Are you sure?"
+                            , onselectednode: function (id, node, sender) {
+                                window.location.href = "/admin/EditMenu/" + id;
+                            }
+           });
+
+       });
+    </script>*@
+}
+

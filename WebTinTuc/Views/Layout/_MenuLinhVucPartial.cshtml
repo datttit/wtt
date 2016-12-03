@@ -1,0 +1,15 @@
+﻿@model WebTinTuc.Models.DanhMucLinhVucHoiDap
+<div class="menu-linhvuc">
+    <h3 class="menu-title">Lĩnh vực</h3>
+    @Html.Partial("_PartialChildMenuLinhVuc", @Model)
+</div>
+
+<script>
+    $('.child').hide(); //Hide children by default
+
+    $('.parent').children().click(function () {
+        event.preventDefault();
+        $(this).children('.child').slideToggle('slow');
+        $(this).find('span').toggle();
+    });
+</script>

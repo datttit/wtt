@@ -1,0 +1,18 @@
+﻿@model WebTinTuc.Models.DanhMucSoDoTrang
+<ul>
+    @foreach (var item in Model.DanhMucSoDoTrangs)
+    {
+        if (item != null)
+        {
+            <li>
+                <a href="@item.CatMenu">
+                    @item.CatName
+                </a>
+                @if (item.DanhMucSoDoTrangs.Count > 0)
+                {
+                    @Html.Partial("_PartialChildMenuSoDoTrang", item)
+                }
+            </li>
+        }
+    }
+</ul>

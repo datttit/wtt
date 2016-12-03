@@ -1,0 +1,209 @@
+﻿@model WebTinTuc.Models.EditDocumentDetail
+@{
+    ViewBag.Title = "Sửa tài liệu";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3>@ViewBag.Title</h3>
+        </div>
+        @if (TempData["Updated"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Updated"])
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default box box-primary">
+            @if (Model != null)
+            {
+                <div class="panel-heading">
+                    <p class="panel-title">Sửa tài liệu <b>@Model.DetailName</b></p>
+                </div>
+
+                <div class="panel-body">
+                    @using (Html.BeginForm("EditDocument", "Documents", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form", @id = "EditDocument" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m => m.DetailId)
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Danh mục tài liệu</label>
+                            <div class="col-md-10">
+                                @{ Html.RenderAction("_SelectDanhMucTaiLieuPartial", "Documents"); }
+                                @Html.HiddenFor(m => m.DocumentId, htmlAttributes: new { @id = "input_CatId" })
+                                @Html.ValidationMessageFor(model => model.DocumentId, "", new { @class = "text-danger has-error" })
+                            </div>
+                        </div>
+
+                        <script>
+                            $(document).ready(function () {
+                                $("#DocumentId").val($('#input_CatId').val());
+                            })
+                        </script>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DetailName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.DetailName, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.DetailName, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DetailSlug, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.DetailSlug, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DetailDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.DetailDescription, htmlAttributes: new { @class = "form-control", row = 10 })
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DetailContent, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.DetailContent, htmlAttributes: new { @class = "form-control", type = "number", row = 10 })
+                            </div>
+                        </div>
+
+                        <script>
+                            //CKEDITOR.replace('ArticleContent');
+                            var roxyFileman = '/Content/fileman/index.html';
+                            $(function () {
+                                CKEDITOR.replace('DetailContent', {
+                                    filebrowserBrowseUrl: roxyFileman,
+                                    filebrowserImageBrowseUrl: roxyFileman + '?type=image',
+                                    removeDialogTabs: 'link:upload;image:upload'
+                                });
+                            });
+                        </script>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Published, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <label>
+                                    @Html.CheckBoxFor(model => model.Published) Mở/khóa.
+                                </label>
+                            </div>
+                        </div>
+
+
+                        
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-primary" type="submit">Cập nhật</button>
+                                @Html.ActionLink("Xóa", "DeleteDocument", new { id = Model.DetailId }, htmlAttributes: new { @class = "btn btn-danger" })
+                                @Html.ActionLink("Thêm đính kèm", "AddAttachDocument", new { id = Model.DetailId }, htmlAttributes: new { @class = "btn btn-info" })
+                                <a href="/admin/documents" class="btn btn-default">Trở lại danh sách</a>
+                            </div>
+                        </div>
+
+                       
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="panel-body">
+                    <span>Không tìm thấy tài liệu</span>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+   
+    @*<script type="text/javascript">
+            $.validator.setDefaults({
+                ignore: ""
+            });
+        </script>*@
+
+    <script>
+        
+        @*$('input[name="fileName"]').on('beforeItemRemove', function (event) {
+            var tag = event.item;
+            // Do some processing here
+
+            if (!event.options || !event.options.preventPost) {
+                $(this).tagsinput('removeAll');
+                $('input[name="fileAttackName"]').val("")
+                $('input[name="fileAttackPath"]').val("")
+
+                $.ajax({
+                    url: '@Url.Action("DeleteAttackFile", "Documents")',
+                    type: "POST",
+                    async: true,
+                    cache: false,
+                    dataType: "json",
+                    data: { id: $('#DetailId').val() },
+                    success: function (data) {
+                        alert('Đã xóa tệp đính kèm.');
+                    },
+                    error: function (error) {
+                        alert('Mất kết nối tới máy chủ');
+                    }
+                })
+
+            }
+        });*@
+
+
+        $(document).ready(function () {
+            $('input#DetailName').on('change', function () {
+                var $val = $(this).val();
+                var $output = $('input#DetailSlug');
+                $output.empty();
+                if ($val !== "" && $val.length > 0) {
+                    $.ajax({
+                        url: '@Url.Action("GenerateSlugUrl", "Admin")',
+                        type: "POST",
+                        async: true,
+                        cache: false,
+                        dataType: "json",
+                        data: { strText: $val },
+                        success: function (data) {
+                            $output.val(data);
+                        },
+                        error: function (error) {
+                            alert('Mất kết nối tới máy chủ');
+                        }
+                    })
+                }
+            });
+
+           
+
+        })
+
+
+
+    </script>
+
+}

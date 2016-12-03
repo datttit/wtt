@@ -1,0 +1,47 @@
+﻿@model List<WebTinTuc.Models.AdvContent>
+<style>
+    #module-quangcao1 > ul >li {
+        height: 100px !important;
+    }
+
+    #module-quangcao1 > ul > li > a > img {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+@if (Model != null)
+{
+    <div id="module-quangcao1">
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>                    
+                        <a href="@item.Link" target="@item.Target">
+                            <img src="@item.ImgUrl" class="img-responsive" />
+                        </a>
+                </li>
+            }
+        </ul>
+    </div>
+}
+else
+{
+    <p>Chưa có quảng cáo.</p>
+}
+
+<script>
+    $(window).on('load',function () {
+        $('#module-quangcao1').jCarouselLite({
+            speed: 1500,
+            visible: 1,
+            start: 0,
+            auto: 5000,
+            height: 100
+        });
+    })
+    //$(document).ready(function () {
+        
+
+    //})
+</script>

@@ -1,0 +1,21 @@
+﻿@model WebTinTuc.Models.DanhMuc
+<ul class="nav navbar-nav">
+    @foreach (var item in Model.DanhMucs)
+    {
+        if (item != null)
+        {
+            <li class="@if(item.DanhMucs.Count > 0){ @Html.DisplayName("dropdown")}">
+                <a href="@item.CatMenu" @if (item.DanhMucs.Count > 0) { @Html.DisplayName("class=dropdown-toggle data-toggle=dropdown") }>
+                    @item.CatName
+                    @if (item.DanhMucs.Count > 0)
+                    { <span class="caret"></span> }
+                </a>
+                @if (item.DanhMucs.Count > 0)
+                {
+                    @Html.Partial("_PartialChildMenuTop", item)
+                }
+            </li>
+        }
+    }
+</ul>
+

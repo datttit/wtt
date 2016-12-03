@@ -1,0 +1,82 @@
+﻿@model PagedList.IPagedList<WebTinTuc.Models.Article>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Kết quả tìm kiếm " + Html.Raw(ViewBag.search);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+@*seo*@
+@section metatags
+{
+    @if (Model != null)
+    {
+        <meta name="description" content="Kết quả tìm kiếm @Html.Raw(ViewBag.search) - cổng thông tin điện tử krông năng">
+        <meta name="keywords" content="@Html.Raw(ViewBag.search), cổng thông tin điện tử krông năng">
+        <meta name="author" content="nguyenvannam, dtsoftvn.com">
+        <meta name="robots" content="index,follow,noodp">
+        <meta property="og:locale" content="vi_VN">
+        <meta property="og:type" content="Article">
+        <meta property="og:url" content="@Html.DisplayName("http://")@Request.Url.Host@Request.RawUrl.ToString()">
+        <meta property="og:title" content="@Html.Raw(ViewBag.search) - cổng thông tin điện tử krông năng">
+        <meta property="og:description" content="Kết quả tìm kiếm @Html.Raw(ViewBag.search) cổng thông tin krông năng">
+    }
+}
+
+
+<div class="page-header" style="margin-top: 10px;">
+    <h3>Từ khóa tìm kiếm: <b id="showkeyword"></b></h3>
+</div>
+
+
+
+<div class="result-search">
+    @if (Model != null)
+    {
+        <p><b>Đã tìm thấy: </b><span>@Model.Count</span> bài viết.</p>
+        <h3>Kết quả tìm kiếm: </h3>
+        foreach (var item in Model)
+        {
+            <article class="art-result">
+                <a href="@string.Format("/bai-viet/{0}-{1}", @item.SlugArticleTitle, @item.ArticleId)">
+                    <div class="col-md-9 col-md-push-3">
+                        @item.ArticleTitle
+                        <p><i class="fa icon-calendar"></i> @string.Format("{0:dd/MM/yyyy HH:mm tt}", item.PublishedDate)</p>
+                        <p>@Html.Raw(item.ArticleDescription)</p>
+                    </div>
+                    <div class="col-md-3 col-md-pull-9 art-img">
+                        <div class="thumbnail">
+                            <img class="img-responsive" alt="@item.ArticleTitle" src="@item.ArticleImageSmall" />
+                        </div>
+                    </div>
+                </a>
+            </article>
+        }
+
+        if (Model.Count >= 25)
+        {
+            @Html.PagedListPager(Model, page => Url.Action("Search", "Home", new { search = ViewBag.search, pg = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+        }
+
+    }
+    else
+    {
+        <article class="art-result">
+            <div class="col-md-9">
+                <p>Không tìm thấy bài viết nào.</p>
+            </div>
+        </article>
+    }
+
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {            
+            var keyword = getQueryParams(document.location.search);
+            $('#showkeyword').html(keyword.search);
+        })        
+    </script>    
+}

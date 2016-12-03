@@ -1,0 +1,240 @@
+﻿@model WebTinTuc.Models.AddMenuModel
+@{
+    ViewBag.Title = "Thêm mới menu";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3>@ViewBag.Title</h3>
+        </div>
+        @if (TempData["Updated"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Updated"])
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default box box-primary">
+
+            <div class="panel-body">
+                @using (Html.BeginForm("AddNewMenu", "Admin", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form", @id = "AddNewMenu" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MenuName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.MenuName, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.MenuName, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-offset-2 col-md-4"><input type="checkbox" id="ShowCategories" /> Chọn danh mục làm menu</label>
+                        <label class="col-md-4"><input type="checkbox" id="CheckSelectPage" /> Chọn Trang làm menu</label>
+                    </div>
+
+                    <div class="form-group" id="danhmucbaiviet">
+                        <div class="col-md-offset-2 col-md-8">
+                            @{ Html.RenderAction("_CategoryPartial", "Admin"); }
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="ShowSelectPage">
+                        <div class="col-md-offset-2 col-md-8">
+                            <select class="form-control" onchange="getTrang(this);">
+                                <optgroup label="Chọn Trang">
+                                    <option value="">-- Chọn trang --</option>
+                                    <option value="/">Trang chủ</option>
+                                    <option value="/hoi-dap">Trang hỏi đáp</option>
+                                    <option value="/lien-he">Trang liên hệ</option>
+                                    <option value="/so-do-cong">Sơ đồ cổng</option>
+                                    <option value="RSS">RSS</option>
+                                    <option value="/home/danh-gia-don-vi">Đánh giá đơn vị</option>
+                                    <option value="/home/khao-sat-cong-chuc">Khảo sát công chức</option>
+                                    <option value="/khaosat/xemketquachung/donvi">Xem kết quả đánh giá đơn vị</option>
+                                    <option value="/khaosat/xemketquachung/chitietdonvi">Xem kết quả đánh giá chi tiết đơn vị</option>
+                                    <option value="/khaosat/xemketquachung/congchuc">Xem kết quả đánh giá công chức</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MenuUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.MenuUrl, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.MenuUrl, "", new { @class = "text-danger has-error" })
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Chọn menu cha</label>
+                        <div class="col-md-8">
+                            @{ Html.RenderAction("_MenuPartial", "Admin"); }
+                            @Html.ValidationMessageFor(model => model.ParentMenuId, "", new { @class = "text-danger has-error" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Position, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @if (ViewBag.Position != null)
+                            {
+                                @Html.DropDownListFor(m => m.Position, new SelectList(ViewBag.Position, "Value", "Text"), "-Chọn vị trí menu-", new { @class = "form-control", @onchange = "getViTriTopBottom(this);" })
+                            }
+
+                            @*@Html.TextBoxFor(model => model.Position, htmlAttributes: new { @class = "form-control" })*@
+                            @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger has-error" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PositionIndex, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.PositionIndex, htmlAttributes: new { @class = "form-control", type = "number" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-8">
+                            <label>
+                                @Html.CheckBoxFor(model => model.Published) Published.
+                            </label>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" class="btn btn-primary" value="Thêm Menu" />
+                        </div>
+                    </div>
+
+                }
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+    $(document).ready(function () {
+
+        $('#ShowCategories').on('change', function () {
+            if ($(this).is(":checked")) {
+                $('#danhmucbaiviet').fadeIn();
+                $('#CheckSelectPage').prop('checked', false);
+                $('#ShowSelectPage').fadeOut();
+            } else {
+                $('#danhmucbaiviet').fadeOut();
+            }
+        })
+
+        $('#CheckSelectPage').on('change', function () {
+            if ($(this).is(":checked")) {
+                $('#ShowSelectPage').fadeIn();
+                $('#ShowCategories').prop('checked', false);
+                $('#danhmucbaiviet').fadeOut();
+            } else {
+                $('#ShowSelectPage').fadeOut();
+            }
+        })
+
+
+    });
+
+    function getDanhMuc(x) {
+        if (x.value !== "" && x.value !== "1") {
+            //alert(x.value);
+            var _id = x.value;
+            $('input#MenuUrl').empty();
+            $.ajax({
+                url: '@Url.Action("GenUrlMenu", "Admin")',
+                type: "POST",
+                async: true,
+                cache: false,
+                dataType: "json",
+                data: { id: _id },
+                success: function (data) {
+                    $('input#MenuUrl').val(data);
+                },
+                error: function (error) {
+                    alert('Mất kết nối tới máy chủ');
+                }
+            })
+        }
+    };
+
+    function getTrang(x) {
+        if (x.value !== "") {
+            $('input#MenuUrl').val(x.value);
+        }
+    }
+
+    function getViTriMenuMoi(x) {
+        if (x.value !== "") {
+            var _id = x.value;
+            console.log($('#ParentMenuId option:selected').val());
+            $('input#PositionIndex').empty();
+            $.ajax({
+                url: '@Url.Action("getViTriMenuMoi", "Admin")',
+                    type: "POST",
+                    async: true,
+                    cache: false,
+                    dataType: "json",
+                    data: { id: _id },
+                    success: function (data) {
+                        $('input#PositionIndex').val(data);
+                    },
+                    error: function (error) {
+                        alert('Mất kết nối tới máy chủ');
+                    }
+                })
+            }
+        }
+
+        function getViTriTopBottom(x) {            
+            if (x.value !== "" && x.value !== "left" && _id !== "") {
+                var _id = $('#ParentMenuId option:selected').val();
+                var _pot = x.value;
+                $('input#PositionIndex').empty();
+                $.ajax({
+                    url: '@Url.Action("getViTriTopBottom", "Admin")',
+                    type: "POST",
+                    async: true,
+                    cache: false,
+                    dataType: "json",
+                    data: { id: _id, pot: _pot },
+                    success: function (data) {
+                        $('input#PositionIndex').val(data);
+                    },
+                    error: function (error) {
+                        alert('Mất kết nối tới máy chủ');
+                    }
+                })
+            }
+        }
+
+    </script>
+}

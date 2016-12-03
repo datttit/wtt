@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="53b20c4523704acbafa489facbceadda" Name="Diagram1">
+        <EntityTypeShape EntityType="WebTinTucModel.AccessStatistic" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WebTinTucModel.AdvContent" Width="1.5" PointX="3" PointY="16.875" />
+        <EntityTypeShape EntityType="WebTinTucModel.Adv" Width="1.5" PointX="0.75" PointY="17" />
+        <EntityTypeShape EntityType="WebTinTucModel.AlbumImage" Width="1.5" PointX="17" PointY="1.125" />
+        <EntityTypeShape EntityType="WebTinTucModel.Album" Width="1.5" PointX="14.75" PointY="1" />
+        <EntityTypeShape EntityType="WebTinTucModel.Article" Width="1.5" PointX="17.25" PointY="9.125" />
+        <EntityTypeShape EntityType="WebTinTucModel.AspNetRole" Width="1.5" PointX="9.75" PointY="10.75" />
+        <EntityTypeShape EntityType="WebTinTucModel.AspNetUserClaim" Width="1.5" PointX="14.25" PointY="7.125" />
+        <EntityTypeShape EntityType="WebTinTucModel.AspNetUserLogin" Width="1.5" PointX="14.25" PointY="24.75" />
+        <EntityTypeShape EntityType="WebTinTucModel.AspNetUser" Width="1.5" PointX="12" PointY="9" />
+        <EntityTypeShape EntityType="WebTinTucModel.AttachModel" Width="1.5" PointX="12.25" PointY="1.625" />
+        <EntityTypeShape EntityType="WebTinTucModel.Category" Width="1.5" PointX="15" PointY="16" />
+        <EntityTypeShape EntityType="WebTinTucModel.ConfigAccount" Width="1.5" PointX="7.75" PointY="13.75" />
+        <EntityTypeShape EntityType="WebTinTucModel.Config" Width="1.5" PointX="16.75" PointY="4.75" />
+        <EntityTypeShape EntityType="WebTinTucModel.CongChuc" Width="1.5" PointX="3" PointY="3.125" />
+        <EntityTypeShape EntityType="WebTinTucModel.Contact" Width="1.5" PointX="9.75" PointY="5.75" />
+        <EntityTypeShape EntityType="WebTinTucModel.DanhGiaCongChuc" Width="1.5" PointX="5.25" PointY="4" />
+        <EntityTypeShape EntityType="WebTinTucModel.DanhGiaDonVi" Width="1.5" PointX="5.25" PointY="8.25" />
+        <EntityTypeShape EntityType="WebTinTucModel.DocumentDetail" Width="1.5" PointX="10" PointY="1" />
+        <EntityTypeShape EntityType="WebTinTucModel.Document" Width="1.5" PointX="7.75" PointY="1.625" />
+        <EntityTypeShape EntityType="WebTinTucModel.DonVi" Width="1.5" PointX="0.75" PointY="4.5" />
+        <EntityTypeShape EntityType="WebTinTucModel.Embed" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="WebTinTucModel.HoiDapCauHois" Width="1.5" PointX="14.25" PointY="10.375" />
+        <EntityTypeShape EntityType="WebTinTucModel.HoiDapLinhVuc" Width="1.5" PointX="12" PointY="15.125" />
+        <EntityTypeShape EntityType="WebTinTucModel.LienKet" Width="1.5" PointX="2.75" PointY="13.75" />
+        <EntityTypeShape EntityType="WebTinTucModel.LinhVuc" Width="1.5" PointX="3" PointY="10.5" />
+        <EntityTypeShape EntityType="WebTinTucModel.Log" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WebTinTucModel.Lydo" Width="1.5" PointX="7.5" PointY="6.75" />
+        <EntityTypeShape EntityType="WebTinTucModel.Map" Width="1.5" PointX="5.75" PointY="17.75" />
+        <EntityTypeShape EntityType="WebTinTucModel.Menu" Width="1.5" PointX="5.75" PointY="12.75" />
+        <EntityTypeShape EntityType="WebTinTucModel.Module" Width="1.5" PointX="7.75" PointY="17.75" />
+        <EntityTypeShape EntityType="WebTinTucModel.Support" Width="1.5" PointX="14.25" PointY="20.5" />
+        <EntityTypeShape EntityType="WebTinTucModel.Video" Width="1.5" PointX="17.75" PointY="14.75" />
+        <EntityTypeShape EntityType="WebTinTucModel.Vote" Width="1.5" PointX="18.75" PointY="4.75" />
+        <AssociationConnector Association="WebTinTucModel.FK_AdvContent_Advs" />
+        <AssociationConnector Association="WebTinTucModel.FK_AlbumImages_Albums" />
+        <AssociationConnector Association="WebTinTucModel.FK_Articles_AspNetUsers" />
+        <AssociationConnector Association="WebTinTucModel.FK_Articles_Categories" />
+        <AssociationConnector Association="WebTinTucModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="WebTinTucModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="WebTinTucModel.FK_HoiDapCauHois_AspNetUsers" />
+        <AssociationConnector Association="WebTinTucModel.FK_Supports_AspNetUsers" />
+        <AssociationConnector Association="WebTinTucModel.FK_AttachModel_DocumentDetails" />
+        <AssociationConnector Association="WebTinTucModel.FK_Categories_Categories" />
+        <AssociationConnector Association="WebTinTucModel.FK_CongChuc_DonVi" />
+        <AssociationConnector Association="WebTinTucModel.FK_DanhGiaCongChuc_CongChuc" />
+        <AssociationConnector Association="WebTinTucModel.FK_DanhGiaCongChuc_DonVi" />
+        <AssociationConnector Association="WebTinTucModel.FK_DanhGiaDonVi_DonVi" />
+        <AssociationConnector Association="WebTinTucModel.FK_DanhGiaDonVi_LinhVuc" />
+        <AssociationConnector Association="WebTinTucModel.FK_DocumentDetails_Documents" />
+        <AssociationConnector Association="WebTinTucModel.FK_Documents_Documents" />
+        <AssociationConnector Association="WebTinTucModel.FK_DonVi_DonVi" />
+        <AssociationConnector Association="WebTinTucModel.FK_LinhVuc_DonVi" />
+        <AssociationConnector Association="WebTinTucModel.FK_HoiDapCauHois_HoiDapLinhVucs" />
+        <AssociationConnector Association="WebTinTucModel.FK_HoiDapLinhVucs_HoiDapLinhVucs" />
+        <AssociationConnector Association="WebTinTucModel.FK_Menus_Menus" />
+        <AssociationConnector Association="WebTinTucModel.AspNetUserRoles" />
+        <AssociationConnector Association="WebTinTucModel.CongChuc_LyDo" />
+        <AssociationConnector Association="WebTinTucModel.DonVi_LyDo" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

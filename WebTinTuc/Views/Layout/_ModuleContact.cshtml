@@ -1,0 +1,17 @@
+﻿@model WebTinTuc.Models.Contact
+
+@if (Model != null)
+{
+    <div id="module-contact">
+        <p>
+            <img src="@Model.ContactImage" class="img-responsive" />
+        </p>
+        <div>
+            @Html.Raw(Model.ContactContent)
+        </div>
+    </div>
+}
+else
+{
+    <span>Chưa cập nhật thông tin liên hệ</span>
+}

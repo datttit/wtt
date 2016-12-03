@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "Trang chủ cổng thông tin điện tử huyện Krông Năng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*seo*@
+@section metatags
+{
+    @if (Model != null)
+    {
+        <meta name="description" content="Trang chủ cổng thông tin điện tử huyện Krông Năng">
+        <meta name="keywords" content="cổng thông tin krông năng, huyện krong nang cổng thông tin">
+        <meta name="author" content="nguyenvannam, dtsoftvn.com">
+        <meta name="robots" content="index,follow,noodp">
+        <meta property="og:locale" content="vi_VN">
+        <meta property="og:type" content="Article">
+        <meta property="og:url" content="@Html.DisplayName("http://")@Request.Url.Host@Request.RawUrl.ToString()">
+        <meta property="og:title" content="Trang chủ cổng thông tin điện tử huyện Krông Năng">
+        <meta property="og:description" content="Trang chủ cổng thông tin điện tử huyện Krông Năng">
+    }
+}
+<link href="~/Content/sliderPro/css/slider-pro.min.css" rel="stylesheet" />
+
+<div class="panel panel-default panel-home">
+    <div class="panel-heading">
+        <h3 class="panel-title">Tin nổi bật</h3>
+    </div>
+    @{Html.RenderAction("ShowNewsHot");}
+</div>
+
+@{Html.RenderAction("ShowThongBaoNoiBat");}
+
+@{Html.RenderAction("ShowCategoryHot");}
+
+
+@section Scripts {
+
+    <script src="~/Content/sliderPro/js/jquery.sliderPro.min.js"></script>
+    <script>
+        $(document).ready(function ($) {
+            $('#example5').sliderPro({
+                width: 500,
+                height: 400,
+                orientation: 'vertical',
+                loop: false,
+                arrows: false,
+                buttons: false,
+                thumbnailsPosition: 'right',
+                thumbnailPointer: true,
+                thumbnailWidth: 290,
+                breakpoints: {
+                    800: {
+                        thumbnailsPosition: 'bottom',
+                        thumbnailWidth: 270,
+                        thumbnailHeight: 100
+                    },
+                    500: {
+                        thumbnailsPosition: 'bottom',
+                        thumbnailWidth: 120,
+                        thumbnailHeight: 50
+                    }
+                }
+            });
+
+        });
+
+    </script>
+
+<script>    
+    function ____s__generate_sitemap() {
+        var request = new XMLHttpRequest();
+        request.open('GET', '/Home/generateSiteMap', true);
+
+        request.onload = function () {
+            if (request.status >= 200 && request.status < 400) {
+                // Success!
+                var data = request.responseText;
+            } else {
+                // We reached our target server, but it returned an error
+
+            }
+        };
+        request.onerror = function () {
+            // There was a connection error of some sort
+        };
+        request.send();
+    }
+
+    setTimeout(function () {
+        ____s__generate_sitemap();
+    }, 10000)
+   
+</script>
+
+
+
+}

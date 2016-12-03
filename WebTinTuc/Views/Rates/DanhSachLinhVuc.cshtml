@@ -1,0 +1,193 @@
+﻿@model PagedList.IPagedList<WebTinTuc.Models.LinhVuc>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Danh sách lĩnh vực";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3>@ViewBag.Title <a href="/admin/themmoilinhvuc" class="btn btn-primary pull-right">Thêm lĩnh vực</a></h3>
+        </div>
+        @if (TempData["Updated"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Updated"])
+            </div>
+        }
+        @if (TempData["Deleted"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Deleted"])
+            </div>
+        }
+
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default box box-primary">
+            <div class="panel-heading">
+                @using (Html.BeginForm("DanhSachLinhVuc", "Rates", FormMethod.Get, new { @class = "form-inline", role = "form", @id = "search-linhvuc", onsubmit = "return validate()" }))
+                {
+                    <div class="form-group">
+                        <label for="searchQuery" class="control-label">Tìm kiếm: </label>
+                        @Html.TextBox("search", "", new { @class = "form-control", placeholder = "Nhập tên lĩnh vực" })
+                    </div>
+
+                    <div class="form-group">
+                        <select class="form-control" id="status" name="status">
+                            <option value="">-Chọn trạng thái lĩnh vực-</option>
+                            <option value="True">Đang mở</option>
+                            <option value="False">Đang đóng</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        @{ Html.RenderAction("_SelectDonViPartial", "Rates"); }
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Tìm kiếm" />
+                    </div>
+                }
+            </div>
+
+            <script>
+                function validate() {
+                    if (document.getElementById("search").value === "" && document.getElementById("status").value === "" && document.getElementById("DonViId").value === "") {
+                        alert("Vui lòng nhập từ khóa hoặc chọn ít nhất một tiêu chí tìm kiếm");
+                        return false;
+                    } else {
+                        return true;
+                    };
+
+                }
+
+            </script>
+
+
+
+            <div class="panel-body">
+                @if (Model.Count > 0)
+                {
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Số thứ tự</th>
+                                <th>Tên lĩnh vực</th>
+                                <th>Đơn vị</th>
+                                <th>Vị trí</th>
+                                <th>Tình trạng</th>
+                                <th></th>
+                            </tr>
+
+                            @{int i = 1;}
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td width="50px" class="text-center">@i</td>
+                                    <td width="200px">@item.TenLinhVuc</td>
+                                    <td width="200px">@item.DonVi.TenDonVi</td>
+                                    <td class="text-right">@item.PositionIndex</td>
+                                    <td>
+                                        @if (item.Published == true)
+                                        {
+                                            @Html.DisplayName("Đã mở")
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayName("Đã đóng")
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.RouteLink("Sửa lĩnh vực", "AdminEditLinhVuc", new { id = item.LinhVucId }, htmlAttributes: new { @class = "btn btn-primary" })
+                                        @Html.RouteLink("Xóa lĩnh vực", "AdminDeleteLinhVuc", new { id = item.LinhVucId }, htmlAttributes: new { @class = "btn btn-danger" })
+                                        @Html.RouteLink("Di chuyển lĩnh vực", "AdminMoveLinhVuc", new { id = item.LinhVucId }, htmlAttributes: new { @class = "btn btn-info" })
+                                        @*<a href="/admin/danhsachdonvi" class="btn btn-default">
+                                                Trở lại danh mục đơn vị
+                                            </a>*@
+                                    </td>
+                                </tr>
+                                        i++;
+
+                            }
+
+                        </table>
+                    </div>
+
+                    <div class="row pull-right">
+                        <div class="col-md-12">
+                            @Html.PagedListPager(Model, page => Url.RouteUrl("AdminDanhSachLinhVuc", new { search = ViewBag.search, status = ViewBag.status, DonViId = ViewBag.DonViId, pg = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <span>Không tìm thấy lĩnh vực nào.</span>
+                }
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@if (ViewBag.status != null)
+{
+    <script>
+        $('#status').val('@Html.Raw(ViewBag.status)');
+    </script>
+}
+
+@if (ViewBag.DonViId != null)
+{
+    <script>
+        $('#DonViId').val('@Html.Raw(ViewBag.DonViId)');
+    </script>
+}
+
+<script>
+    $(document).ready(function () {
+        //searchlinhvuc
+        $('#status').on('change', function () {
+            if ($(this).val() !== "") {
+                $('#search-linhvuc').submit();
+            }
+        })
+
+        $('#DonViId').on('change', function () {
+            if ($(this).val() !== "") {
+                $('#search-linhvuc').submit();
+            }
+        })
+
+    })
+
+    function addClearFilter() {
+        $('#search-linhvuc').append('<a href="#" id="clearFilter">Xóa bộ lọc</a>');
+
+        $('#clearFilter').on('click', function () {
+            window.location.href = "/admin/danhsachlinhvuc";
+        })
+    }
+</script>
+
+@if (ViewBag.search != null || ViewBag.status != null || ViewBag.DonViId != null)
+{
+    <script>
+        addClearFilter();
+    </script>
+}

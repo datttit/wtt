@@ -1,0 +1,35 @@
+﻿@model WebTinTuc.Models.Map
+
+@if (Model != null)
+{
+    
+    <div id="module-bando" style="height: 200px;">
+        @if (Model.MapDescription != null)
+        {
+            @Html.Raw(Model.MapDescription)
+        }
+        else
+        {
+            <script>
+                function initMap() {
+                    var mapDiv = document.getElementById('module-bando');
+                    var map = new google.maps.Map(mapDiv, {
+                        center: new google.maps.LatLng(@Model.Lat, @Model.Long),
+                        zoom: 8,
+                        mapTypeId: 'terrain'
+                    });
+                }
+            </script>
+            <script async defer src="@string.Format("https://maps.googleapis.com/maps/api/js?key={0}&callback=initMap", @Model.ApiKey)"></script>
+        }
+    </div>
+
+    
+
+}
+else
+{
+    <span>Chưa cập nhật bản đồ.</span>
+}
+
+

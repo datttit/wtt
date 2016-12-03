@@ -1,0 +1,63 @@
+﻿.overlay {
+    min-height: 500px;
+}
+
+body {
+    padding-top: 100px;
+    background: url('../../Login/img/admin_bg.jpg') no-repeat center fixed;
+    background-size: cover;
+}
+
+@media (min-width: 763px) {
+    body {
+        font-size: 1.5em;
+    }
+}
+
+.navbar-brand {
+    padding: 0px; /* firefox bug fix */
+}
+
+    .navbar-brand > img {
+        height: 100%;
+        padding: 15px; /* firefox bug fix */
+        width: auto;
+    }
+
+.navbar-brand {
+    background: url('../../Login/img/admin_logo.png') center / contain no-repeat;
+    width: 200px;
+    height: 100px;
+}
+
+.navbar-bg-white {
+    background: #fff;
+    border-bottom: 6px solid #0291fa;
+}
+
+.navbar-default .navbar-nav > li > a {
+    line-height: 72px;
+    transition: background ease .3s;
+    -moz-transition: background ease .3s;
+    -o-transition: background ease .3s;
+    -webkit-transition: background ease .3s;
+}
+
+.navbar-default .navbar-nav > li:hover > a {
+    background: #337ab7;
+    color: #fff;
+}
+
+#loginForm {
+    background: #fff;
+    padding: 27px 21px;
+    margin: 4% 0 4% 0;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+#loginForm > .page-header {
+    margin-top: 0;
+}

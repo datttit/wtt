@@ -1,0 +1,14 @@
+﻿@model WebTinTuc.Models.DanhMucTaiLieu
+
+@foreach (var item in Model.DanhMucTaiLieus)
+{
+    if (item != null)
+    {
+        <option value="@item.CatId" class="@if(item.DanhMucTaiLieus.Count > 0) {@Html.DisplayName("bold-option")} else {}">@item.CatName</option>
+        if (item.DanhMucTaiLieus.Count > 0)
+        {
+            @Html.Partial("_PartialChildCatDocument", item)
+        }
+    }
+}
+ 

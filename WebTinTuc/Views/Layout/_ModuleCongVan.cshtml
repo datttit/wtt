@@ -1,0 +1,67 @@
+﻿@model List<WebTinTuc.Models.Article>
+<style>
+    #module-congvan {
+        height: 210px!important;
+    }
+
+    #module-congvan > ul > li {
+        border-bottom: 1px solid #dfdfdf;
+        margin-bottom: 5px;
+        display: list-item;
+        height: auto !important;
+    }
+
+        #module-congvan > ul > li:last-child {
+            border-bottom: 0 solid #dfdfdf;
+        }
+
+    #module-congvan > ul {
+        padding-left: 0;
+        list-style-type: none;
+    }
+</style>
+
+@if (Model != null)
+{
+    <div id="module-congvan">
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>
+                    <div class="new-congvan">
+                        <a href="@string.Format("/bai-viet/{0}-{1}", @item.SlugArticleTitle, @item.ArticleId)">
+                            @item.ArticleTitle
+                        </a>
+                        <i>@string.Format("{0:dd/MM/yyyy HH:mm tt}", item.PublishedDate)</i>
+                        @*<p>
+                            @if (item.ArticleDescription.Length > 150)
+                            {
+                                @item.ArticleDescription.Substring(0, 150).ToString()
+                            }
+                            else
+                            { @item.ArticleDescription }
+                        </p>*@
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+}
+else
+{
+    <p>Chưa có công văn nào.</p>
+}
+
+<script>
+
+    $(window).load(function () {
+        $('#module-congvan').jCarouselLite({
+            speed: 800,
+            vertical: true,
+            visible: 4,
+            start: 0,
+            auto: 2000,
+            height: 500
+        });
+    })
+</script>

@@ -1,0 +1,192 @@
+﻿@using CaptchaMvc.HtmlHelpers
+@model WebTinTuc.Models.DanhGiaDonViModel
+
+@{
+    ViewBag.Title = "Khảo sát - đánh giá đơn vị " + ViewBag.TenDonVi;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <style>
+        #form-RateDanhGiaDonVi .form-control {
+            height: 35px;
+            padding: 5px 10px;
+        }
+
+        #form-RateDanhGiaDonVi .control-label {
+            text-align: left;
+        }
+
+        #form-RateDanhGiaDonVi .radio,
+        #form-RateDanhGiaDonVi .checkbox {
+            padding-top: 0;
+            padding-left: 20px;
+            border-radius: 9px;
+            border: 1px solid #dfdfdf;
+            margin-bottom: 5px;
+            margin-top: 5px;
+            background: #f2f2f2;
+        }
+
+        #form-RateDanhGiaDonVi .radio label,
+        #form-RateDanhGiaDonVi .checkbox label {
+            padding: 5px;
+            display: block;
+            font-weight: 600;
+        }
+    </style>
+
+}
+
+<div class="category">
+    <div class="page-header cat-name">
+        <h3>@ViewBag.Title</h3>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    @Html.Raw(TempData["Error"])
+                </div>
+            }
+
+            @if (TempData["Updated"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    @Html.Raw(TempData["Updated"])
+                    <a class="btn btn-primary" style="margin-bottom: 10px; margin-top: 10px; display: block;" href="@string.Format("/khaosat/xemketqua/donvi/{0}-{1}", ViewBag.getSlugUrl, ViewBag.getId)">Xem kết quả đánh giá đơn vị</a>
+                </div>                
+            }
+
+            @using (Html.BeginForm("RateDanhGiaDonVi", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "form-RateDanhGiaDonVi", onsubmit = "return validate()", name = "formdanhgia" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(m => m.DonViId)
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @{Html.RenderAction("_selectLinhVuc", new { id = ViewBag.getId, slugurl = ViewBag.getSlugUrl });}
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="NguoiDanhGia" class="control-label col-md-3">Họ tên người đánh giá</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.NguoiDanhGia, htmlAttributes: new { @class = "form-control", placeholder = "Họ và tên" })
+                        @Html.ValidationMessageFor(model => model.NguoiDanhGia, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="SoHoSo" class="control-label col-md-3">Số biên nhận Hồ sơ</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m => m.SoHoSo, htmlAttributes: new { @class = "form-control", placeholder = "Số biên nhận hồ sơ" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="KieuDanhGia" class="control-label col-md-12">1. Đánh giá khảo sát mức độ hài lòng của đơn vị tại Bộ phận tiếp nhận và trả kết quả</label>
+                    <div class="col-md-12">
+                        @Html.HiddenFor(m=>m.KieuDanhGia)
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="rKieuDanhGia" value="hailong"  /> Hài lòng
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="rKieuDanhGia" value="chuahailong" /> Chưa hài lòng
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <script>
+                    $(document).ready(function () {
+                        $('input[type=radio][name=rKieuDanhGia]').on('change', function () {
+                            if (this.value === "hailong") {
+                                $('#KieuDanhGia').val(true);
+                                $('#list_lydo').fadeOut('200');
+                                $('input[type=checkbox][name=LydoId]').prop("checked", false).removeAttr("required");
+                            } else if (this.value === "chuahailong") {
+                                $('#KieuDanhGia').val(false);
+                                $('#list_lydo').fadeIn('200');
+                                $('input[type=checkbox][name=LydoId]').attr("required", "");
+                                if (!$('input[type=checkbox][name=LydoId]').is(":checked")) {
+                                    alert('Vui lòng chọn lý do chưa hài lòng.')
+                                }
+                            }                          
+                        })
+                    })
+                </script>
+                
+                <div class="form-group" id="list_lydo" style="display: none;">
+                    <label for="lydo" class="control-label col-md-12">2. Lý do chưa hài lòng</label> 
+                    <div class="col-md-12">
+                        @{Html.RenderAction("_listLyDoPartial");}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="capchaPlain" class="col-md-3 control-label">Mã bảo mật</label>
+                    <div class="col-md-9">
+                        @Html.Captcha(4, "_PlainCaptchaPartial", new ViewDataDictionary { })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <button class="btn btn-primary"><i class=" fa fa-check"></i> Gửi đánh giá</button>
+                    </div>
+                </div>
+
+            }
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        function validate() {
+            if (document.getElementById("NguoiDanhGia").value === "") {
+                alert("Vui lòng nhập tên bạn.");
+                return false;
+            } else {
+                if (validateRadio(document.forms["formdanhgia"]["rKieuDanhGia"])) {
+                    return true;
+                }
+                else {
+                    alert('Vui lòng chọn mức độ hài lòng.');
+                    return false;
+                }
+                //return true;
+            };
+
+        }
+
+    </script>
+}
+
+
+@if (ViewBag.getId != null)
+{
+    <script>
+        $(window).on('load', function () {
+            $('#DonViId').val('@ViewBag.getId');
+        })
+    </script>
+}

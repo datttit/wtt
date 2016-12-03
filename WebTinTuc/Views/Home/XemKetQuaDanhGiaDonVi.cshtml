@@ -1,0 +1,99 @@
+﻿@model WebTinTuc.Models.DonVi
+@using Helpers;
+@{
+    ViewBag.Title = "Xem kết quả đánh giá đơn vị " + ViewBag.TenDonVi;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <style>
+        .info-donvi img {
+            width: 100px;
+            height: 122px;
+        }
+
+        .info-donvi {
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+    </style>
+}
+
+<div class="category">
+    <div class="page-header cat-name">
+        <h3 style="text-transform: uppercase;">Đơn vị tiếp nhận và giải quyết hồ sơ</h3>
+    </div>
+    @if (Model != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="info-donvi">
+                    <div class="row">
+                        <div class="col-md-10 col-md-push-2">
+                            <p><b>Đơn vị: </b> @Model.TenDonVi</p>
+                            <p><b>Số phiếu đánh giá: </b> <span>@Model.DanhGiaDonVis.Count </span>Phiếu.</p>
+                        </div>
+                    </div>
+                </div>
+                @{
+                if (@Model.DanhGiaDonVis.Count > 0)
+                {
+                    int SoLuotDanhGia = @Model.DanhGiaDonVis.Count;
+                    int LuotHaiLong = @Model.DanhGiaDonVis.Where(x => x.KieuDanhGia == true).Count();
+                    int LuotKoHaiLong = @Model.DanhGiaDonVis.Where(x => x.KieuDanhGia == false).Count();
+                    ViewBag.LuotKoHaiLong = @Model.DanhGiaDonVis.Where(x => x.KieuDanhGia == false).SelectMany(x => x.Lydoes).Count();
+                    ViewBag.PhanTramHaiLong = Configs.PercentVote(Convert.ToDouble(LuotHaiLong), Convert.ToDouble(SoLuotDanhGia));
+                    ViewBag.PhanTramKoHaiLong = Configs.PercentVote(Convert.ToDouble(LuotKoHaiLong), Convert.ToDouble(SoLuotDanhGia));
+                }
+                else
+                {
+                    ViewBag.PhanTramHaiLong = "Chưa có đánh giá.";
+                    ViewBag.PhanTramKoHaiLong = "Chưa có đánh giá.";
+                }
+
+                }
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Số thứ tự</th>
+                                <th>Tiêu chí đánh giá</th>
+                                <th>Kết quả</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td width="80px">1</td>
+                                <td width="300px">1. Đánh giá khảo sát mức độ hài lòng đối với công chức tại Bộ phận tiếp nhận và trả kết quả</td>
+                                <td>
+                                    <p class="text-primary" style="display: block;">Hài Lòng: @ViewBag.PhanTramHaiLong</p>
+                                    <p class="text-success" style="display: block;">Chưa hài lòng: @ViewBag.PhanTramKoHaiLong</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>2.Ông/Bà vui lòng cho biết lý do chưa hài lòng</td>
+                                <td>
+                                    @foreach (var item in Model.DanhGiaDonVis.Where(x => x.KieuDanhGia == false).SelectMany(a => a.Lydoes).GroupBy(t => t, (k, g) => new { Lydo = k, g = g.Count() }))
+                                    {
+                                        <p>@item.Lydo.TenLyDo <span>: @Configs.PercentVote(Convert.ToDouble(@item.g), Convert.ToDouble(ViewBag.LuotKoHaiLong)) </span></p>
+                                    }
+
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <span>Không tìm thấy đơn vị.</span>
+    }
+
+</div>
+

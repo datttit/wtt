@@ -1,0 +1,13 @@
+﻿@model WebTinTuc.Models.DanhMucDonVi
+
+@foreach (var item in Model.DanhMucDonVis)
+{
+    if (item != null)
+    {
+        <option value="@item.DonViId" class="@if(item.DanhMucDonVis.Count > 0) {@Html.DisplayName("bold-option")} else {}">@item.TenDonVi</option>
+        if (item.DanhMucDonVis.Count > 0)
+        {
+            @Html.Partial("_PartialChildDonVi", item)
+        }
+    }
+}

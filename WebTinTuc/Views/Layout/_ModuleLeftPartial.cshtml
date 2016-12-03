@@ -1,0 +1,60 @@
+﻿@model List<WebTinTuc.Models.Module>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <div class="panel panel-primary tf-module">
+            <div class="panel-heading @if(item.HiddenModuleName == true) {@Html.Raw("hidden")}">
+                <h3 class="panel-title">
+                    @if (item.ModuleLink != null)
+                    {
+                        <a href="@item.ModuleLink">@item.ModuleName</a>
+                    }
+                    else
+                    {
+                        @item.ModuleName
+                    }
+                </h3>
+            </div>
+            <div class="panel-body">
+                @if (item.TypeModule == "album")
+                {
+                    { Html.RenderAction("_ModuleAlbumHot", "Layout"); }
+                }
+                else if (item.TypeModule == "contact")
+                {
+                    { Html.RenderAction("_ModuleContact", "Layout"); }
+                }
+                else if (item.TypeModule == "lienketlink")
+                {
+                    { Html.RenderAction("_ModuleLienKetLink", "Layout"); }
+                }
+                else if (item.TypeModule == "lienkethinhanh")
+                {
+                    { Html.RenderAction("_ModuleLienKetHinhAnh", "Layout"); }
+                }
+                else if (item.TypeModule == "video")
+                {
+                    { Html.RenderAction("_ModuleVideo", "Layout"); }
+                }
+                else if (item.TypeModule == "congvan")
+                {
+                    { Html.RenderAction("_modulecongvan", "Layout"); }
+                }
+                else if (item.TypeModule == "thongbao")
+                {
+                    { Html.RenderAction("_ModuleThongBao", "Layout"); }
+                }
+                else if (item.TypeModule == "quangcao1")
+                {
+                    { Html.RenderAction("_ModuleQuangCao1", "Layout"); }
+                }
+                else if (item.TypeModule == "map")
+                {
+                    { Html.RenderAction("_ModuleBanDo", "Layout"); }
+                }
+            </div>
+        </div>
+    }
+}

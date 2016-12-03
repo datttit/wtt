@@ -1,0 +1,395 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Cổng thông tin điện tử MVC5">
+    <meta name="author" content="Nguyen Van Nam">
+    <title>@ViewBag.Title | Cổng thông tin</title>
+    @RenderSection("metatags", false)
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <!-- MetisMenu CSS -->
+    <link href="~/Content/admin/vendor/metisMenu/metisMenu.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="~/Content/admin/css/sb-admin-2.css" rel="stylesheet" />
+    <link href="~/Content/admin/css/styles.css" rel="stylesheet" />
+    <!-- Custom Fonts -->
+    <link href="~/Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/admin/icomoon/icomoon.css" rel="stylesheet" />
+    @RenderSection("Styles", false)
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery -->
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="~/Content/admin/vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.0.min.js"></script>
+    <script src="~/Scripts/jquery.ui.datepicker-vi-VN.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/admin">
+                    <img src="~/Content/admin/img/admin_logo.png" style="height: 71px;" />
+                </a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    @Html.Partial("_LoginPartial")
+                </li>
+            </ul>
+
+            <!-- /.navbar-top-links -->
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+
+                    <ul class="nav" id="side-menu">
+
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <li><p>CMS Cổng thông tin</p></li>
+                            <li>
+                                <a href="/" target="_blank"><i class="fa icon-home fa-fw"></i> Trang chủ</a>
+                            </li>
+                            <li>
+                                <a href="~/admin"><i class="fa fa-dashboard fa-fw"></i> Các chức năng chính</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa icon-question fa-fw"></i> Hỏi đáp <span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li><a href="/admin/hoidap/danhsachcauhoi">Danh sách câu hỏi</a></li>
+                                    <li>
+                                        <a href="#">Lĩnh vực hỏi đáp <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li><a href="/admin/hoidap/themmoilinhvuc">Thêm lĩnh vực hỏi đáp</a></li>
+                                            <li><a href="/admin/hoidap/linhvucs">Danh sách lĩnh vực hỏi đáp</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="/admin/addnewarticle"><i class="fa icon-posts_icon1 fa-fw"></i> Thêm bài viết</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa icon-folder-plus fa-fw"></i> Quản lý danh mục<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="#">Danh mục bài viết <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="/admin/categories">Quản lý danh mục</a>
+                                            </li>
+                                            <li>
+                                                <a href="/admin/AddCategory">Thêm danh mục</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Danh mục Menu <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="/admin/AddNewMenu">Thêm menu</a>
+                                            </li>
+                                            <li>
+                                                <a href="/admin/ListMenuTop">Menu bên trên</a>
+                                            </li>
+                                            <li>
+                                                <a href="/admin/ListMenuLeft">Menu bên trái</a>
+                                            </li>
+                                            <li>
+                                                <a href="/admin/ListMenuBottom">Menu bên dưới</a>
+                                            </li>
+                                        </ul>
+                                        <!-- /.nav-third-level -->
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-users fa-fw"></i> Tài khoản<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="/Manage/ManageUsers">Quản lý người dùng</a>
+                                    </li>
+                                    <li>
+                                        <a href="/admin/adduser">Thêm người dùng</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+
+                            <li class="">
+                                <a href="#"><i class="fa icon-book fa-fw"></i> Quản lý nội dung<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="/admin/managerArticle"><i class="fa fa-newspaper-o"></i> Quản lý tin tức</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa icon-images"></i> Quản lý thư viện ảnh <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="/admin/addnewalbum">Thêm Album Ảnh</a>
+                                            </li>
+                                            <li>
+                                                <a href="/admin/albums">Danh sách ALbum</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-book"></i> Quản lý tài liệu <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="/admin/addnewdocument">Thêm tài liệu</a>
+                                            </li>
+                                            <li>
+                                                <a href="/admin/documents">Danh sách tài liệu</a>
+                                            </li>
+                                            <li>
+                                                <a href="/admin/AddNewCatDocument">Thêm danh mục tài liệu</a>
+                                            </li>
+                                            <li>
+                                                <a href="/Documents/CatDocuments">Danh mục tài liệu</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa icon-film"></i> Quản lý video<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="/videos">Danh sách video</a>
+                                            </li>
+                                            <li>
+                                                <a href="/videos/AddNewVideo">Thêm video</a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-link"></i> Quản lý liên kết web<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="/links">Danh sách liên kết</a>
+                                            </li>
+                                            <li>
+                                                <a href="/links/AddNewLink">Thêm liên kết</a>
+                                            </li>
+
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-map"></i> Bản đồ<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="/map"><i class="fa fa-map"></i> Cập nhật bản đồ</a>
+                                            </li>
+                                            <li>
+                                                <a href="/map/DsBanDo"><i class="fa fa-map-pin"></i> Danh sách bản đồ</a>
+                                            </li>
+                                            <li>
+                                                <a href="/map/AddNewMap"><i class="fa fa-map-o"></i> Thêm bản đồ</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a href="#"><i class="fa fa-phone"></i> Liên hệ<span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="/contact"> Cập nhật liên hệ</a>
+                                            </li>
+                                            <li>
+                                                <a href="/contact/DsContact"> Danh sách liên hệ</a>
+                                            </li>
+                                            <li>
+                                                <a href="/contact/AddNewContact"> Thêm liên hệ</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+
+                                    <li>
+                                        <a href="#"><i class="fa icon-magic-wand"></i> Quảng cáo <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="/QuangCao/Index">Thêm quảng cáo</a>
+                                            </li>
+                                            <li>
+                                                <a href="/QuangCao/DsQuangCao">Danh sách quảng cáo</a>
+                                            </li>
+                                            <li>
+                                                <a href="/QuangCao/ThemNoiDungQuangCao">Thêm nội dung quảng cáo</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa icon-pushpin"></i> Quản lý module <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="/admin/addnewmodule">Thêm Module</a>
+                                            </li>
+                                            <li>
+                                                <a href="/admin/modules">Danh sách Module</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="/admin/embeb">Cập nhật thông báo nổi bật</a>
+                                    </li>
+
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+
+                            <li>
+                                <a href="#"><i class="fa fa-subway fa-fw"></i> Đánh giá, khảo sát <span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="#">Quản lý đơn vị <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="/admin/themmoidonvi">Thêm đơn vị</a>
+                                            </li>
+                                            <li>
+                                                <a href="/admin/danhsachdonvi">Danh sách đơn vị</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Quản lý lĩnh vực <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="/admin/themmoilinhvuc">Thêm lĩnh vực</a>
+                                            </li>
+                                            <li>
+                                                <a href="/admin/danhsachlinhvuc">Danh sách lĩnh vực</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Quản lý công chức <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="/admin/themmoicongchuc">Thêm công chức</a>
+                                            </li>
+                                            <li>
+                                                <a href="/admin/danhsachcongchuc">Danh sách công chức</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Lý do đánh giá <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                            <li>
+                                                <a href="/admin/themlydo">Thêm lý do đánh giá</a>
+                                            </li>
+                                            <li>
+                                                <a href="/admin/danhsachlydo">Danh sách lý do</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="#"><i class="fa icon-cog fa-fw"></i> Cài đặt hệ thống<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="/Config"><i class="fa fa-cog"></i> Cấu hình hệ thống</a>
+                                    </li>
+                                    <li>
+                                        <a href="/ConfigAccount"><i class="fa fa-mail-reply"></i> Cấu hình tài khoản</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Home/generateSiteMap"><i class="fa fa-sitemap"></i> Tạo sitemap.xml</a>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                        }
+                        else if(User.IsInRole("Manager"))
+                        {
+                            <li><p>CMS Cổng thông tin</p></li>
+                            <li>
+                                <a href="/" target="_blank"><i class="fa icon-home fa-fw"></i> Trang chủ</a>
+                            </li>
+                            <li><a href="/admin/hoidap/danhsachcauhoi"><i class="fa icon-question fa-fw"></i> Danh sách câu hỏi</a></li>
+                            @*<li>
+                                <a href="#"><i class="fa icon-question fa-fw"></i> Hỏi đáp <span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li><a href="/admin/hoidap/danhsachcauhoi">Danh sách câu hỏi</a></li>
+                                </ul>
+                            </li>*@
+                        }
+
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+        <div id="page-wrapper">
+            @RenderBody()
+
+        </div>
+        <footer style="padding: 0 30px;">
+            <p style="padding-top: 10px;">&copy; 2016 DTSOFTVN</p>
+        </footer>
+    </div>
+    <!-- Custom Theme JavaScript -->
+    <script type="text/javascript" src="~/Content/Default/js/skrollr.js"></script>
+    @RenderSection("scripts", required: false)
+    <script src="~/Content/admin/js/sb-admin-2.min.js"></script>
+
+</body>
+</html>
+
+
+@*<li>
+        <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level">
+            <li>
+                <a href="#">Second Level Item</a>
+            </li>
+            <li>
+                <a href="#">Second Level Item</a>
+            </li>
+            <li>
+                <a href="#">Third Level <span class="fa arrow"></span></a>
+                <ul class="nav nav-third-level">
+                    <li>
+                        <a href="#">Third Level Item</a>
+                    </li>
+                    <li>
+                        <a href="#">Third Level Item</a>
+                    </li>
+                    <li>
+                        <a href="#">Third Level Item</a>
+                    </li>
+                    <li>
+                        <a href="#">Third Level Item</a>
+                    </li>
+                </ul>
+                <!-- /.nav-third-level -->
+            </li>
+        </ul>
+        <!-- /.nav-second-level -->
+    </li>*@

@@ -1,0 +1,23 @@
+﻿@model WebTinTuc.Models.DanhMucLinhVucHoiDap
+@if (Model != null)
+{
+    <ul>
+        @foreach (var item in Model.DanhMucLinhVucHoiDaps)
+        {
+            if (item != null)
+            {
+                <li>
+                    <a href="@item.SlugLinhVuc">
+                        @item.TenLinhVuc @if (item.DanhMucLinhVucHoiDaps.Count > 0)
+                        {<i class='fa fa-angle-down'></i>}
+                        else { }
+                    </a>
+                    @if (item.DanhMucLinhVucHoiDaps.Count > 0)
+                    {
+                        @Html.Partial("_PartialChildMenuLinhVuc", item)
+                    }
+                </li>
+            }
+        }
+    </ul>
+}

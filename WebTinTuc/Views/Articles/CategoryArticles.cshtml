@@ -1,0 +1,70 @@
+﻿@model PagedList.IPagedList<WebTinTuc.Models.Article>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = ViewBag.category + " - Cổng thông tin điện tử Krông Năng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+@*seo*@
+@section metatags
+{
+    @if (Model != null)
+    {
+        <meta name="description" content="@Html.Raw(ViewBag.category) - cổng thông tin điện tử krông năng">
+        <meta name="keywords" content="@Html.Raw(ViewBag.category), cổng thông tin điện tử krông năng">
+        <meta name="author" content="nguyenvannam, dtsoftvn.com">
+        <meta name="robots" content="index,follow,noodp">
+        <meta property="og:locale" content="vi_VN">
+        <meta property="og:type" content="Article">
+        <meta property="og:url" content="@Html.DisplayName("http://")@Request.Url.Host@Request.RawUrl.ToString()">
+        <meta property="og:title" content="@Html.Raw(ViewBag.category) - cổng thông tin điện tử krông năng">
+        <meta property="og:description" content="@Html.Raw(ViewBag.category)">
+    }
+}
+
+<div class="category">
+    @if (ViewBag.category != null)
+    {
+        <div class="page-header cat-name">
+            <h3>@ViewBag.category</h3>
+        </div>
+    }
+
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <article class="art-category">
+                <a href="@string.Format("/bai-viet/{0}-{1}", @item.SlugArticleTitle, @item.ArticleId)">
+                    <div class="col-md-9 col-md-push-3">
+                        @item.ArticleTitle
+                        <p><i class="fa icon-calendar"></i> @string.Format("{0:dd/MM/yyyy HH:mm tt}", item.PublishedDate)</p>
+                        <p>@Html.Raw(item.ArticleDescription)</p>
+                    </div>
+                    <div class="col-md-3 col-md-pull-9 art-img">
+                        <div class="thumbnail">
+                            <img class="img-responsive" alt="@item.ArticleTitle" src="@item.ArticleImageSmall" />
+                        </div>
+                    </div>
+                </a>
+            </article>
+        }
+        if (Model.Count >= 25)
+        {
+            @Html.PagedListPager(Model, page => Url.RouteUrl("CategoryArticles", new { pg = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+        }
+
+
+    }
+    else
+    {
+        <article class="art-category">
+            <div class="col-md-9">
+                <p>Danh mục chưa có bài viết.</p>
+            </div>
+        </article>
+    }
+</div>

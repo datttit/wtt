@@ -1,0 +1,2312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WebTinTucModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccessStatistics">
+          <Key>
+            <PropertyRef Name="A1" />
+          </Key>
+          <Property Name="A1" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="A2" Type="int" />
+        </EntityType>
+        <EntityType Name="AdvContent">
+          <Key>
+            <PropertyRef Name="AdvContentId" />
+          </Key>
+          <Property Name="AdvContentId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImgUrl" Type="nvarchar" MaxLength="505" />
+          <Property Name="Link" Type="nvarchar" MaxLength="505" />
+          <Property Name="Target" Type="nvarchar" MaxLength="50" />
+          <Property Name="AdvId" Type="int" />
+        </EntityType>
+        <EntityType Name="Advs">
+          <Key>
+            <PropertyRef Name="AdvId" />
+          </Key>
+          <Property Name="AdvId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdvTitle" Type="nvarchar" MaxLength="256" />
+          <Property Name="TypeAdv" Type="nvarchar" MaxLength="256" />
+          <Property Name="Published" Type="bit" />
+        </EntityType>
+        <EntityType Name="AlbumImages">
+          <Key>
+            <PropertyRef Name="ImageId" />
+          </Key>
+          <Property Name="ImageId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImageFileName" Type="nvarchar" MaxLength="505" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="505" />
+          <Property Name="ImagePosition" Type="int" />
+          <Property Name="AlbumId" Type="int" />
+        </EntityType>
+        <EntityType Name="Albums">
+          <Key>
+            <PropertyRef Name="AlbumId" />
+          </Key>
+          <Property Name="AlbumId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AlbumName" Type="nvarchar" MaxLength="256" />
+          <Property Name="AlbumForder" Type="nvarchar" MaxLength="256" />
+          <Property Name="IsAlbumTop" Type="bit" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="AlbumImage" Type="nvarchar" MaxLength="256" />
+          <Property Name="Published" Type="bit" />
+        </EntityType>
+        <EntityType Name="Articles">
+          <Key>
+            <PropertyRef Name="ArticleId" />
+          </Key>
+          <Property Name="ArticleId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ArticleTitle" Type="nvarchar" MaxLength="505" />
+          <Property Name="ArticleDescription" Type="ntext" />
+          <Property Name="ArticleContent" Type="ntext" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="IsNewHot" Type="bit" />
+          <Property Name="ArticleImageSmall" Type="nvarchar" MaxLength="256" />
+          <Property Name="ArticleImageBig" Type="nvarchar" MaxLength="256" />
+          <Property Name="SlugArticleTitle" Type="nvarchar" MaxLength="505" />
+          <Property Name="Tags" Type="nvarchar" MaxLength="505" />
+          <Property Name="TypePost" Type="nvarchar" MaxLength="505" />
+          <Property Name="StatusPost" Type="nvarchar" MaxLength="505" />
+          <Property Name="ViewCount" Type="int" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="PublishedDate" Type="datetime" />
+          <Property Name="Published" Type="bit" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="256" />
+          <Property Name="Address" Type="nvarchar" MaxLength="505" />
+          <Property Name="RoomUser" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="AttachModel">
+          <Key>
+            <PropertyRef Name="AttachId" />
+          </Key>
+          <Property Name="AttachId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AttachFileName" Type="nvarchar" MaxLength="505" />
+          <Property Name="AttachFilePath" Type="nvarchar" MaxLength="505" />
+          <Property Name="ContentType" Type="nvarchar" MaxLength="505" />
+          <Property Name="ContentLength" Type="int" />
+          <Property Name="DetailId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="256" />
+          <Property Name="PositionIndex" Type="int" />
+          <Property Name="SlugCategory" Type="nvarchar" MaxLength="256" />
+          <Property Name="ParentCategoryId" Type="int" />
+          <Property Name="ViewHome" Type="bit" />
+          <Property Name="PositionHome" Type="int" />
+          <Property Name="Published" Type="bit" />
+        </EntityType>
+        <EntityType Name="ConfigAccount">
+          <Key>
+            <PropertyRef Name="cId" />
+          </Key>
+          <Property Name="cId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailPass" Type="nvarchar" MaxLength="256" />
+          <Property Name="FBAppId" Type="nvarchar(max)" />
+          <Property Name="FBAppSecret" Type="nvarchar(max)" />
+          <Property Name="FBCallbackPath" Type="nvarchar" MaxLength="256" />
+          <Property Name="MailHost" Type="nvarchar" MaxLength="256" />
+          <Property Name="MailPort" Type="int" Nullable="false" />
+          <Property Name="MailEnableSsl" Type="bit" />
+          <Property Name="MailTimeout" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Configs">
+          <Key>
+            <PropertyRef Name="ConfigId" />
+          </Key>
+          <Property Name="ConfigId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PageTitle" Type="nvarchar" MaxLength="256" />
+          <Property Name="PageDescription" Type="nvarchar" MaxLength="256" />
+          <Property Name="BgColorHeader" Type="varchar" MaxLength="50" />
+          <Property Name="BgImageHeader" Type="nvarchar" MaxLength="256" />
+          <Property Name="BgColorPanel" Type="varchar" MaxLength="50" />
+          <Property Name="BgImagePanel" Type="nvarchar" MaxLength="256" />
+          <Property Name="BgColorFooter" Type="varchar" MaxLength="50" />
+          <Property Name="BgImageFooter" Type="nvarchar" MaxLength="256" />
+          <Property Name="FooterContent" Type="ntext" />
+        </EntityType>
+        <EntityType Name="CongChuc">
+          <Key>
+            <PropertyRef Name="CongChucId" />
+          </Key>
+          <Property Name="CongChucId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenCongChuc" Type="nvarchar" MaxLength="505" />
+          <Property Name="HinhAnh" Type="nvarchar" MaxLength="505" />
+          <Property Name="NgaySinh" Type="datetime" />
+          <Property Name="TrinhDo" Type="nvarchar" MaxLength="505" />
+          <Property Name="ChucVu" Type="nvarchar" MaxLength="505" />
+          <Property Name="DonViId" Type="int" />
+          <Property Name="Published" Type="bit" />
+        </EntityType>
+        <EntityType Name="CongChuc_LyDo">
+          <Key>
+            <PropertyRef Name="DanhGiaId" />
+            <PropertyRef Name="LyDoId" />
+          </Key>
+          <Property Name="DanhGiaId" Type="bigint" Nullable="false" />
+          <Property Name="LyDoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Contacts">
+          <Key>
+            <PropertyRef Name="ContactId" />
+          </Key>
+          <Property Name="ContactId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContactTitle" Type="nvarchar" MaxLength="256" />
+          <Property Name="ContactImage" Type="nvarchar" MaxLength="256" />
+          <Property Name="ContactContent" Type="nvarchar" MaxLength="505" />
+          <Property Name="Published" Type="bit" />
+        </EntityType>
+        <EntityType Name="DanhGiaCongChuc">
+          <Key>
+            <PropertyRef Name="DanhGiaCongChucId" />
+          </Key>
+          <Property Name="DanhGiaCongChucId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CongChucId" Type="bigint" />
+          <Property Name="NguoiDanhGia" Type="nvarchar" MaxLength="505" />
+          <Property Name="SoHoSo" Type="nvarchar" MaxLength="505" />
+          <Property Name="KieuDanhGia" Type="bit" />
+          <Property Name="NgayDanhGia" Type="datetime" />
+          <Property Name="DonViId" Type="int" />
+        </EntityType>
+        <EntityType Name="DanhGiaDonVi">
+          <Key>
+            <PropertyRef Name="DanhGiaDonViId" />
+          </Key>
+          <Property Name="DanhGiaDonViId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LinhVucId" Type="int" />
+          <Property Name="NguoiDanhGia" Type="nvarchar" MaxLength="505" />
+          <Property Name="SoHoSo" Type="nvarchar" MaxLength="505" />
+          <Property Name="KieuDanhGia" Type="bit" />
+          <Property Name="NgayDanhGia" Type="datetime" />
+          <Property Name="DonViId" Type="int" />
+        </EntityType>
+        <EntityType Name="DocumentDetails">
+          <Key>
+            <PropertyRef Name="DetailId" />
+          </Key>
+          <Property Name="DetailId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DetailName" Type="nvarchar" MaxLength="505" />
+          <Property Name="DetailDescription" Type="nvarchar" MaxLength="1010" />
+          <Property Name="DetailSlug" Type="nvarchar" MaxLength="505" />
+          <Property Name="DetailContent" Type="ntext" />
+          <Property Name="DocumentId" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="PublishedDate" Type="datetime" />
+          <Property Name="CountView" Type="int" />
+          <Property Name="CountDown" Type="int" />
+          <Property Name="Published" Type="bit" />
+        </EntityType>
+        <EntityType Name="Documents">
+          <Key>
+            <PropertyRef Name="DocumentId" />
+          </Key>
+          <Property Name="DocumentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DocumentName" Type="nvarchar" MaxLength="256" />
+          <Property Name="PositionIndex" Type="int" />
+          <Property Name="ParentDocumentId" Type="int" />
+          <Property Name="Published" Type="bit" />
+        </EntityType>
+        <EntityType Name="DonVi_LyDo">
+          <Key>
+            <PropertyRef Name="DanhGiaId" />
+            <PropertyRef Name="LyDoId" />
+          </Key>
+          <Property Name="DanhGiaId" Type="bigint" Nullable="false" />
+          <Property Name="LyDoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DonVis">
+          <Key>
+            <PropertyRef Name="DonViId" />
+          </Key>
+          <Property Name="DonViId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenDonVi" Type="nvarchar" MaxLength="505" />
+          <Property Name="SlugDonVi" Type="nvarchar(max)" />
+          <Property Name="MaDonViCha" Type="int" />
+          <Property Name="PositionIndex" Type="int" />
+          <Property Name="Published" Type="bit" />
+        </EntityType>
+        <EntityType Name="Embed">
+          <Key>
+            <PropertyRef Name="EmbedId" />
+          </Key>
+          <Property Name="EmbedId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmbedName" Type="nvarchar" MaxLength="505" />
+          <Property Name="EmbedFile" Type="nvarchar" MaxLength="505" />
+          <Property Name="EmbedOption" Type="bit" />
+          <Property Name="EmbedContent" Type="ntext" />
+          <Property Name="CreateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="HoiDapCauHois">
+          <Key>
+            <PropertyRef Name="CauHoiId" />
+          </Key>
+          <Property Name="CauHoiId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenCauHoi" Type="nvarchar(max)" />
+          <Property Name="NoiDungCauHoi" Type="ntext" />
+          <Property Name="NgayHoiDap" Type="datetime" />
+          <Property Name="TrangThaiCauHoi" Type="bit" />
+          <Property Name="LinhVucHoiDapId" Type="int" />
+          <Property Name="DonViTiepNhanId" Type="nvarchar" MaxLength="128" />
+          <Property Name="HoTenNguoiHoi" Type="nvarchar" MaxLength="505" />
+          <Property Name="DiaChiNguoiHoi" Type="nvarchar" MaxLength="505" />
+          <Property Name="SoDienThoaiNguoiHoi" Type="nvarchar" MaxLength="505" />
+          <Property Name="EmailNguoiGui" Type="nvarchar" MaxLength="505" />
+          <Property Name="LuotXem" Type="int" />
+          <Property Name="TDTraLoi" Type="nvarchar(max)" />
+          <Property Name="NDTraLoi" Type="ntext" />
+          <Property Name="NgayTraLoi" Type="datetime" />
+        </EntityType>
+        <EntityType Name="HoiDapLinhVucs">
+          <Key>
+            <PropertyRef Name="LinhVucId" />
+          </Key>
+          <Property Name="LinhVucId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenLinhVuc" Type="nvarchar(max)" />
+          <Property Name="DiaChiTruyCap" Type="nvarchar(max)" />
+          <Property Name="LinhVucChaId" Type="int" />
+          <Property Name="ViTriLinhVuc" Type="int" />
+          <Property Name="Published" Type="bit" />
+        </EntityType>
+        <EntityType Name="LienKets">
+          <Key>
+            <PropertyRef Name="LienKetId" />
+          </Key>
+          <Property Name="LienKetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LienKetName" Type="nvarchar" MaxLength="256" />
+          <Property Name="LienKetUrl" Type="nvarchar" MaxLength="505" />
+          <Property Name="IsOption" Type="bit" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="505" />
+          <Property Name="Target" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LinhVuc">
+          <Key>
+            <PropertyRef Name="LinhVucId" />
+          </Key>
+          <Property Name="LinhVucId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenLinhVuc" Type="nvarchar" MaxLength="505" />
+          <Property Name="DonViId" Type="int" />
+          <Property Name="PositionIndex" Type="int" />
+          <Property Name="Published" Type="bit" />
+        </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Keyword" Type="nvarchar" MaxLength="256" />
+          <Property Name="Count" Type="int" />
+        </EntityType>
+        <EntityType Name="Lydo">
+          <Key>
+            <PropertyRef Name="LyDoId" />
+          </Key>
+          <Property Name="LyDoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenLyDo" Type="nvarchar" MaxLength="1010" />
+        </EntityType>
+        <EntityType Name="Maps">
+          <Key>
+            <PropertyRef Name="MapId" />
+          </Key>
+          <Property Name="MapId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MapName" Type="nvarchar" MaxLength="505" />
+          <Property Name="Lat" Type="float" />
+          <Property Name="Long" Type="float" />
+          <Property Name="ApiKey" Type="nvarchar(max)" />
+          <Property Name="MapDescription" Type="nvarchar" MaxLength="505" />
+          <Property Name="Published" Type="bit" />
+        </EntityType>
+        <EntityType Name="Menus">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuName" Type="nvarchar" MaxLength="256" />
+          <Property Name="MenuUrl" Type="nvarchar" MaxLength="505" />
+          <Property Name="ParentMenuId" Type="int" />
+          <Property Name="Position" Type="nvarchar" MaxLength="128" />
+          <Property Name="PositionIndex" Type="int" />
+          <Property Name="Published" Type="bit" />
+        </EntityType>
+        <EntityType Name="Modules">
+          <Key>
+            <PropertyRef Name="ModuleId" />
+          </Key>
+          <Property Name="ModuleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModuleName" Type="nvarchar" MaxLength="256" />
+          <Property Name="ModuleLink" Type="nvarchar" MaxLength="256" />
+          <Property Name="HiddenModuleName" Type="bit" />
+          <Property Name="TypeModule" Type="varchar" MaxLength="128" />
+          <Property Name="Position" Type="nvarchar" MaxLength="50" />
+          <Property Name="PositionIndex" Type="int" />
+          <Property Name="Published" Type="bit" />
+        </EntityType>
+        <EntityType Name="Supports">
+          <Key>
+            <PropertyRef Name="SupportId" />
+          </Key>
+          <Property Name="SupportId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SupportType" Type="nvarchar" MaxLength="256" />
+          <Property Name="SupportContent" Type="ntext" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="256" />
+          <Property Name="Address" Type="nvarchar" MaxLength="256" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="Status" Type="nvarchar" MaxLength="256" />
+          <Property Name="SendedEmail" Type="bit" />
+          <Property Name="ReplyContent" Type="ntext" />
+          <Property Name="ReplyDate" Type="datetime" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="Videos">
+          <Key>
+            <PropertyRef Name="VideoId" />
+          </Key>
+          <Property Name="VideoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VideoTitle" Type="nvarchar" MaxLength="256" />
+          <Property Name="VideoImage" Type="nvarchar" MaxLength="256" />
+          <Property Name="VideoUrl" Type="nvarchar" MaxLength="256" />
+          <Property Name="IsVideoTop" Type="bit" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="Published" Type="bit" />
+        </EntityType>
+        <EntityType Name="Votes">
+          <Key>
+            <PropertyRef Name="VoteId" />
+          </Key>
+          <Property Name="VoteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Normal" Type="int" />
+          <Property Name="Good" Type="int" />
+          <Property Name="VeryGood" Type="int" />
+          <Property Name="Published" Type="bit" />
+        </EntityType>
+        <Association Name="FK_AdvContent_Advs">
+          <End Role="Advs" Type="Self.Advs" Multiplicity="0..1" />
+          <End Role="AdvContent" Type="Self.AdvContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Advs">
+              <PropertyRef Name="AdvId" />
+            </Principal>
+            <Dependent Role="AdvContent">
+              <PropertyRef Name="AdvId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AlbumImages_Albums">
+          <End Role="Albums" Type="Self.Albums" Multiplicity="0..1" />
+          <End Role="AlbumImages" Type="Self.AlbumImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Albums">
+              <PropertyRef Name="AlbumId" />
+            </Principal>
+            <Dependent Role="AlbumImages">
+              <PropertyRef Name="AlbumId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Articles_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Articles" Type="Self.Articles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Articles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Articles_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+          <End Role="Articles" Type="Self.Articles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Articles">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AttachModel_DocumentDetails">
+          <End Role="DocumentDetails" Type="Self.DocumentDetails" Multiplicity="0..1" />
+          <End Role="AttachModel" Type="Self.AttachModel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentDetails">
+              <PropertyRef Name="DetailId" />
+            </Principal>
+            <Dependent Role="AttachModel">
+              <PropertyRef Name="DetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Categories_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+          <End Role="Categories1" Type="Self.Categories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Categories1">
+              <PropertyRef Name="ParentCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CongChuc_DonVi">
+          <End Role="DonVis" Type="Self.DonVis" Multiplicity="0..1" />
+          <End Role="CongChuc" Type="Self.CongChuc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonVis">
+              <PropertyRef Name="DonViId" />
+            </Principal>
+            <Dependent Role="CongChuc">
+              <PropertyRef Name="DonViId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CongChuc_LyDo_DanhGiaCongChuc">
+          <End Role="DanhGiaCongChuc" Type="Self.DanhGiaCongChuc" Multiplicity="1" />
+          <End Role="CongChuc_LyDo" Type="Self.CongChuc_LyDo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DanhGiaCongChuc">
+              <PropertyRef Name="DanhGiaCongChucId" />
+            </Principal>
+            <Dependent Role="CongChuc_LyDo">
+              <PropertyRef Name="DanhGiaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CongChuc_LyDo_Lydo">
+          <End Role="Lydo" Type="Self.Lydo" Multiplicity="1" />
+          <End Role="CongChuc_LyDo" Type="Self.CongChuc_LyDo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lydo">
+              <PropertyRef Name="LyDoId" />
+            </Principal>
+            <Dependent Role="CongChuc_LyDo">
+              <PropertyRef Name="LyDoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DanhGiaCongChuc_CongChuc">
+          <End Role="CongChuc" Type="Self.CongChuc" Multiplicity="0..1" />
+          <End Role="DanhGiaCongChuc" Type="Self.DanhGiaCongChuc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CongChuc">
+              <PropertyRef Name="CongChucId" />
+            </Principal>
+            <Dependent Role="DanhGiaCongChuc">
+              <PropertyRef Name="CongChucId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DanhGiaCongChuc_DonVi">
+          <End Role="DonVis" Type="Self.DonVis" Multiplicity="0..1" />
+          <End Role="DanhGiaCongChuc" Type="Self.DanhGiaCongChuc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonVis">
+              <PropertyRef Name="DonViId" />
+            </Principal>
+            <Dependent Role="DanhGiaCongChuc">
+              <PropertyRef Name="DonViId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DanhGiaDonVi_DonVi">
+          <End Role="DonVis" Type="Self.DonVis" Multiplicity="0..1" />
+          <End Role="DanhGiaDonVi" Type="Self.DanhGiaDonVi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonVis">
+              <PropertyRef Name="DonViId" />
+            </Principal>
+            <Dependent Role="DanhGiaDonVi">
+              <PropertyRef Name="DonViId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DanhGiaDonVi_LinhVuc">
+          <End Role="LinhVuc" Type="Self.LinhVuc" Multiplicity="0..1" />
+          <End Role="DanhGiaDonVi" Type="Self.DanhGiaDonVi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LinhVuc">
+              <PropertyRef Name="LinhVucId" />
+            </Principal>
+            <Dependent Role="DanhGiaDonVi">
+              <PropertyRef Name="LinhVucId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocumentDetails_Documents">
+          <End Role="Documents" Type="Self.Documents" Multiplicity="0..1" />
+          <End Role="DocumentDetails" Type="Self.DocumentDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Documents">
+              <PropertyRef Name="DocumentId" />
+            </Principal>
+            <Dependent Role="DocumentDetails">
+              <PropertyRef Name="DocumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documents_Documents">
+          <End Role="Documents" Type="Self.Documents" Multiplicity="0..1" />
+          <End Role="Documents1" Type="Self.Documents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Documents">
+              <PropertyRef Name="DocumentId" />
+            </Principal>
+            <Dependent Role="Documents1">
+              <PropertyRef Name="ParentDocumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonVi_DonVi">
+          <End Role="DonVis" Type="Self.DonVis" Multiplicity="0..1" />
+          <End Role="DonVis1" Type="Self.DonVis" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonVis">
+              <PropertyRef Name="DonViId" />
+            </Principal>
+            <Dependent Role="DonVis1">
+              <PropertyRef Name="MaDonViCha" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonVi_LyDo_DanhGiaDonVi">
+          <End Role="DanhGiaDonVi" Type="Self.DanhGiaDonVi" Multiplicity="1" />
+          <End Role="DonVi_LyDo" Type="Self.DonVi_LyDo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DanhGiaDonVi">
+              <PropertyRef Name="DanhGiaDonViId" />
+            </Principal>
+            <Dependent Role="DonVi_LyDo">
+              <PropertyRef Name="DanhGiaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonVi_LyDo_Lydo">
+          <End Role="Lydo" Type="Self.Lydo" Multiplicity="1" />
+          <End Role="DonVi_LyDo" Type="Self.DonVi_LyDo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lydo">
+              <PropertyRef Name="LyDoId" />
+            </Principal>
+            <Dependent Role="DonVi_LyDo">
+              <PropertyRef Name="LyDoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoiDapCauHois_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="HoiDapCauHois" Type="Self.HoiDapCauHois" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HoiDapCauHois">
+              <PropertyRef Name="DonViTiepNhanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoiDapCauHois_HoiDapLinhVucs">
+          <End Role="HoiDapLinhVucs" Type="Self.HoiDapLinhVucs" Multiplicity="0..1" />
+          <End Role="HoiDapCauHois" Type="Self.HoiDapCauHois" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HoiDapLinhVucs">
+              <PropertyRef Name="LinhVucId" />
+            </Principal>
+            <Dependent Role="HoiDapCauHois">
+              <PropertyRef Name="LinhVucHoiDapId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoiDapLinhVucs_HoiDapLinhVucs">
+          <End Role="HoiDapLinhVucs" Type="Self.HoiDapLinhVucs" Multiplicity="0..1" />
+          <End Role="HoiDapLinhVucs1" Type="Self.HoiDapLinhVucs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HoiDapLinhVucs">
+              <PropertyRef Name="LinhVucId" />
+            </Principal>
+            <Dependent Role="HoiDapLinhVucs1">
+              <PropertyRef Name="LinhVucChaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LinhVuc_DonVi">
+          <End Role="DonVis" Type="Self.DonVis" Multiplicity="0..1" />
+          <End Role="LinhVuc" Type="Self.LinhVuc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonVis">
+              <PropertyRef Name="DonViId" />
+            </Principal>
+            <Dependent Role="LinhVuc">
+              <PropertyRef Name="DonViId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Menus_Menus">
+          <End Role="Menus" Type="Self.Menus" Multiplicity="0..1" />
+          <End Role="Menus1" Type="Self.Menus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menus">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="Menus1">
+              <PropertyRef Name="ParentMenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supports_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Supports" Type="Self.Supports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Supports">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WebTinTucModelStoreContainer">
+          <EntitySet Name="AccessStatistics" EntityType="Self.AccessStatistics" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdvContent" EntityType="Self.AdvContent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Advs" EntityType="Self.Advs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AlbumImages" EntityType="Self.AlbumImages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Albums" EntityType="Self.Albums" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AttachModel" EntityType="Self.AttachModel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConfigAccount" EntityType="Self.ConfigAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Configs" EntityType="Self.Configs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CongChuc" EntityType="Self.CongChuc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CongChuc_LyDo" EntityType="Self.CongChuc_LyDo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DanhGiaCongChuc" EntityType="Self.DanhGiaCongChuc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DanhGiaDonVi" EntityType="Self.DanhGiaDonVi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DocumentDetails" EntityType="Self.DocumentDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Documents" EntityType="Self.Documents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DonVi_LyDo" EntityType="Self.DonVi_LyDo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DonVis" EntityType="Self.DonVis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Embed" EntityType="Self.Embed" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HoiDapCauHois" EntityType="Self.HoiDapCauHois" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HoiDapLinhVucs" EntityType="Self.HoiDapLinhVucs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LienKets" EntityType="Self.LienKets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LinhVuc" EntityType="Self.LinhVuc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logs" EntityType="Self.Logs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lydo" EntityType="Self.Lydo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Maps" EntityType="Self.Maps" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menus" EntityType="Self.Menus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Modules" EntityType="Self.Modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supports" EntityType="Self.Supports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Videos" EntityType="Self.Videos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Votes" EntityType="Self.Votes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AdvContent_Advs" Association="Self.FK_AdvContent_Advs">
+            <End Role="Advs" EntitySet="Advs" />
+            <End Role="AdvContent" EntitySet="AdvContent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AlbumImages_Albums" Association="Self.FK_AlbumImages_Albums">
+            <End Role="Albums" EntitySet="Albums" />
+            <End Role="AlbumImages" EntitySet="AlbumImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Articles_AspNetUsers" Association="Self.FK_Articles_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Articles" EntitySet="Articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Articles_Categories" Association="Self.FK_Articles_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Articles" EntitySet="Articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttachModel_DocumentDetails" Association="Self.FK_AttachModel_DocumentDetails">
+            <End Role="DocumentDetails" EntitySet="DocumentDetails" />
+            <End Role="AttachModel" EntitySet="AttachModel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Categories_Categories" Association="Self.FK_Categories_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Categories1" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CongChuc_DonVi" Association="Self.FK_CongChuc_DonVi">
+            <End Role="DonVis" EntitySet="DonVis" />
+            <End Role="CongChuc" EntitySet="CongChuc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CongChuc_LyDo_DanhGiaCongChuc" Association="Self.FK_CongChuc_LyDo_DanhGiaCongChuc">
+            <End Role="DanhGiaCongChuc" EntitySet="DanhGiaCongChuc" />
+            <End Role="CongChuc_LyDo" EntitySet="CongChuc_LyDo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CongChuc_LyDo_Lydo" Association="Self.FK_CongChuc_LyDo_Lydo">
+            <End Role="Lydo" EntitySet="Lydo" />
+            <End Role="CongChuc_LyDo" EntitySet="CongChuc_LyDo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DanhGiaCongChuc_CongChuc" Association="Self.FK_DanhGiaCongChuc_CongChuc">
+            <End Role="CongChuc" EntitySet="CongChuc" />
+            <End Role="DanhGiaCongChuc" EntitySet="DanhGiaCongChuc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DanhGiaCongChuc_DonVi" Association="Self.FK_DanhGiaCongChuc_DonVi">
+            <End Role="DonVis" EntitySet="DonVis" />
+            <End Role="DanhGiaCongChuc" EntitySet="DanhGiaCongChuc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DanhGiaDonVi_DonVi" Association="Self.FK_DanhGiaDonVi_DonVi">
+            <End Role="DonVis" EntitySet="DonVis" />
+            <End Role="DanhGiaDonVi" EntitySet="DanhGiaDonVi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DanhGiaDonVi_LinhVuc" Association="Self.FK_DanhGiaDonVi_LinhVuc">
+            <End Role="LinhVuc" EntitySet="LinhVuc" />
+            <End Role="DanhGiaDonVi" EntitySet="DanhGiaDonVi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocumentDetails_Documents" Association="Self.FK_DocumentDetails_Documents">
+            <End Role="Documents" EntitySet="Documents" />
+            <End Role="DocumentDetails" EntitySet="DocumentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documents_Documents" Association="Self.FK_Documents_Documents">
+            <End Role="Documents" EntitySet="Documents" />
+            <End Role="Documents1" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonVi_DonVi" Association="Self.FK_DonVi_DonVi">
+            <End Role="DonVis" EntitySet="DonVis" />
+            <End Role="DonVis1" EntitySet="DonVis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonVi_LyDo_DanhGiaDonVi" Association="Self.FK_DonVi_LyDo_DanhGiaDonVi">
+            <End Role="DanhGiaDonVi" EntitySet="DanhGiaDonVi" />
+            <End Role="DonVi_LyDo" EntitySet="DonVi_LyDo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonVi_LyDo_Lydo" Association="Self.FK_DonVi_LyDo_Lydo">
+            <End Role="Lydo" EntitySet="Lydo" />
+            <End Role="DonVi_LyDo" EntitySet="DonVi_LyDo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoiDapCauHois_AspNetUsers" Association="Self.FK_HoiDapCauHois_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="HoiDapCauHois" EntitySet="HoiDapCauHois" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoiDapCauHois_HoiDapLinhVucs" Association="Self.FK_HoiDapCauHois_HoiDapLinhVucs">
+            <End Role="HoiDapLinhVucs" EntitySet="HoiDapLinhVucs" />
+            <End Role="HoiDapCauHois" EntitySet="HoiDapCauHois" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoiDapLinhVucs_HoiDapLinhVucs" Association="Self.FK_HoiDapLinhVucs_HoiDapLinhVucs">
+            <End Role="HoiDapLinhVucs" EntitySet="HoiDapLinhVucs" />
+            <End Role="HoiDapLinhVucs1" EntitySet="HoiDapLinhVucs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinhVuc_DonVi" Association="Self.FK_LinhVuc_DonVi">
+            <End Role="DonVis" EntitySet="DonVis" />
+            <End Role="LinhVuc" EntitySet="LinhVuc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menus_Menus" Association="Self.FK_Menus_Menus">
+            <End Role="Menus" EntitySet="Menus" />
+            <End Role="Menus1" EntitySet="Menus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supports_AspNetUsers" Association="Self.FK_Supports_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Supports" EntitySet="Supports" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WebTinTucModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="WebTinTucEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccessStatistics" EntityType="WebTinTucModel.AccessStatistic" />
+          <EntitySet Name="AdvContents" EntityType="WebTinTucModel.AdvContent" />
+          <EntitySet Name="Advs" EntityType="WebTinTucModel.Adv" />
+          <EntitySet Name="AlbumImages" EntityType="WebTinTucModel.AlbumImage" />
+          <EntitySet Name="Albums" EntityType="WebTinTucModel.Album" />
+          <EntitySet Name="Articles" EntityType="WebTinTucModel.Article" />
+          <EntitySet Name="AspNetRoles" EntityType="WebTinTucModel.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="WebTinTucModel.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="WebTinTucModel.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="WebTinTucModel.AspNetUser" />
+          <EntitySet Name="AttachModels" EntityType="WebTinTucModel.AttachModel" />
+          <EntitySet Name="Categories" EntityType="WebTinTucModel.Category" />
+          <EntitySet Name="ConfigAccounts" EntityType="WebTinTucModel.ConfigAccount" />
+          <EntitySet Name="Configs" EntityType="WebTinTucModel.Config" />
+          <EntitySet Name="CongChucs" EntityType="WebTinTucModel.CongChuc" />
+          <EntitySet Name="Contacts" EntityType="WebTinTucModel.Contact" />
+          <EntitySet Name="DanhGiaCongChucs" EntityType="WebTinTucModel.DanhGiaCongChuc" />
+          <EntitySet Name="DanhGiaDonVis" EntityType="WebTinTucModel.DanhGiaDonVi" />
+          <EntitySet Name="DocumentDetails" EntityType="WebTinTucModel.DocumentDetail" />
+          <EntitySet Name="Documents" EntityType="WebTinTucModel.Document" />
+          <EntitySet Name="DonVis" EntityType="WebTinTucModel.DonVi" />
+          <EntitySet Name="Embeds" EntityType="WebTinTucModel.Embed" />
+          <EntitySet Name="HoiDapCauHois" EntityType="WebTinTucModel.HoiDapCauHois" />
+          <EntitySet Name="HoiDapLinhVucs" EntityType="WebTinTucModel.HoiDapLinhVuc" />
+          <EntitySet Name="LienKets" EntityType="WebTinTucModel.LienKet" />
+          <EntitySet Name="LinhVucs" EntityType="WebTinTucModel.LinhVuc" />
+          <EntitySet Name="Logs" EntityType="WebTinTucModel.Log" />
+          <EntitySet Name="Lydoes" EntityType="WebTinTucModel.Lydo" />
+          <EntitySet Name="Maps" EntityType="WebTinTucModel.Map" />
+          <EntitySet Name="Menus" EntityType="WebTinTucModel.Menu" />
+          <EntitySet Name="Modules" EntityType="WebTinTucModel.Module" />
+          <EntitySet Name="Supports" EntityType="WebTinTucModel.Support" />
+          <EntitySet Name="Videos" EntityType="WebTinTucModel.Video" />
+          <EntitySet Name="Votes" EntityType="WebTinTucModel.Vote" />
+          <AssociationSet Name="FK_AdvContent_Advs" Association="WebTinTucModel.FK_AdvContent_Advs">
+            <End Role="Adv" EntitySet="Advs" />
+            <End Role="AdvContent" EntitySet="AdvContents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AlbumImages_Albums" Association="WebTinTucModel.FK_AlbumImages_Albums">
+            <End Role="Album" EntitySet="Albums" />
+            <End Role="AlbumImage" EntitySet="AlbumImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Articles_AspNetUsers" Association="WebTinTucModel.FK_Articles_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Article" EntitySet="Articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Articles_Categories" Association="WebTinTucModel.FK_Articles_Categories">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Article" EntitySet="Articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="WebTinTucModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="WebTinTucModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoiDapCauHois_AspNetUsers" Association="WebTinTucModel.FK_HoiDapCauHois_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="HoiDapCauHois" EntitySet="HoiDapCauHois" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supports_AspNetUsers" Association="WebTinTucModel.FK_Supports_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Support" EntitySet="Supports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttachModel_DocumentDetails" Association="WebTinTucModel.FK_AttachModel_DocumentDetails">
+            <End Role="DocumentDetail" EntitySet="DocumentDetails" />
+            <End Role="AttachModel" EntitySet="AttachModels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Categories_Categories" Association="WebTinTucModel.FK_Categories_Categories">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Category1" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CongChuc_DonVi" Association="WebTinTucModel.FK_CongChuc_DonVi">
+            <End Role="DonVi" EntitySet="DonVis" />
+            <End Role="CongChuc" EntitySet="CongChucs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DanhGiaCongChuc_CongChuc" Association="WebTinTucModel.FK_DanhGiaCongChuc_CongChuc">
+            <End Role="CongChuc" EntitySet="CongChucs" />
+            <End Role="DanhGiaCongChuc" EntitySet="DanhGiaCongChucs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DanhGiaCongChuc_DonVi" Association="WebTinTucModel.FK_DanhGiaCongChuc_DonVi">
+            <End Role="DonVi" EntitySet="DonVis" />
+            <End Role="DanhGiaCongChuc" EntitySet="DanhGiaCongChucs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DanhGiaDonVi_DonVi" Association="WebTinTucModel.FK_DanhGiaDonVi_DonVi">
+            <End Role="DonVi" EntitySet="DonVis" />
+            <End Role="DanhGiaDonVi" EntitySet="DanhGiaDonVis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DanhGiaDonVi_LinhVuc" Association="WebTinTucModel.FK_DanhGiaDonVi_LinhVuc">
+            <End Role="LinhVuc" EntitySet="LinhVucs" />
+            <End Role="DanhGiaDonVi" EntitySet="DanhGiaDonVis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocumentDetails_Documents" Association="WebTinTucModel.FK_DocumentDetails_Documents">
+            <End Role="Document" EntitySet="Documents" />
+            <End Role="DocumentDetail" EntitySet="DocumentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Documents_Documents" Association="WebTinTucModel.FK_Documents_Documents">
+            <End Role="Document" EntitySet="Documents" />
+            <End Role="Document1" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DonVi_DonVi" Association="WebTinTucModel.FK_DonVi_DonVi">
+            <End Role="DonVi" EntitySet="DonVis" />
+            <End Role="DonVi1" EntitySet="DonVis" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LinhVuc_DonVi" Association="WebTinTucModel.FK_LinhVuc_DonVi">
+            <End Role="DonVi" EntitySet="DonVis" />
+            <End Role="LinhVuc" EntitySet="LinhVucs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoiDapCauHois_HoiDapLinhVucs" Association="WebTinTucModel.FK_HoiDapCauHois_HoiDapLinhVucs">
+            <End Role="HoiDapLinhVuc" EntitySet="HoiDapLinhVucs" />
+            <End Role="HoiDapCauHois" EntitySet="HoiDapCauHois" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoiDapLinhVucs_HoiDapLinhVucs" Association="WebTinTucModel.FK_HoiDapLinhVucs_HoiDapLinhVucs">
+            <End Role="HoiDapLinhVuc" EntitySet="HoiDapLinhVucs" />
+            <End Role="HoiDapLinhVuc1" EntitySet="HoiDapLinhVucs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Menus_Menus" Association="WebTinTucModel.FK_Menus_Menus">
+            <End Role="Menu" EntitySet="Menus" />
+            <End Role="Menu1" EntitySet="Menus" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="WebTinTucModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="CongChuc_LyDo" Association="WebTinTucModel.CongChuc_LyDo">
+            <End Role="DanhGiaCongChuc" EntitySet="DanhGiaCongChucs" />
+            <End Role="Lydo" EntitySet="Lydoes" />
+          </AssociationSet>
+          <AssociationSet Name="DonVi_LyDo" Association="WebTinTucModel.DonVi_LyDo">
+            <End Role="DanhGiaDonVi" EntitySet="DanhGiaDonVis" />
+            <End Role="Lydo" EntitySet="Lydoes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AccessStatistic">
+          <Key>
+            <PropertyRef Name="A1" />
+          </Key>
+          <Property Name="A1" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="A2" Type="Int32" />
+        </EntityType>
+        <EntityType Name="AdvContent">
+          <Key>
+            <PropertyRef Name="AdvContentId" />
+          </Key>
+          <Property Name="AdvContentId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImgUrl" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="Link" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="Target" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdvId" Type="Int32" />
+          <NavigationProperty Name="Adv" Relationship="WebTinTucModel.FK_AdvContent_Advs" FromRole="AdvContent" ToRole="Adv" />
+        </EntityType>
+        <EntityType Name="Adv">
+          <Key>
+            <PropertyRef Name="AdvId" />
+          </Key>
+          <Property Name="AdvId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdvTitle" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="TypeAdv" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Published" Type="Boolean" />
+          <NavigationProperty Name="AdvContents" Relationship="WebTinTucModel.FK_AdvContent_Advs" FromRole="Adv" ToRole="AdvContent" />
+        </EntityType>
+        <EntityType Name="AlbumImage">
+          <Key>
+            <PropertyRef Name="ImageId" />
+          </Key>
+          <Property Name="ImageId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImageFileName" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="ImagePosition" Type="Int32" />
+          <Property Name="AlbumId" Type="Int32" />
+          <NavigationProperty Name="Album" Relationship="WebTinTucModel.FK_AlbumImages_Albums" FromRole="AlbumImage" ToRole="Album" />
+        </EntityType>
+        <EntityType Name="Album">
+          <Key>
+            <PropertyRef Name="AlbumId" />
+          </Key>
+          <Property Name="AlbumId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AlbumName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="AlbumForder" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IsAlbumTop" Type="Boolean" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="AlbumImage" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Published" Type="Boolean" />
+          <NavigationProperty Name="AlbumImages" Relationship="WebTinTucModel.FK_AlbumImages_Albums" FromRole="Album" ToRole="AlbumImage" />
+        </EntityType>
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="ArticleId" />
+          </Key>
+          <Property Name="ArticleId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleTitle" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="ArticleDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ArticleContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsNewHot" Type="Boolean" />
+          <Property Name="ArticleImageSmall" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ArticleImageBig" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="SlugArticleTitle" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="Tags" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="TypePost" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="StatusPost" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="ViewCount" Type="Int32" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="PublishedDate" Type="DateTime" Precision="3" />
+          <Property Name="Published" Type="Boolean" />
+          <NavigationProperty Name="AspNetUser" Relationship="WebTinTucModel.FK_Articles_AspNetUsers" FromRole="Article" ToRole="AspNetUser" />
+          <NavigationProperty Name="Category" Relationship="WebTinTucModel.FK_Articles_Categories" FromRole="Article" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="WebTinTucModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="WebTinTucModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="WebTinTucModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="RoomUser" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Articles" Relationship="WebTinTucModel.FK_Articles_AspNetUsers" FromRole="AspNetUser" ToRole="Article" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="WebTinTucModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="WebTinTucModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="HoiDapCauHois" Relationship="WebTinTucModel.FK_HoiDapCauHois_AspNetUsers" FromRole="AspNetUser" ToRole="HoiDapCauHois" />
+          <NavigationProperty Name="Supports" Relationship="WebTinTucModel.FK_Supports_AspNetUsers" FromRole="AspNetUser" ToRole="Support" />
+          <NavigationProperty Name="AspNetRoles" Relationship="WebTinTucModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+        </EntityType>
+        <EntityType Name="AttachModel">
+          <Key>
+            <PropertyRef Name="AttachId" />
+          </Key>
+          <Property Name="AttachId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AttachFileName" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="AttachFilePath" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="ContentType" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="ContentLength" Type="Int32" />
+          <Property Name="DetailId" Type="Int64" />
+          <NavigationProperty Name="DocumentDetail" Relationship="WebTinTucModel.FK_AttachModel_DocumentDetails" FromRole="AttachModel" ToRole="DocumentDetail" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PositionIndex" Type="Int32" />
+          <Property Name="SlugCategory" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ParentCategoryId" Type="Int32" />
+          <Property Name="ViewHome" Type="Boolean" />
+          <Property Name="PositionHome" Type="Int32" />
+          <Property Name="Published" Type="Boolean" />
+          <NavigationProperty Name="Articles" Relationship="WebTinTucModel.FK_Articles_Categories" FromRole="Category" ToRole="Article" />
+          <NavigationProperty Name="Categories1" Relationship="WebTinTucModel.FK_Categories_Categories" FromRole="Category" ToRole="Category1" />
+          <NavigationProperty Name="Category1" Relationship="WebTinTucModel.FK_Categories_Categories" FromRole="Category1" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="ConfigAccount">
+          <Key>
+            <PropertyRef Name="cId" />
+          </Key>
+          <Property Name="cId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailPass" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="FBAppId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FBAppSecret" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FBCallbackPath" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="MailHost" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="MailPort" Type="Int32" Nullable="false" />
+          <Property Name="MailEnableSsl" Type="Boolean" />
+          <Property Name="MailTimeout" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Config">
+          <Key>
+            <PropertyRef Name="ConfigId" />
+          </Key>
+          <Property Name="ConfigId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PageTitle" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PageDescription" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="BgColorHeader" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BgImageHeader" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="BgColorPanel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BgImagePanel" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="BgColorFooter" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BgImageFooter" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="FooterContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CongChuc">
+          <Key>
+            <PropertyRef Name="CongChucId" />
+          </Key>
+          <Property Name="CongChucId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenCongChuc" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="HinhAnh" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySinh" Type="DateTime" Precision="3" />
+          <Property Name="TrinhDo" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="ChucVu" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="DonViId" Type="Int32" />
+          <Property Name="Published" Type="Boolean" />
+          <NavigationProperty Name="DonVi" Relationship="WebTinTucModel.FK_CongChuc_DonVi" FromRole="CongChuc" ToRole="DonVi" />
+          <NavigationProperty Name="DanhGiaCongChucs" Relationship="WebTinTucModel.FK_DanhGiaCongChuc_CongChuc" FromRole="CongChuc" ToRole="DanhGiaCongChuc" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="ContactId" />
+          </Key>
+          <Property Name="ContactId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContactTitle" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ContactImage" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ContactContent" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="Published" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="DanhGiaCongChuc">
+          <Key>
+            <PropertyRef Name="DanhGiaCongChucId" />
+          </Key>
+          <Property Name="DanhGiaCongChucId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CongChucId" Type="Int64" />
+          <Property Name="NguoiDanhGia" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="SoHoSo" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="KieuDanhGia" Type="Boolean" />
+          <Property Name="NgayDanhGia" Type="DateTime" Precision="3" />
+          <Property Name="DonViId" Type="Int32" />
+          <NavigationProperty Name="CongChuc" Relationship="WebTinTucModel.FK_DanhGiaCongChuc_CongChuc" FromRole="DanhGiaCongChuc" ToRole="CongChuc" />
+          <NavigationProperty Name="DonVi" Relationship="WebTinTucModel.FK_DanhGiaCongChuc_DonVi" FromRole="DanhGiaCongChuc" ToRole="DonVi" />
+          <NavigationProperty Name="Lydoes" Relationship="WebTinTucModel.CongChuc_LyDo" FromRole="DanhGiaCongChuc" ToRole="Lydo" />
+        </EntityType>
+        <EntityType Name="DanhGiaDonVi">
+          <Key>
+            <PropertyRef Name="DanhGiaDonViId" />
+          </Key>
+          <Property Name="DanhGiaDonViId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LinhVucId" Type="Int32" />
+          <Property Name="NguoiDanhGia" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="SoHoSo" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="KieuDanhGia" Type="Boolean" />
+          <Property Name="NgayDanhGia" Type="DateTime" Precision="3" />
+          <Property Name="DonViId" Type="Int32" />
+          <NavigationProperty Name="DonVi" Relationship="WebTinTucModel.FK_DanhGiaDonVi_DonVi" FromRole="DanhGiaDonVi" ToRole="DonVi" />
+          <NavigationProperty Name="LinhVuc" Relationship="WebTinTucModel.FK_DanhGiaDonVi_LinhVuc" FromRole="DanhGiaDonVi" ToRole="LinhVuc" />
+          <NavigationProperty Name="Lydoes" Relationship="WebTinTucModel.DonVi_LyDo" FromRole="DanhGiaDonVi" ToRole="Lydo" />
+        </EntityType>
+        <EntityType Name="DocumentDetail">
+          <Key>
+            <PropertyRef Name="DetailId" />
+          </Key>
+          <Property Name="DetailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DetailName" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="DetailDescription" Type="String" MaxLength="1010" FixedLength="false" Unicode="true" />
+          <Property Name="DetailSlug" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="DetailContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DocumentId" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="PublishedDate" Type="DateTime" Precision="3" />
+          <Property Name="CountView" Type="Int32" />
+          <Property Name="CountDown" Type="Int32" />
+          <Property Name="Published" Type="Boolean" />
+          <NavigationProperty Name="AttachModels" Relationship="WebTinTucModel.FK_AttachModel_DocumentDetails" FromRole="DocumentDetail" ToRole="AttachModel" />
+          <NavigationProperty Name="Document" Relationship="WebTinTucModel.FK_DocumentDetails_Documents" FromRole="DocumentDetail" ToRole="Document" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="DocumentId" />
+          </Key>
+          <Property Name="DocumentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DocumentName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PositionIndex" Type="Int32" />
+          <Property Name="ParentDocumentId" Type="Int32" />
+          <Property Name="Published" Type="Boolean" />
+          <NavigationProperty Name="DocumentDetails" Relationship="WebTinTucModel.FK_DocumentDetails_Documents" FromRole="Document" ToRole="DocumentDetail" />
+          <NavigationProperty Name="Documents1" Relationship="WebTinTucModel.FK_Documents_Documents" FromRole="Document" ToRole="Document1" />
+          <NavigationProperty Name="Document1" Relationship="WebTinTucModel.FK_Documents_Documents" FromRole="Document1" ToRole="Document" />
+        </EntityType>
+        <EntityType Name="DonVi">
+          <Key>
+            <PropertyRef Name="DonViId" />
+          </Key>
+          <Property Name="DonViId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenDonVi" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="SlugDonVi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MaDonViCha" Type="Int32" />
+          <Property Name="PositionIndex" Type="Int32" />
+          <Property Name="Published" Type="Boolean" />
+          <NavigationProperty Name="CongChucs" Relationship="WebTinTucModel.FK_CongChuc_DonVi" FromRole="DonVi" ToRole="CongChuc" />
+          <NavigationProperty Name="DanhGiaCongChucs" Relationship="WebTinTucModel.FK_DanhGiaCongChuc_DonVi" FromRole="DonVi" ToRole="DanhGiaCongChuc" />
+          <NavigationProperty Name="DanhGiaDonVis" Relationship="WebTinTucModel.FK_DanhGiaDonVi_DonVi" FromRole="DonVi" ToRole="DanhGiaDonVi" />
+          <NavigationProperty Name="DonVis1" Relationship="WebTinTucModel.FK_DonVi_DonVi" FromRole="DonVi" ToRole="DonVi1" />
+          <NavigationProperty Name="DonVi1" Relationship="WebTinTucModel.FK_DonVi_DonVi" FromRole="DonVi1" ToRole="DonVi" />
+          <NavigationProperty Name="LinhVucs" Relationship="WebTinTucModel.FK_LinhVuc_DonVi" FromRole="DonVi" ToRole="LinhVuc" />
+        </EntityType>
+        <EntityType Name="Embed">
+          <Key>
+            <PropertyRef Name="EmbedId" />
+          </Key>
+          <Property Name="EmbedId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmbedName" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="EmbedFile" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="EmbedOption" Type="Boolean" />
+          <Property Name="EmbedContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="HoiDapCauHois">
+          <Key>
+            <PropertyRef Name="CauHoiId" />
+          </Key>
+          <Property Name="CauHoiId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenCauHoi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NoiDungCauHoi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NgayHoiDap" Type="DateTime" Precision="3" />
+          <Property Name="TrangThaiCauHoi" Type="Boolean" />
+          <Property Name="LinhVucHoiDapId" Type="Int32" />
+          <Property Name="DonViTiepNhanId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="HoTenNguoiHoi" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChiNguoiHoi" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="SoDienThoaiNguoiHoi" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="EmailNguoiGui" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="LuotXem" Type="Int32" />
+          <Property Name="TDTraLoi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NDTraLoi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NgayTraLoi" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="WebTinTucModel.FK_HoiDapCauHois_AspNetUsers" FromRole="HoiDapCauHois" ToRole="AspNetUser" />
+          <NavigationProperty Name="HoiDapLinhVuc" Relationship="WebTinTucModel.FK_HoiDapCauHois_HoiDapLinhVucs" FromRole="HoiDapCauHois" ToRole="HoiDapLinhVuc" />
+        </EntityType>
+        <EntityType Name="HoiDapLinhVuc">
+          <Key>
+            <PropertyRef Name="LinhVucId" />
+          </Key>
+          <Property Name="LinhVucId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLinhVuc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChiTruyCap" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LinhVucChaId" Type="Int32" />
+          <Property Name="ViTriLinhVuc" Type="Int32" />
+          <Property Name="Published" Type="Boolean" />
+          <NavigationProperty Name="HoiDapCauHois" Relationship="WebTinTucModel.FK_HoiDapCauHois_HoiDapLinhVucs" FromRole="HoiDapLinhVuc" ToRole="HoiDapCauHois" />
+          <NavigationProperty Name="HoiDapLinhVucs1" Relationship="WebTinTucModel.FK_HoiDapLinhVucs_HoiDapLinhVucs" FromRole="HoiDapLinhVuc" ToRole="HoiDapLinhVuc1" />
+          <NavigationProperty Name="HoiDapLinhVuc1" Relationship="WebTinTucModel.FK_HoiDapLinhVucs_HoiDapLinhVucs" FromRole="HoiDapLinhVuc1" ToRole="HoiDapLinhVuc" />
+        </EntityType>
+        <EntityType Name="LienKet">
+          <Key>
+            <PropertyRef Name="LienKetId" />
+          </Key>
+          <Property Name="LienKetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LienKetName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LienKetUrl" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="IsOption" Type="Boolean" />
+          <Property Name="ImageUrl" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="Target" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LinhVuc">
+          <Key>
+            <PropertyRef Name="LinhVucId" />
+          </Key>
+          <Property Name="LinhVucId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLinhVuc" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="DonViId" Type="Int32" />
+          <Property Name="PositionIndex" Type="Int32" />
+          <Property Name="Published" Type="Boolean" />
+          <NavigationProperty Name="DanhGiaDonVis" Relationship="WebTinTucModel.FK_DanhGiaDonVi_LinhVuc" FromRole="LinhVuc" ToRole="DanhGiaDonVi" />
+          <NavigationProperty Name="DonVi" Relationship="WebTinTucModel.FK_LinhVuc_DonVi" FromRole="LinhVuc" ToRole="DonVi" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="LogId" />
+          </Key>
+          <Property Name="LogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Keyword" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Lydo">
+          <Key>
+            <PropertyRef Name="LyDoId" />
+          </Key>
+          <Property Name="LyDoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLyDo" Type="String" MaxLength="1010" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DanhGiaCongChucs" Relationship="WebTinTucModel.CongChuc_LyDo" FromRole="Lydo" ToRole="DanhGiaCongChuc" />
+          <NavigationProperty Name="DanhGiaDonVis" Relationship="WebTinTucModel.DonVi_LyDo" FromRole="Lydo" ToRole="DanhGiaDonVi" />
+        </EntityType>
+        <EntityType Name="Map">
+          <Key>
+            <PropertyRef Name="MapId" />
+          </Key>
+          <Property Name="MapId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MapName" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="Lat" Type="Double" />
+          <Property Name="Long" Type="Double" />
+          <Property Name="ApiKey" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MapDescription" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="Published" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="MenuUrl" Type="String" MaxLength="505" FixedLength="false" Unicode="true" />
+          <Property Name="ParentMenuId" Type="Int32" />
+          <Property Name="Position" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PositionIndex" Type="Int32" />
+          <Property Name="Published" Type="Boolean" />
+          <NavigationProperty Name="Menus1" Relationship="WebTinTucModel.FK_Menus_Menus" FromRole="Menu" ToRole="Menu1" />
+          <NavigationProperty Name="Menu1" Relationship="WebTinTucModel.FK_Menus_Menus" FromRole="Menu1" ToRole="Menu" />
+        </EntityType>
+        <EntityType Name="Module">
+          <Key>
+            <PropertyRef Name="ModuleId" />
+          </Key>
+          <Property Name="ModuleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModuleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ModuleLink" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="HiddenModuleName" Type="Boolean" />
+          <Property Name="TypeModule" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PositionIndex" Type="Int32" />
+          <Property Name="Published" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Support">
+          <Key>
+            <PropertyRef Name="SupportId" />
+          </Key>
+          <Property Name="SupportId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SupportType" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="SupportContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="FullName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="SendedEmail" Type="Boolean" />
+          <Property Name="ReplyContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReplyDate" Type="DateTime" Precision="3" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="WebTinTucModel.FK_Supports_AspNetUsers" FromRole="Support" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="Video">
+          <Key>
+            <PropertyRef Name="VideoId" />
+          </Key>
+          <Property Name="VideoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VideoTitle" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="VideoImage" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="VideoUrl" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IsVideoTop" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Published" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Vote">
+          <Key>
+            <PropertyRef Name="VoteId" />
+          </Key>
+          <Property Name="VoteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Normal" Type="Int32" />
+          <Property Name="Good" Type="Int32" />
+          <Property Name="VeryGood" Type="Int32" />
+          <Property Name="Published" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_AdvContent_Advs">
+          <End Type="WebTinTucModel.Adv" Role="Adv" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.AdvContent" Role="AdvContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adv">
+              <PropertyRef Name="AdvId" />
+            </Principal>
+            <Dependent Role="AdvContent">
+              <PropertyRef Name="AdvId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AlbumImages_Albums">
+          <End Type="WebTinTucModel.Album" Role="Album" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.AlbumImage" Role="AlbumImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Album">
+              <PropertyRef Name="AlbumId" />
+            </Principal>
+            <Dependent Role="AlbumImage">
+              <PropertyRef Name="AlbumId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Articles_AspNetUsers">
+          <End Type="WebTinTucModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.Article" Role="Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Articles_Categories">
+          <End Type="WebTinTucModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.Article" Role="Article" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Article">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="WebTinTucModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WebTinTucModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="WebTinTucModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="WebTinTucModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoiDapCauHois_AspNetUsers">
+          <End Type="WebTinTucModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.HoiDapCauHois" Role="HoiDapCauHois" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HoiDapCauHois">
+              <PropertyRef Name="DonViTiepNhanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supports_AspNetUsers">
+          <End Type="WebTinTucModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.Support" Role="Support" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Support">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AttachModel_DocumentDetails">
+          <End Type="WebTinTucModel.DocumentDetail" Role="DocumentDetail" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.AttachModel" Role="AttachModel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocumentDetail">
+              <PropertyRef Name="DetailId" />
+            </Principal>
+            <Dependent Role="AttachModel">
+              <PropertyRef Name="DetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Categories_Categories">
+          <End Type="WebTinTucModel.Category" Role="Category" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.Category" Role="Category1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="ParentCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CongChuc_DonVi">
+          <End Type="WebTinTucModel.DonVi" Role="DonVi" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.CongChuc" Role="CongChuc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonVi">
+              <PropertyRef Name="DonViId" />
+            </Principal>
+            <Dependent Role="CongChuc">
+              <PropertyRef Name="DonViId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DanhGiaCongChuc_CongChuc">
+          <End Type="WebTinTucModel.CongChuc" Role="CongChuc" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.DanhGiaCongChuc" Role="DanhGiaCongChuc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CongChuc">
+              <PropertyRef Name="CongChucId" />
+            </Principal>
+            <Dependent Role="DanhGiaCongChuc">
+              <PropertyRef Name="CongChucId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DanhGiaCongChuc_DonVi">
+          <End Type="WebTinTucModel.DonVi" Role="DonVi" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.DanhGiaCongChuc" Role="DanhGiaCongChuc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonVi">
+              <PropertyRef Name="DonViId" />
+            </Principal>
+            <Dependent Role="DanhGiaCongChuc">
+              <PropertyRef Name="DonViId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DanhGiaDonVi_DonVi">
+          <End Type="WebTinTucModel.DonVi" Role="DonVi" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.DanhGiaDonVi" Role="DanhGiaDonVi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonVi">
+              <PropertyRef Name="DonViId" />
+            </Principal>
+            <Dependent Role="DanhGiaDonVi">
+              <PropertyRef Name="DonViId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DanhGiaDonVi_LinhVuc">
+          <End Type="WebTinTucModel.LinhVuc" Role="LinhVuc" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.DanhGiaDonVi" Role="DanhGiaDonVi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LinhVuc">
+              <PropertyRef Name="LinhVucId" />
+            </Principal>
+            <Dependent Role="DanhGiaDonVi">
+              <PropertyRef Name="LinhVucId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocumentDetails_Documents">
+          <End Type="WebTinTucModel.Document" Role="Document" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.DocumentDetail" Role="DocumentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Document">
+              <PropertyRef Name="DocumentId" />
+            </Principal>
+            <Dependent Role="DocumentDetail">
+              <PropertyRef Name="DocumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Documents_Documents">
+          <End Type="WebTinTucModel.Document" Role="Document" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.Document" Role="Document1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Document">
+              <PropertyRef Name="DocumentId" />
+            </Principal>
+            <Dependent Role="Document1">
+              <PropertyRef Name="ParentDocumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DonVi_DonVi">
+          <End Type="WebTinTucModel.DonVi" Role="DonVi" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.DonVi" Role="DonVi1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonVi">
+              <PropertyRef Name="DonViId" />
+            </Principal>
+            <Dependent Role="DonVi1">
+              <PropertyRef Name="MaDonViCha" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LinhVuc_DonVi">
+          <End Type="WebTinTucModel.DonVi" Role="DonVi" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.LinhVuc" Role="LinhVuc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DonVi">
+              <PropertyRef Name="DonViId" />
+            </Principal>
+            <Dependent Role="LinhVuc">
+              <PropertyRef Name="DonViId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoiDapCauHois_HoiDapLinhVucs">
+          <End Type="WebTinTucModel.HoiDapLinhVuc" Role="HoiDapLinhVuc" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.HoiDapCauHois" Role="HoiDapCauHois" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HoiDapLinhVuc">
+              <PropertyRef Name="LinhVucId" />
+            </Principal>
+            <Dependent Role="HoiDapCauHois">
+              <PropertyRef Name="LinhVucHoiDapId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoiDapLinhVucs_HoiDapLinhVucs">
+          <End Type="WebTinTucModel.HoiDapLinhVuc" Role="HoiDapLinhVuc" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.HoiDapLinhVuc" Role="HoiDapLinhVuc1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HoiDapLinhVuc">
+              <PropertyRef Name="LinhVucId" />
+            </Principal>
+            <Dependent Role="HoiDapLinhVuc1">
+              <PropertyRef Name="LinhVucChaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Menus_Menus">
+          <End Type="WebTinTucModel.Menu" Role="Menu" Multiplicity="0..1" />
+          <End Type="WebTinTucModel.Menu" Role="Menu1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="Menu1">
+              <PropertyRef Name="ParentMenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="WebTinTucModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="WebTinTucModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <Association Name="CongChuc_LyDo">
+          <End Type="WebTinTucModel.DanhGiaCongChuc" Role="DanhGiaCongChuc" Multiplicity="*" />
+          <End Type="WebTinTucModel.Lydo" Role="Lydo" Multiplicity="*" />
+        </Association>
+        <Association Name="DonVi_LyDo">
+          <End Type="WebTinTucModel.DanhGiaDonVi" Role="DanhGiaDonVi" Multiplicity="*" />
+          <End Type="WebTinTucModel.Lydo" Role="Lydo" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WebTinTucModelStoreContainer" CdmEntityContainer="WebTinTucEntities">
+          <EntitySetMapping Name="AccessStatistics">
+            <EntityTypeMapping TypeName="WebTinTucModel.AccessStatistic">
+              <MappingFragment StoreEntitySet="AccessStatistics">
+                <ScalarProperty Name="A2" ColumnName="A2" />
+                <ScalarProperty Name="A1" ColumnName="A1" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdvContents">
+            <EntityTypeMapping TypeName="WebTinTucModel.AdvContent">
+              <MappingFragment StoreEntitySet="AdvContent">
+                <ScalarProperty Name="AdvId" ColumnName="AdvId" />
+                <ScalarProperty Name="Target" ColumnName="Target" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
+                <ScalarProperty Name="AdvContentId" ColumnName="AdvContentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Advs">
+            <EntityTypeMapping TypeName="WebTinTucModel.Adv">
+              <MappingFragment StoreEntitySet="Advs">
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="TypeAdv" ColumnName="TypeAdv" />
+                <ScalarProperty Name="AdvTitle" ColumnName="AdvTitle" />
+                <ScalarProperty Name="AdvId" ColumnName="AdvId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AlbumImages">
+            <EntityTypeMapping TypeName="WebTinTucModel.AlbumImage">
+              <MappingFragment StoreEntitySet="AlbumImages">
+                <ScalarProperty Name="AlbumId" ColumnName="AlbumId" />
+                <ScalarProperty Name="ImagePosition" ColumnName="ImagePosition" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="ImageFileName" ColumnName="ImageFileName" />
+                <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Albums">
+            <EntityTypeMapping TypeName="WebTinTucModel.Album">
+              <MappingFragment StoreEntitySet="Albums">
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="AlbumImage" ColumnName="AlbumImage" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsAlbumTop" ColumnName="IsAlbumTop" />
+                <ScalarProperty Name="AlbumForder" ColumnName="AlbumForder" />
+                <ScalarProperty Name="AlbumName" ColumnName="AlbumName" />
+                <ScalarProperty Name="AlbumId" ColumnName="AlbumId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Articles">
+            <EntityTypeMapping TypeName="WebTinTucModel.Article">
+              <MappingFragment StoreEntitySet="Articles">
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="PublishedDate" ColumnName="PublishedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+                <ScalarProperty Name="StatusPost" ColumnName="StatusPost" />
+                <ScalarProperty Name="TypePost" ColumnName="TypePost" />
+                <ScalarProperty Name="Tags" ColumnName="Tags" />
+                <ScalarProperty Name="SlugArticleTitle" ColumnName="SlugArticleTitle" />
+                <ScalarProperty Name="ArticleImageBig" ColumnName="ArticleImageBig" />
+                <ScalarProperty Name="ArticleImageSmall" ColumnName="ArticleImageSmall" />
+                <ScalarProperty Name="IsNewHot" ColumnName="IsNewHot" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ArticleContent" ColumnName="ArticleContent" />
+                <ScalarProperty Name="ArticleDescription" ColumnName="ArticleDescription" />
+                <ScalarProperty Name="ArticleTitle" ColumnName="ArticleTitle" />
+                <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="WebTinTucModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="WebTinTucModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="WebTinTucModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="WebTinTucModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="RoomUser" ColumnName="RoomUser" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AttachModels">
+            <EntityTypeMapping TypeName="WebTinTucModel.AttachModel">
+              <MappingFragment StoreEntitySet="AttachModel">
+                <ScalarProperty Name="DetailId" ColumnName="DetailId" />
+                <ScalarProperty Name="ContentLength" ColumnName="ContentLength" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="AttachFilePath" ColumnName="AttachFilePath" />
+                <ScalarProperty Name="AttachFileName" ColumnName="AttachFileName" />
+                <ScalarProperty Name="AttachId" ColumnName="AttachId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="WebTinTucModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="PositionHome" ColumnName="PositionHome" />
+                <ScalarProperty Name="ViewHome" ColumnName="ViewHome" />
+                <ScalarProperty Name="ParentCategoryId" ColumnName="ParentCategoryId" />
+                <ScalarProperty Name="SlugCategory" ColumnName="SlugCategory" />
+                <ScalarProperty Name="PositionIndex" ColumnName="PositionIndex" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConfigAccounts">
+            <EntityTypeMapping TypeName="WebTinTucModel.ConfigAccount">
+              <MappingFragment StoreEntitySet="ConfigAccount">
+                <ScalarProperty Name="MailTimeout" ColumnName="MailTimeout" />
+                <ScalarProperty Name="MailEnableSsl" ColumnName="MailEnableSsl" />
+                <ScalarProperty Name="MailPort" ColumnName="MailPort" />
+                <ScalarProperty Name="MailHost" ColumnName="MailHost" />
+                <ScalarProperty Name="FBCallbackPath" ColumnName="FBCallbackPath" />
+                <ScalarProperty Name="FBAppSecret" ColumnName="FBAppSecret" />
+                <ScalarProperty Name="FBAppId" ColumnName="FBAppId" />
+                <ScalarProperty Name="EmailPass" ColumnName="EmailPass" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="cId" ColumnName="cId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Configs">
+            <EntityTypeMapping TypeName="WebTinTucModel.Config">
+              <MappingFragment StoreEntitySet="Configs">
+                <ScalarProperty Name="FooterContent" ColumnName="FooterContent" />
+                <ScalarProperty Name="BgImageFooter" ColumnName="BgImageFooter" />
+                <ScalarProperty Name="BgColorFooter" ColumnName="BgColorFooter" />
+                <ScalarProperty Name="BgImagePanel" ColumnName="BgImagePanel" />
+                <ScalarProperty Name="BgColorPanel" ColumnName="BgColorPanel" />
+                <ScalarProperty Name="BgImageHeader" ColumnName="BgImageHeader" />
+                <ScalarProperty Name="BgColorHeader" ColumnName="BgColorHeader" />
+                <ScalarProperty Name="PageDescription" ColumnName="PageDescription" />
+                <ScalarProperty Name="PageTitle" ColumnName="PageTitle" />
+                <ScalarProperty Name="ConfigId" ColumnName="ConfigId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CongChucs">
+            <EntityTypeMapping TypeName="WebTinTucModel.CongChuc">
+              <MappingFragment StoreEntitySet="CongChuc">
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="DonViId" ColumnName="DonViId" />
+                <ScalarProperty Name="ChucVu" ColumnName="ChucVu" />
+                <ScalarProperty Name="TrinhDo" ColumnName="TrinhDo" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+                <ScalarProperty Name="TenCongChuc" ColumnName="TenCongChuc" />
+                <ScalarProperty Name="CongChucId" ColumnName="CongChucId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="WebTinTucModel.Contact">
+              <MappingFragment StoreEntitySet="Contacts">
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="ContactContent" ColumnName="ContactContent" />
+                <ScalarProperty Name="ContactImage" ColumnName="ContactImage" />
+                <ScalarProperty Name="ContactTitle" ColumnName="ContactTitle" />
+                <ScalarProperty Name="ContactId" ColumnName="ContactId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DanhGiaCongChucs">
+            <EntityTypeMapping TypeName="WebTinTucModel.DanhGiaCongChuc">
+              <MappingFragment StoreEntitySet="DanhGiaCongChuc">
+                <ScalarProperty Name="DonViId" ColumnName="DonViId" />
+                <ScalarProperty Name="NgayDanhGia" ColumnName="NgayDanhGia" />
+                <ScalarProperty Name="KieuDanhGia" ColumnName="KieuDanhGia" />
+                <ScalarProperty Name="SoHoSo" ColumnName="SoHoSo" />
+                <ScalarProperty Name="NguoiDanhGia" ColumnName="NguoiDanhGia" />
+                <ScalarProperty Name="CongChucId" ColumnName="CongChucId" />
+                <ScalarProperty Name="DanhGiaCongChucId" ColumnName="DanhGiaCongChucId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DanhGiaDonVis">
+            <EntityTypeMapping TypeName="WebTinTucModel.DanhGiaDonVi">
+              <MappingFragment StoreEntitySet="DanhGiaDonVi">
+                <ScalarProperty Name="DonViId" ColumnName="DonViId" />
+                <ScalarProperty Name="NgayDanhGia" ColumnName="NgayDanhGia" />
+                <ScalarProperty Name="KieuDanhGia" ColumnName="KieuDanhGia" />
+                <ScalarProperty Name="SoHoSo" ColumnName="SoHoSo" />
+                <ScalarProperty Name="NguoiDanhGia" ColumnName="NguoiDanhGia" />
+                <ScalarProperty Name="LinhVucId" ColumnName="LinhVucId" />
+                <ScalarProperty Name="DanhGiaDonViId" ColumnName="DanhGiaDonViId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DocumentDetails">
+            <EntityTypeMapping TypeName="WebTinTucModel.DocumentDetail">
+              <MappingFragment StoreEntitySet="DocumentDetails">
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="CountDown" ColumnName="CountDown" />
+                <ScalarProperty Name="CountView" ColumnName="CountView" />
+                <ScalarProperty Name="PublishedDate" ColumnName="PublishedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+                <ScalarProperty Name="DetailContent" ColumnName="DetailContent" />
+                <ScalarProperty Name="DetailSlug" ColumnName="DetailSlug" />
+                <ScalarProperty Name="DetailDescription" ColumnName="DetailDescription" />
+                <ScalarProperty Name="DetailName" ColumnName="DetailName" />
+                <ScalarProperty Name="DetailId" ColumnName="DetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="WebTinTucModel.Document">
+              <MappingFragment StoreEntitySet="Documents">
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="ParentDocumentId" ColumnName="ParentDocumentId" />
+                <ScalarProperty Name="PositionIndex" ColumnName="PositionIndex" />
+                <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
+                <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DonVis">
+            <EntityTypeMapping TypeName="WebTinTucModel.DonVi">
+              <MappingFragment StoreEntitySet="DonVis">
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="PositionIndex" ColumnName="PositionIndex" />
+                <ScalarProperty Name="MaDonViCha" ColumnName="MaDonViCha" />
+                <ScalarProperty Name="SlugDonVi" ColumnName="SlugDonVi" />
+                <ScalarProperty Name="TenDonVi" ColumnName="TenDonVi" />
+                <ScalarProperty Name="DonViId" ColumnName="DonViId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Embeds">
+            <EntityTypeMapping TypeName="WebTinTucModel.Embed">
+              <MappingFragment StoreEntitySet="Embed">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="EmbedContent" ColumnName="EmbedContent" />
+                <ScalarProperty Name="EmbedOption" ColumnName="EmbedOption" />
+                <ScalarProperty Name="EmbedFile" ColumnName="EmbedFile" />
+                <ScalarProperty Name="EmbedName" ColumnName="EmbedName" />
+                <ScalarProperty Name="EmbedId" ColumnName="EmbedId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HoiDapCauHois">
+            <EntityTypeMapping TypeName="WebTinTucModel.HoiDapCauHois">
+              <MappingFragment StoreEntitySet="HoiDapCauHois">
+                <ScalarProperty Name="NgayTraLoi" ColumnName="NgayTraLoi" />
+                <ScalarProperty Name="NDTraLoi" ColumnName="NDTraLoi" />
+                <ScalarProperty Name="TDTraLoi" ColumnName="TDTraLoi" />
+                <ScalarProperty Name="LuotXem" ColumnName="LuotXem" />
+                <ScalarProperty Name="EmailNguoiGui" ColumnName="EmailNguoiGui" />
+                <ScalarProperty Name="SoDienThoaiNguoiHoi" ColumnName="SoDienThoaiNguoiHoi" />
+                <ScalarProperty Name="DiaChiNguoiHoi" ColumnName="DiaChiNguoiHoi" />
+                <ScalarProperty Name="HoTenNguoiHoi" ColumnName="HoTenNguoiHoi" />
+                <ScalarProperty Name="DonViTiepNhanId" ColumnName="DonViTiepNhanId" />
+                <ScalarProperty Name="LinhVucHoiDapId" ColumnName="LinhVucHoiDapId" />
+                <ScalarProperty Name="TrangThaiCauHoi" ColumnName="TrangThaiCauHoi" />
+                <ScalarProperty Name="NgayHoiDap" ColumnName="NgayHoiDap" />
+                <ScalarProperty Name="NoiDungCauHoi" ColumnName="NoiDungCauHoi" />
+                <ScalarProperty Name="TenCauHoi" ColumnName="TenCauHoi" />
+                <ScalarProperty Name="CauHoiId" ColumnName="CauHoiId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HoiDapLinhVucs">
+            <EntityTypeMapping TypeName="WebTinTucModel.HoiDapLinhVuc">
+              <MappingFragment StoreEntitySet="HoiDapLinhVucs">
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="ViTriLinhVuc" ColumnName="ViTriLinhVuc" />
+                <ScalarProperty Name="LinhVucChaId" ColumnName="LinhVucChaId" />
+                <ScalarProperty Name="DiaChiTruyCap" ColumnName="DiaChiTruyCap" />
+                <ScalarProperty Name="TenLinhVuc" ColumnName="TenLinhVuc" />
+                <ScalarProperty Name="LinhVucId" ColumnName="LinhVucId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LienKets">
+            <EntityTypeMapping TypeName="WebTinTucModel.LienKet">
+              <MappingFragment StoreEntitySet="LienKets">
+                <ScalarProperty Name="Target" ColumnName="Target" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="IsOption" ColumnName="IsOption" />
+                <ScalarProperty Name="LienKetUrl" ColumnName="LienKetUrl" />
+                <ScalarProperty Name="LienKetName" ColumnName="LienKetName" />
+                <ScalarProperty Name="LienKetId" ColumnName="LienKetId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LinhVucs">
+            <EntityTypeMapping TypeName="WebTinTucModel.LinhVuc">
+              <MappingFragment StoreEntitySet="LinhVuc">
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="PositionIndex" ColumnName="PositionIndex" />
+                <ScalarProperty Name="DonViId" ColumnName="DonViId" />
+                <ScalarProperty Name="TenLinhVuc" ColumnName="TenLinhVuc" />
+                <ScalarProperty Name="LinhVucId" ColumnName="LinhVucId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="WebTinTucModel.Log">
+              <MappingFragment StoreEntitySet="Logs">
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
+                <ScalarProperty Name="LogId" ColumnName="LogId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lydoes">
+            <EntityTypeMapping TypeName="WebTinTucModel.Lydo">
+              <MappingFragment StoreEntitySet="Lydo">
+                <ScalarProperty Name="TenLyDo" ColumnName="TenLyDo" />
+                <ScalarProperty Name="LyDoId" ColumnName="LyDoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Maps">
+            <EntityTypeMapping TypeName="WebTinTucModel.Map">
+              <MappingFragment StoreEntitySet="Maps">
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="MapDescription" ColumnName="MapDescription" />
+                <ScalarProperty Name="ApiKey" ColumnName="ApiKey" />
+                <ScalarProperty Name="Long" ColumnName="Long" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="MapName" ColumnName="MapName" />
+                <ScalarProperty Name="MapId" ColumnName="MapId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menus">
+            <EntityTypeMapping TypeName="WebTinTucModel.Menu">
+              <MappingFragment StoreEntitySet="Menus">
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="PositionIndex" ColumnName="PositionIndex" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="ParentMenuId" ColumnName="ParentMenuId" />
+                <ScalarProperty Name="MenuUrl" ColumnName="MenuUrl" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modules">
+            <EntityTypeMapping TypeName="WebTinTucModel.Module">
+              <MappingFragment StoreEntitySet="Modules">
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="PositionIndex" ColumnName="PositionIndex" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="TypeModule" ColumnName="TypeModule" />
+                <ScalarProperty Name="HiddenModuleName" ColumnName="HiddenModuleName" />
+                <ScalarProperty Name="ModuleLink" ColumnName="ModuleLink" />
+                <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
+                <ScalarProperty Name="ModuleId" ColumnName="ModuleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supports">
+            <EntityTypeMapping TypeName="WebTinTucModel.Support">
+              <MappingFragment StoreEntitySet="Supports">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ReplyDate" ColumnName="ReplyDate" />
+                <ScalarProperty Name="ReplyContent" ColumnName="ReplyContent" />
+                <ScalarProperty Name="SendedEmail" ColumnName="SendedEmail" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="SupportContent" ColumnName="SupportContent" />
+                <ScalarProperty Name="SupportType" ColumnName="SupportType" />
+                <ScalarProperty Name="SupportId" ColumnName="SupportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Videos">
+            <EntityTypeMapping TypeName="WebTinTucModel.Video">
+              <MappingFragment StoreEntitySet="Videos">
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsVideoTop" ColumnName="IsVideoTop" />
+                <ScalarProperty Name="VideoUrl" ColumnName="VideoUrl" />
+                <ScalarProperty Name="VideoImage" ColumnName="VideoImage" />
+                <ScalarProperty Name="VideoTitle" ColumnName="VideoTitle" />
+                <ScalarProperty Name="VideoId" ColumnName="VideoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Votes">
+            <EntityTypeMapping TypeName="WebTinTucModel.Vote">
+              <MappingFragment StoreEntitySet="Votes">
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="VeryGood" ColumnName="VeryGood" />
+                <ScalarProperty Name="Good" ColumnName="Good" />
+                <ScalarProperty Name="Normal" ColumnName="Normal" />
+                <ScalarProperty Name="VoteId" ColumnName="VoteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="WebTinTucModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="CongChuc_LyDo" TypeName="WebTinTucModel.CongChuc_LyDo" StoreEntitySet="CongChuc_LyDo">
+            <EndProperty Name="Lydo">
+              <ScalarProperty Name="LyDoId" ColumnName="LyDoId" />
+            </EndProperty>
+            <EndProperty Name="DanhGiaCongChuc">
+              <ScalarProperty Name="DanhGiaCongChucId" ColumnName="DanhGiaId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="DonVi_LyDo" TypeName="WebTinTucModel.DonVi_LyDo" StoreEntitySet="DonVi_LyDo">
+            <EndProperty Name="Lydo">
+              <ScalarProperty Name="LyDoId" ColumnName="LyDoId" />
+            </EndProperty>
+            <EndProperty Name="DanhGiaDonVi">
+              <ScalarProperty Name="DanhGiaDonViId" ColumnName="DanhGiaId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

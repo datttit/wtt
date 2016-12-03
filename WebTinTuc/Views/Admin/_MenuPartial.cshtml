@@ -1,0 +1,7 @@
+﻿@model WebTinTuc.Models.DanhMucMenu
+<select class="form-control select-danhmuc" onchange="getViTriMenuMoi(this);" id="ParentMenuId" data-val="true" data-val-required="Vui lòng chọn một danh mục cha" name="ParentMenuId" aria-required="true" aria-describedby="RolesName-error" aria-invalid="false">
+    <option value="">--Chọn menu cha--</option>
+    <option value="1">--Là menu cha--</option>
+    @Html.Partial("_PartialChildMenu", @Model)
+
+</select>

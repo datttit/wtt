@@ -1,0 +1,17 @@
+﻿@model WebTinTuc.Models.DanhMucDonVi
+@foreach (var item in Model.DanhMucDonVis)
+{
+    if (item != null)
+    {
+        if (item.DanhMucDonVis.Count > 0)
+        {
+            <optgroup label="@item.TenDonVi">
+                @Html.Partial("_PartialChildSelectDonVi", item)
+            </optgroup>
+        }
+        else
+        {
+            <option value="@item.DonViId">@item.TenDonVi</option>
+        }
+    }
+}

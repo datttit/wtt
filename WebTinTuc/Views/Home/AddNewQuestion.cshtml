@@ -1,0 +1,186 @@
+﻿@*@using CaptchaMvc.HtmlHelpers*@
+@model WebTinTuc.Models.HoiDapModel
+@{
+    ViewBag.Title = "Tiếp nhận câu hỏi";
+    Layout = "~/Views/Shared/_LayoutHoiDap.cshtml";
+}
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+@section Styles {
+    <style>
+        #form-hoidap .form-control {
+            height: 35px;
+            padding: 5px 10px;
+        }
+
+        #form-hoidap .control-label {
+            text-align: left;
+        }
+
+        #form-hoidap .radio,
+        #form-hoidap .checkbox {
+            padding-top: 0;
+            padding-left: 20px;
+            border-radius: 9px;
+            border: 1px solid #dfdfdf;
+            margin-bottom: 5px;
+            margin-top: 5px;
+            background: #f2f2f2;
+        }
+        #form-hoidap label {
+            text-align: left;
+        }
+
+            #form-hoidap .radio label,
+            #form-hoidap .checkbox label {
+                padding: 5px;
+                display: block;
+                font-weight: 600;
+            }
+    </style>
+}
+
+<div class="category">
+    <div class="page-header cat-name">
+        <h3>@ViewBag.Title</h3>
+    </div>
+
+    @if (TempData["Updated"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            @Html.Raw(TempData["Updated"])
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            @Html.Raw(TempData["Error"])
+        </div>
+    }
+
+
+    <div class="row">
+        <div class="col-md-10 col-md-push-1">
+
+
+            <p style="color: red; font-style: italic;">Lưu ý: Bạn nên nhập đầy đủ, chính xác các thông tin để Ban biên tập thuận lợi trong việc liên lạc, hỗ trợ.</p>
+
+            @using (Html.BeginForm("AddNewQuestion", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "form-hoidap" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DonViTiepNhanId, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @if (ViewBag.ListDonViTiepNhan != null)
+                        {
+                            @Html.DropDownListFor(m => m.DonViTiepNhanId, new SelectList(ViewBag.ListDonViTiepNhan, "Value", "Text"), "-Chọn đơn vị tiếp nhận trả lời-", new { @class = "form-control" })
+                        }
+                        @Html.ValidationMessageFor(model => model.DonViTiepNhanId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HoTenNguoiHoi, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(model => model.HoTenNguoiHoi, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.HoTenNguoiHoi, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DiaChiNguoiHoi, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(model => model.DiaChiNguoiHoi, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.DiaChiNguoiHoi, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SoDienThoaiNguoiHoi, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(model => model.SoDienThoaiNguoiHoi, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmailNguoiGui, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(model => model.EmailNguoiGui, htmlAttributes: new { @class = "form-control", type = "email" })
+                        @Html.ValidationMessageFor(model => model.EmailNguoiGui, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LinhVucHoiDapId, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @if (ViewBag.ListLinhVucHoiDap != null)
+                        {
+                            @Html.DropDownListFor(m => m.LinhVucHoiDapId, new SelectList(ViewBag.ListLinhVucHoiDap, "Value", "Text"), "-Chọn lĩnh vực hỏi đáp-", new { @class = "form-control" })
+                        }
+                        @Html.ValidationMessageFor(model => model.LinhVucHoiDapId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TenCauHoi, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(model => model.TenCauHoi, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TenCauHoi, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NoiDungCauHoi, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(model => model.NoiDungCauHoi, htmlAttributes: new { @class = "form-control", rows = "10" })
+                        @Html.ValidationMessageFor(model => model.NoiDungCauHoi, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                @*<div class="form-group">
+                    <label for="capchaPlain" class="col-md-4 control-label">Mã bảo mật</label>
+                    <div class="col-md-8">
+                        @Html.Captcha(4, "_PlainCaptchaPartial", new ViewDataDictionary { })
+                    </div>
+                </div>*@
+
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-8">
+                        <input id="form-hoidap-submit" type="submit" value="Gửi câu hỏi" class="btn btn-primary" />
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        $(function () {
+            CKEDITOR.replace('NoiDungCauHoi', {
+                toolbar: [
+                    { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', '-', 'RemoveFormat'] },
+                    { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'] },
+                ],
+                uiColor: '#337ab7',
+                height: '200px',
+            });
+
+        });
+    </script>
+}

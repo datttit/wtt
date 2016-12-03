@@ -1,0 +1,229 @@
+﻿@model WebTinTuc.Models.VideoModel
+@{
+    ViewBag.Title = "Sửa video";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section styles {
+    @Styles.Render("~/Content/dropzonescss")
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3>@ViewBag.Title</h3>
+        </div>
+        @if (TempData["Updated"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Updated"])
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default box box-primary">
+
+            <div class="panel-body">
+                @if (Model != null)
+                {
+                    using (Html.BeginForm("EditVideo", "Videos", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form", @id = "EditVideo" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m => m.VideoId)
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.VideoTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.VideoTitle, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.VideoTitle, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.VideoUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.VideoUrl, htmlAttributes: new { @class = "form-control" })
+                                <iframe id="test_video" width="200" height="110" src="" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.VideoImage, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.VideoImage, htmlAttributes: new { @class = "form-control" })
+                                <img class="img-responsive" src="@Model.VideoImage" id="img_videoImage" style="height: 100px; display: block;" />
+                            </div>
+                        </div>
+
+                        <script>
+                            $(document).ready(function () {
+                                $('#VideoUrl').on('change', function () {
+                                    var $link = $(this).val();
+                                    if ($link.indexOf("www.youtube.com") != -1) {
+                                        var id = $link.split('watch?v=')[1]; // get the id so you can add to iframe
+                                        $('#test_video').attr('src', 'http://www.youtube.com/embed/' + id).fadeIn();
+                                        var _img = "http://img.youtube.com/vi/" + id + "/0.jpg";
+                                        $('input#VideoImage').val(_img);
+                                        $('#img_videoImage').attr('src', _img).fadeIn();
+                                    } 
+                                })
+
+                                $('input#VideoImage').on('change', function () {
+                                    $('#img_videoImage').attr('src', $(this).val()).fadeIn();
+                                })
+                            })
+                        </script>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IsVideoTop, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <div class="checkbox">
+                                    <label>@Html.CheckBoxFor(model => model.IsVideoTop) Là video nổi bật</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Published, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <div class="checkbox">
+                                    <label>@Html.CheckBoxFor(model => model.Published) Mở/khóa</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button class="btn btn-primary" type="submit">Cập nhật video</button>
+                                @Html.ActionLink("Xóa video", "DeleteVideo", new { id = Model.VideoId }, htmlAttributes: new { @class = "btn btn-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Tải hình ảnh</label>
+                            <div class="col-md-8">
+                                <div id="dZUploadAnh" class="dropzone">
+                                    <div class="dz-default dz-message" data-dz-message>
+                                        <span>Kéo tệp hình ảnh vào hoặc chọn tệp hình ảnh cần tải lên</span>
+                                        <span class="btn btn-primary">Chọn tệp</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-8">
+                                <div id="link_url_anh">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Tải Video</label>
+                            <div class="col-md-8">
+                                <div id="dZUploadVideo" class="dropzone">
+                                    <div class="dz-default dz-message" data-dz-message>
+                                        <span>Kéo Video vào hoặc chọn tệp video cần tải lên</span>
+                                        <span class="btn btn-primary">Chọn tệp</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-8">
+                                <div id="link_url_video">
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                }
+                else
+                {
+                    <span>Không tìm thấy video.</span>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/dropzonescripts")
+    <script>
+        Dropzone.autoDiscover = false;
+        $("#dZUploadAnh").dropzone({
+            url: "/Videos/SaveUploadedFileImage",
+            addRemoveLinks: true,
+            maxFiles: 1,
+            maxFilesize: 20,
+            uploadMultiple: false,
+            acceptedFiles: "image/*",
+            dictFallbackMessage: "Trình duyệt của bạn không hỗ trợ kéo thả tệp để tải lên.",
+            dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
+            dictFileTooBig: "Tệp có dung lượng quá lớn ({{filesize}}MiB). Dung lượng cho phép: {{maxFilesize}}MiB.",
+            dictInvalidFileType: "Tệp bạn chọn không được phép tải lên.",
+            dictResponseError: "Server responded with {{statusCode}} code.",
+            dictCancelUpload: "Hủy tải lên",
+            dictCancelUploadConfirmation: "Bạn chắc chắn muốn hủy tải lên?",
+            dictRemoveFile: "Loại bỏ tệp tin",
+            dictMaxFilesExceeded: "Bạn không thể tải lên nhiều tệp.",
+            success: function (file, response) {
+                var imgName = response.Message;
+                file.previewElement.classList.add("dz-success");
+                $('#link_url_anh').html(imgName);
+            },
+            error: function (file, response) {
+                file.previewElement.classList.add("dz-error");
+                $(file.previewElement).find('.dz-error-message').text(response);
+            },
+            HiddenFilesPath: 'body'
+        });
+
+        //SaveUploadedFileVideo
+        $("#dZUploadVideo").dropzone({
+            url: "/Videos/SaveUploadedFileVideo",
+            addRemoveLinks: true,
+            maxFiles: 1,
+            maxFilesize: 100,
+            uploadMultiple: false,
+            accept: function (file, done) {
+                if (getExtension(file.name) == "exe" || getExtension(file.name) == "dll" || getExtension(file.name) == "iso" || getExtension(file.name) == "zip" || getExtension(file.name) == "rar") {
+                    done("Tệp này không được phép tải lên.");
+                }
+                else { done(); }
+            },
+            acceptedFiles: ".mp4,.mkv,.avi,.wma",
+            dictFallbackMessage: "Trình duyệt của bạn không hỗ trợ kéo thả tệp để tải lên.",
+            dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
+            dictFileTooBig: "Tệp có dung lượng quá lớn ({{filesize}}MiB). Dung lượng cho phép: {{maxFilesize}}MiB.",
+            dictInvalidFileType: "Tệp bạn chọn không được phép tải lên.",
+            dictResponseError: "Server responded with {{statusCode}} code.",
+            dictCancelUpload: "Hủy tải lên",
+            dictCancelUploadConfirmation: "Bạn chắc chắn muốn hủy tải lên?",
+            dictRemoveFile: "Loại bỏ tệp tin",
+            dictMaxFilesExceeded: "Bạn không thể tải lên nhiều tệp.",
+            success: function (file, response) {
+                var imgName = response.Message;
+                file.previewElement.classList.add("dz-success");
+                $('#link_url_video').html(imgName);
+            },
+            error: function (file, response) {
+                file.previewElement.classList.add("dz-error");
+                $(file.previewElement).find('.dz-error-message').text(response);
+            },
+            HiddenFilesPath: 'body'
+        });
+
+    </script>
+}
+

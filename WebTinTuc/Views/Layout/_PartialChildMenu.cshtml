@@ -1,0 +1,19 @@
+﻿@model WebTinTuc.Models.DanhMuc
+<ul>
+    @foreach (var item in Model.DanhMucs)
+    {
+        if (item != null)
+        {
+            <li>
+                <a href="@item.CatMenu">
+                    @item.CatName @if (item.DanhMucs.Count > 0)
+                    {<i class='fa fa-angle-down'></i>}                    
+                </a>
+                @if (item.DanhMucs.Count > 0)
+                {
+                    @Html.Partial("_PartialChildMenu", item)
+                }
+            </li>
+        }
+    }
+</ul>

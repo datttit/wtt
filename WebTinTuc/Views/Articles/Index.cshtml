@@ -1,0 +1,269 @@
+﻿@model WebTinTuc.Models.NewArticle
+@{
+    ViewBag.Title = "Thêm mới bài viết";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Default/Plugin/bootstrap-tagsinput.css" rel="stylesheet" />
+<script src="~/Content/Default/Plugin/bootstrap-tagsinput.js"></script>
+@section styles {
+    @Styles.Render("~/Content/dropzonescss")
+}
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3>@ViewBag.Title</h3>
+        </div>
+        @if (TempData["Updated"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Updated"])
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default box box-primary">
+
+            <div class="panel-body">
+                @using (Html.BeginForm("AddNewArticle", "Articles", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form", @id = "AddNewArticle" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Danh mục bài viết</label>
+                        <div class="col-md-10">
+                            @{ Html.RenderAction("_CategoryPartial", "Articles"); }
+                            @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger has-error" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ArticleTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.ArticleTitle, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ArticleTitle, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SlugArticleTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.SlugArticleTitle, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ArticleDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.ArticleDescription, htmlAttributes: new { @class = "form-control", row = 10 })
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        
+                        <div class="col-md-12">
+                            @Html.LabelFor(model => model.ArticleContent, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextAreaFor(model => model.ArticleContent, htmlAttributes: new { @class = "form-control", type = "number", row = 10 })
+                        </div>
+                    </div>
+
+                    <script>                        
+                        //CKEDITOR.replace('ArticleContent');
+                        var roxyFileman = '/Content/fileman/index.html';
+                        $(function () {
+                            CKEDITOR.replace('ArticleContent', {
+                                filebrowserBrowseUrl: roxyFileman,
+                                filebrowserImageBrowseUrl: roxyFileman + '?type=image',
+                                removeDialogTabs: 'link:upload;image:upload'
+                            });
+
+                            //CKEDITOR.replace('ArticleDescription', {
+                            //    filebrowserBrowseUrl: roxyFileman,
+                            //    filebrowserImageBrowseUrl: roxyFileman + '?type=image',
+                            //    removeDialogTabs: 'link:upload;image:upload'
+                            //});
+                        });
+                    </script>
+
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-4">
+                            <label>
+                                @Html.CheckBoxFor(model => model.IsNewHot) Là tin nổi bật.
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ArticleImageSmall, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.ArticleImageSmall, htmlAttributes: new { @class = "form-control" })
+                            <img id="img_ArticleImageSmall" class="img-responsive" style="height: 100px;" />
+                        </div>
+
+
+                    </div>
+
+                    <script>
+                        $(document).ready(function () {
+                            $('#ArticleImageSmall').on('change', function () {
+                                $('img#img_ArticleImageSmall').attr('src', $(this).val()).fadeIn();
+                            })
+                        })
+                    </script>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ArticleImageBig, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.ArticleImageBig, htmlAttributes: new { @class = "form-control" })
+                            <img id="img_ArticleImageBig" class="img-responsive" style="height: 100px; width: 100%;" />
+                        </div>
+                    </div>
+
+                    <script>
+                        $(document).ready(function () {
+                            $('#ArticleImageBig').on('change', function () {
+                                $('img#img_ArticleImageBig').attr('src', $(this).val()).fadeIn();
+                            })
+                        })
+                    </script>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Tags, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10" id="div_tag">
+                            @Html.TextBoxFor(model => model.Tags, htmlAttributes: new { @class = "form-control", data_role = "tagsinput" })
+                        </div>
+                    </div>
+
+                    @*<script>
+                            $(document).ready(function () {
+                                $("input#Tags").tagsinput("add", "aa, bb");
+                            })
+                        </script>*@
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TypePost, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @if (ViewBag.TypePost != null)
+                            {
+                                @Html.DropDownListFor(m => m.TypePost, new SelectList(ViewBag.TypePost, "Value", "Text"), "-Chọn kiểu bài viết-", new { @class = "form-control" })
+                            }
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <label>
+                                @Html.CheckBoxFor(model => model.Published) Published.
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button class="btn btn-primary"type="submit">Thêm bài viết</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Tải file</label>
+                        <div class="col-md-8">
+                            <div id="dZUpload" class="dropzone">
+                                <div class="dz-default dz-message" data-dz-message>
+                                    <span>Kéo tệp vào hoặc chọn tệp cần tải lên</span>
+                                    <span class="btn btn-primary">Chọn file</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-8">
+                            <div id="link_url">
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/dropzonescripts")
+    @*<script type="text/javascript">
+        $.validator.setDefaults({
+            ignore: ""
+        });
+    </script>*@
+
+    <script>
+        $(document).ready(function () {
+            $('input#ArticleTitle').on('change', function () {
+                var $val = $(this).val();
+                var $output = $('input#SlugArticleTitle');
+                $output.empty();
+                if ($val !== "" && $val.length > 0) {
+                    $.ajax({
+                        url: '@Url.Action("GenerateSlugUrl", "Admin")',
+                        type: "POST",
+                        async: true,
+                        cache: false,
+                        dataType: "json",
+                        data: { strText: $val },
+                        success: function (data) {
+                            $output.val(data);
+                        },
+                        error: function (error) {
+                            alert('Mất kết nối tới máy chủ');
+                        }
+                    })
+                }
+            });
+
+            Dropzone.autoDiscover = false;
+            $("#dZUpload").dropzone({
+                url: "/Articles/SaveUploadedFile",
+                addRemoveLinks: true,
+                maxFiles: 3,
+                maxFilesize: 10,
+                uploadMultiple: true,
+                acceptedFiles: "image/*",
+                dictFallbackMessage: "Trình duyệt của bạn không hỗ trợ kéo thả tệp để tải lên.",
+                dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
+                dictFileTooBig: "Tệp có dung lượng quá lớn ({{filesize}}MiB). Dung lượng cho phép: {{maxFilesize}}MiB.",
+                dictInvalidFileType: "Tệp bạn chọn không được phép tải lên.",
+                dictResponseError: "Server responded with {{statusCode}} code.",
+                dictCancelUpload: "Hủy tải lên",
+                dictCancelUploadConfirmation: "Bạn chắc chắn muốn hủy tải lên?",
+                dictRemoveFile: "Loại bỏ tệp tin",
+                dictMaxFilesExceeded: "Bạn không thể tải lên nhiều tệp.",
+                success: function (file, response) {
+                    var imgName = response.Message;
+                    file.previewElement.classList.add("dz-success");
+                    $('#link_url').html(imgName);
+                },
+                error: function (file, response) {
+                    file.previewElement.classList.add("dz-error");
+                    $(file.previewElement).find('.dz-error-message').text(response);
+                }
+            });
+
+        })
+    </script>
+
+
+}

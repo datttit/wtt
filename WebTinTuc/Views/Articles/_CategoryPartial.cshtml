@@ -1,0 +1,35 @@
+﻿@model WebTinTuc.Models.DanhMucBaiViet
+<select name="CategoryId" class="form-control select-danhmuc" id="CategoryId" data-val="true" data-val-required="Vui lòng chọn danh mục bài viết" aria-required="true" aria-describedby="CategoryId-error" aria-invalid="false">
+    <option value="">--Chọn danh mục bài viết--</option>
+    @Html.Partial("_PartialChildCategories", @Model)
+</select>
+
+@*<select name="browser" class="form-control">
+
+    <optgroup label="Firefox">
+        <option value="2.0 or higher">
+            Firefox 2.0 or higher
+        </option>
+        <option value="1.5.x">Firefox 1.5.x</option>
+        <option value="1.0.x">Firefox 1.0.x</option>
+    </optgroup>
+
+    <optgroup label="Microsoft Internet Explorer">
+        <option value="7.0 or higher">
+            Microsoft Internet Explorer 7.0 or higher
+        </option>
+        <option value="6.x">Microsoft Internet Explorer 6.x</option>
+        <option value="5.x">Microsoft Internet Explorer 5.x</option>
+        <option value="4.x">Microsoft Internet Explorer 4.x</option>
+    </optgroup>
+
+    <optgroup label="Opera">
+        <option value="9.0 or higher">Opera 9.0 or higher</option>
+        <option value="8.x">Opera 8.x</option>
+        <option value="7.x">Opera 7.x</option>
+    </optgroup>
+
+    <option>Safari</option>
+    <option>Other</option>
+
+</select>*@

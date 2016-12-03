@@ -1,0 +1,69 @@
+﻿@model List<WebTinTuc.Models.DocumentDetail>
+
+<style>
+    #module-tailieu {
+        height: 210px !important;
+    }
+
+        #module-tailieu > ul > li {
+            border-bottom: 1px solid #dfdfdf;
+            margin-bottom: 5px;
+            display: list-item;
+            height: auto !important;
+        }
+
+            #module-tailieu > ul > li:last-child {
+                border-bottom: 0 solid #dfdfdf;
+            }
+
+        #module-tailieu > ul {
+            padding-left: 0;
+            list-style-type: none;
+        }
+</style>
+
+@if (Model != null)
+{
+    <div id="module-tailieu">
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>
+                    <div class="new-congvan">
+                        <a href="@string.Format("/tai-lieu/{0}-{1}", @item.DetailSlug, @item.DetailId)">
+                            @item.DetailName
+                        </a>
+                        <i>@string.Format("{0:dd/MM/yyyy HH:mm tt}", item.PublishedDate)</i>
+                        @*<p>
+                                @if (item.ArticleDescription.Length > 150)
+                                {
+                                    @item.ArticleDescription.Substring(0, 150).ToString()
+                                }
+                                else
+                                { @item.ArticleDescription }
+                            </p>*@
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+}
+else
+{
+    <p>Chưa có tài liệu nào.</p>
+}
+
+<script>
+
+    $(window).load(function () {
+        $('#module-tailieu').jCarouselLite({
+            speed: 1500,
+            vertical: true,
+            visible: 4,
+            start: 0,
+            auto: 5000,
+            height: 500
+        });
+
+    })
+</script>

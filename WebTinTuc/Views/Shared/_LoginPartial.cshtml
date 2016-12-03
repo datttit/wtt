@@ -1,0 +1,83 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated && ViewData.ContainsKey("FullName"))
+{
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        <i class="fa fa-user fa-fw"></i> @ViewData["FullName"]! <i class="fa fa-caret-down"></i>
+    </a>
+    <ul class="dropdown-menu dropdown-user">
+        <li>
+            <a href="/Manage"><i class="fa fa-user fa-fw"></i> Thông tin tài khoản</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+            <a href="#Dang-xuat"><i class="fa fa-sign-out fa-fw"></i> Đăng xuất</a>
+        </li>
+    </ul>
+    <script>
+    (function () {
+        $('a[href^="#Dang-xuat"]').on('click', function (e) {
+            e.preventDefault();
+            if (confirm("Bạn chắc chắn muốn thoát trang quản trị?")) {
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "@(Url.Action("LogOff", "Account"))",
+                    success: function (data) {
+                        if (data === 1) {
+                            window.location.href = '/admin/login';
+                        }
+                    },
+                    error: function () {
+                        alert('Mất kết nối mạng');
+                    }
+                });
+                                
+            }
+            return false;
+        })
+
+    })();
+    </script>
+}
+
+@*else
+{
+    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+}*@
+
+@*<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+    Chào admin! <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+</a>
+<ul class="dropdown-menu dropdown-user">
+    <li>
+        <a href="#"><i class="fa fa-user fa-fw"></i> Thông tin tài khoản</a>
+    </li>
+    <li>
+        <a href="#"><i class="fa fa-gear fa-fw"></i> Cấu hình</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+        <a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Đăng xuất</a>
+    </li>
+</ul>*@
+
+@*@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
+    }
+}
+else
+{
+    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+}*@

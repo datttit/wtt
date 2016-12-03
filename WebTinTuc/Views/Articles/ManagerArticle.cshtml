@@ -1,0 +1,183 @@
+﻿@model PagedList.IPagedList<WebTinTuc.Models.Article>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Quản lý tin tức";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3>@ViewBag.Title</h3>
+        </div>
+        @if (TempData["Updated"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Updated"])
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default box box-primary">
+            <div class="panel-heading">
+                @using (Html.BeginForm("ManagerArticle", "Articles", FormMethod.Get, new { @class = "form-inline", role = "form", @id = "search-articles", onsubmit = "return validate()" }))
+                {
+                    <div class="form-group">
+                        <label for="searchQuery" class="control-label">Tìm kiếm: </label>
+                        @Html.TextBox("search", "", new { @class = "form-control", placeholder = "Nhập tiêu đề tin tức" })
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="type" name="type">
+                            <option value="">-Chọn kiểu bài viết-</option>
+                            <option value="new">Kiểu tin tức</option>
+                            <option value="blog">Kiểu blog</option>
+                            <option value="congvan">Kiểu Công văn</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="status" name="status">
+                            <option value="">-Chọn trạng thái bài viết-</option>
+                            <option value="Chưa đăng">Chưa đăng</option>
+                            <option value="Đã đăng">Đã đăng</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <select class="form-control" id="isnewhot" name="isnewhot">
+                            <option value="">-Danh sách các bài viết-</option>
+                            <option value="True">Nổi bật</option>
+                            <option value="False">Không là nổi bật</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Tìm kiếm" />
+                    </div>
+                }
+            </div>
+
+            <script>
+                function validate() {
+                    if (document.getElementById("search").value === "" && document.getElementById("type").value === "" && document.getElementById("status").value === "" && document.getElementById("isnewhot").value === "") {
+                        alert("Vui lòng nhập từ khóa hoặc chọn ít nhất một tiêu chí tìm kiếm");
+                        return false;
+                    } else {
+                        return true;
+                    };
+
+                }
+
+            </script>
+
+
+
+            <div class="panel-body">
+                @if (Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <div class="row news">
+                            <div class="col-md-3">
+                                <div class="thumbnail">
+                                    <img class="img-responsive" src="@item.ArticleImageSmall" />
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <h3>@item.ArticleTitle</h3>
+                                <p><b>Ngày đăng: </b>@item.CreatedDate</p>
+                                <p><b>Kiểu bài viết: </b>@item.TypePost</p>
+                                <p><b>Trạng thái: </b>@item.StatusPost</p>
+                                <p><b>Tác giả: </b>@item.AspNetUser.FullName</p>
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ActionLink("Sửa", "EditArticle", new { id = item.ArticleId }, htmlAttributes: new { @class = "btn btn-primary" })
+                                @Html.ActionLink("Xóa", "DeleteArticle", new { id = item.ArticleId }, htmlAttributes: new { @class = "btn btn-danger" })
+                            </div>
+                        </div>
+                    }
+                    <div class="row pull-right">
+                        <div class="col-md-12">
+                            @Html.PagedListPager(Model, page => Url.Action("ManagerArticle", new { search = ViewBag.search, type = ViewBag.type, status = ViewBag.status, isnewhot = ViewBag.isnewhot, pg = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <span>Không tìm thấy tin tức nào.</span>
+                }
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.type != null)
+{
+    <script>
+        $('#type').val('@Html.Raw(ViewBag.type)');
+    </script>
+}
+
+@if (ViewBag.status != null)
+{
+    <script>
+        $('#status').val('@Html.Raw(ViewBag.status)');
+    </script>
+}
+
+@if (ViewBag.isnewhot != null)
+{
+    <script>
+        $('#isnewhot').val('@Html.Raw(ViewBag.isnewhot)');
+    </script>
+}
+
+
+
+<script>
+    $(document).ready(function () {
+        //searchArticles
+        $('#type').on('change', function () {
+            if($(this).val() !== "") {
+                $('#search-articles').submit();
+            }
+        })
+
+        $('#status').on('change', function () {
+            if ($(this).val() !== "") {
+                $('#search-articles').submit();
+            }
+        })
+
+        $('#isnewhot').on('change', function () {
+            if ($(this).val() !== "") {
+                $('#search-articles').submit();
+            }
+        })
+        
+    })
+
+    function addClearFilter() {
+        $('#search-articles').append('<a href="#" id="clearFilter">Xóa bộ lọc</a>');
+        
+        $('#clearFilter').on('click', function () {
+            window.location.href = "/admin/managerArticle";
+        })
+    }
+</script>
+
+@if (ViewBag.search != null || ViewBag.type != null || ViewBag.status != null || ViewBag.isnewhot != null)
+{
+    <script>
+        addClearFilter();
+    </script>
+}

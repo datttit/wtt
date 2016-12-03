@@ -1,0 +1,6 @@
+﻿@model WebTinTuc.Models.DanhMucTaiLieu
+<select class="form-control select-danhmuc" onchange="getDanhMuc(this);" id="ParentDocumentId" data-val="true" data-val-required="Vui lòng chọn một danh mục cha" name="ParentDocumentId" aria-required="true" aria-describedby="RolesName-error" aria-invalid="false">
+    <option value="">--Chọn danh mục tài liệu--</option>
+    <option value="1">--Là Danh mục cha--</option>
+    @Html.Partial("_PartialChildCatDocument", @Model)
+</select>

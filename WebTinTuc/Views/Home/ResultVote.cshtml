@@ -1,0 +1,103 @@
+﻿@model List<WebTinTuc.Models.VoteModel>
+@{
+    ViewBag.Title = "ResultVote";
+    Layout = null;
+}
+
+<style type="text/css">
+    body, table {
+        color: #333;
+        font-family: 'Roboto Condensed', sans-serif;
+        width: 100%;
+        font-size: 14px !important;
+        margin: 0;
+    }
+
+    .table-bordered {
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+        .table-bordered thead tr {
+            background-color: #D9D9D9;
+            color: #000;
+            font-size: 15px;
+        }
+
+        .table-bordered thead td, .table-bordered tbody td {
+            padding: 8px;
+            line-height: 20px;
+            text-align: left;
+            vertical-align: top;
+            border: 1px solid #DDD;
+        }
+
+            .table-bordered tbody td.progress-bar {
+                padding: 11px 8px;
+            }
+
+    .progress-bar-polls {
+        height: 1em;
+        background-color: #E4E4E4;
+    }
+
+    .progress-bar-polls-status {
+        height: 100%;
+    }
+</style>
+
+<table class="table table-bordered table-hover table-striped">
+    <thead class="table-columns">
+        <tr>
+            <td class="table-cell">
+                %
+            </td>
+            <td class="table-cell" colspan="4">
+                Bình chọn
+            </td>
+        </tr>
+    </thead>
+
+    <tbody class="table-data">
+        @{int i = 1;}
+        @if (Model != null)
+        {
+
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td class="table-cell">
+                        @item.PercentVote
+                    </td>
+                    <td class="table-cell">
+                        @item.NumberVote
+                    </td>
+
+                    <td class="table-cell progress-bar" style="width: 50%">
+                        <div class="progress-bar-polls" style="width: 100%;">
+                            <div class="progress-bar-polls-status" style="background-color:@item.colorVote;width:@if(item.PercentVote != null) {@item.PercentVote.Replace(',','.');}"></div>
+                        </div>
+                    </td>
+
+                    <td class="table-cell" style="width: 1%">
+                        <strong>@i</strong>
+                    </td>
+                    <td class="table-cell">
+                        @item.VoteName
+                    </td>
+                </tr>
+                i++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">Chưa có bình chọn nào.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <strong>Tổng bình chọn:</strong> @ViewBag.TotalVote
+</div>

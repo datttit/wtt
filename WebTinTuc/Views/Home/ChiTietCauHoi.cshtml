@@ -1,0 +1,92 @@
+﻿@model WebTinTuc.Models.HoiDapCauHois
+@{
+    ViewBag.Title = "Chi tiết câu hỏi " + ViewBag.TenCauHoi;
+    Layout = "~/Views/Shared/_LayoutHoiDap.cshtml";
+}
+
+@section Styles {
+    <style>
+        .cauhoi-tracuu a {
+            color: #1937eb;
+        }
+
+        .cauhoi-tracuu {
+            border: 1px solid #dfdfdf;
+            margin: 0 0 10px;
+        }
+
+
+        .red {
+            color: #ff0000;
+        }
+    </style>
+}
+
+@*seo*@
+@section metatags
+{
+    @if (Model != null)
+    {
+        <meta name="description" content="@Html.Raw(Model.TenCauHoi) @Html.Raw(Model.HoiDapLinhVuc.TenLinhVuc)">
+        <meta name="keywords" content="@Html.Raw(Model.TenCauHoi)">
+        <meta name="author" content="nguyenvannam, dtsoftvn.com">
+        <meta name="robots" content="index,follow,noodp">
+        <meta property="og:locale" content="vi_VN">
+        <meta property="og:type" content="Hỏi đáp">
+        <meta property="og:url" content="@Html.DisplayName("http://")@Request.Url.Host@Request.RawUrl.ToString()">
+        <meta property="og:title" content="@Html.Raw(Model.TenCauHoi)">
+        <meta property="og:description" content="@Html.Raw(Model.TenCauHoi) @Html.Raw(Model.HoiDapLinhVuc.TenLinhVuc)">
+    }
+}
+
+<div class="category">
+    <div class="page-header cat-name">
+        <h3>@ViewBag.Title</h3>
+    </div>
+</div>
+
+
+@if (Model != null)
+    {
+    <div class="row cauhoi-tracuu">
+        <div class="col-md-12">
+            <p>
+                <b class="red">Câu hỏi: </b><a data-toggle="collapse" href="#cauhoi-@Model.CauHoiId" aria-expanded="true" aria-controls="cauhoi-@Model.CauHoiId">@Model.TenCauHoi</a>
+            </p>
+            <div class="collapse" id="cauhoi-@Model.CauHoiId">
+                <div class="well">
+                    <b class="red">Nội dung: </b><br />
+                    @Html.Raw(Model.NoiDungCauHoi)
+                </div>
+            </div>
+            <p>
+                <i>Ngày gửi: @string.Format("{0:dd/MM/yyyy HH:mm tt}", Model.NgayHoiDap)</i>
+                <i>Ngày Trả lời: @string.Format("{0:dd/MM/yyyy HH:mm tt}", Model.NgayTraLoi)</i>
+            </p>
+            <p><b>Người gửi: </b>@Model.HoTenNguoiHoi, <b>Địa chỉ: </b>@Model.DiaChiNguoiHoi, <b>Đơn vị trả lời: </b>@Model.AspNetUser.FullName</p>
+            <p><b class="red">Câu trả lời: </b><a data-toggle="collapse" href="#traloi-@Model.CauHoiId" aria-expanded="true" aria-controls="traloi-@Model.CauHoiId">@Model.TDTraLoi</a></p>
+            <div class="collapse" id="traloi-@Model.CauHoiId">
+                <ul class="nav nav-pills" role="tablist">
+                    <li role="presentation" class="active"><a href="#tab-noidung-@Model.CauHoiId" aria-controls="tab-noidung-@Model.CauHoiId" role="tab" data-toggle="tab">Nội dung trả lời</a></li>
+                    <li role="presentation"><a href="#tab-cauhoi-@Model.CauHoiId" aria-controls="tab-cauhoi-@Model.CauHoiId" role="tab" data-toggle="tab">Câu hỏi liên quan</a></li>
+                </ul>
+                <div class="tab-content" style="border: 1px solid #dfdfdf; padding: 10px; margin-bottom: 10px;">
+                    <div role="tabpanel" class="tab-pane active" id="tab-noidung-@Model.CauHoiId">
+                        @Html.Raw(Model.NDTraLoi)
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="tab-cauhoi-@Model.CauHoiId">
+                        @{Html.RenderAction("_CauhoiLienQuanPartial", new { id = @Model.CauHoiId, linhvucid = @Model.LinhVucHoiDapId });}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+else
+{
+    <div class="row cauhoi-tracuu">
+        <div class="col-md-12">
+            <p>Câu hỏi không tồn tại hoặc đã bị xóa.</p>
+        </div>
+    </div>
+}

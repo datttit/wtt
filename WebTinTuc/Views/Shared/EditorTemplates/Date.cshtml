@@ -1,0 +1,28 @@
+﻿@model DateTime?
+@{
+    var value = "";
+    if (Model.HasValue) {
+        value = String.Format("{0:d}", Model.Value.ToString("dd/MM/yyyy"));
+    }
+}
+@Html.TextBox("", value, new { @class = "datefield form-control", type = "text", data_val_date = "Ngày tháng không đúng định dạng ngày/tháng/năm." })
+
+@*<script>
+    $(function () {
+        $.validator.addMethod('date',
+        function (value, element) {
+            if (this.optional(element)) {
+                return true;
+            }
+            var ok = true;
+            try {
+                $.datepicker.parseDate('dd/mm/yy', value);
+            }
+            catch (err) {
+                ok = false;
+            }
+            return ok;
+        });
+        $(".datefield").datepicker({ dateFormat: 'dd/mm/yy', changeYear: true });
+    });
+</script>*@

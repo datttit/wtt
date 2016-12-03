@@ -1,0 +1,25 @@
+﻿@model WebTinTuc.Models.DanhMucMenu
+
+
+    @foreach (var item in Model.DanhMucMenus)
+    {
+        if (item != null)
+        {
+            <option value="@item.MenuId" class="@if(item.DanhMucMenus.Count > 0) {@Html.DisplayName("bold-option")} else {}">@item.MenuName</option>
+            if (item.DanhMucMenus.Count > 0)
+            {
+                @Html.Partial("_PartialChildMenu", item)
+            }
+        }
+    }    
+
+
+@* <optgroup label="Swedish Cars">
+        <option value="">Swedish Cars</option>
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+    </optgroup>
+    <optgroup label="German Cars">
+        <option value="mercedes">Mercedes</option>
+        <option value="audi">Audi</option>
+    </optgroup> *@

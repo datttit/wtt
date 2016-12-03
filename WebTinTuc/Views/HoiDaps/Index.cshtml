@@ -1,0 +1,152 @@
+﻿@model PagedList.IPagedList<WebTinTuc.Models.HoiDapLinhVuc>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Danh sách lĩnh vực hỏi đáp.";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3>@ViewBag.Title <a href="/admin/hoidap/themmoilinhvuc" class="btn btn-primary pull-right" style="color: #fff;">Thêm mới menu</a></h3>
+        </div>
+        @if (TempData["Deleted"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Deleted"])
+            </div>
+        }
+
+        @if (TempData["Moved"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Moved"])
+            </div>
+        }
+
+        @if (TempData["Updated"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Updated"])
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default box box-primary">
+            <div class="panel-heading">
+                @using (Html.BeginForm("Index", "HoiDaps", FormMethod.Get, new { @class = "form-inline", role = "form", @id = "search-linhvuchoidap", onsubmit = "return validate()" }))
+                {
+                    <div class="form-group">
+                        <label for="searchQuery" class="control-label">Tìm kiếm: </label>
+                        @Html.TextBox("search", "", new { @class = "form-control", placeholder = "Nhập tên lĩnh vực" })
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Tìm kiếm" />
+                    </div>
+                }
+            </div>
+
+            <script>
+    function validate() {
+        if (document.getElementById("search").value === "") {
+            alert("Vui lòng nhập từ khóa tìm kiếm");
+            return false;
+        } else {
+            return true;
+        };
+
+    }
+
+            </script>
+
+
+
+            <div class="panel-body">
+                @*<div id="tree-menu-baiviet">
+
+                    </div>*@
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Số thứ tự</th>
+                                <th>Tên lĩnh vực</th>
+                                <th>Lĩnh vực cha</th>
+                                <th>Vị trí</th>
+                                <th>Tình trạng</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int i = 1;}
+                            @if (Model != null)
+                            {
+                                if (Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>@item.TenLinhVuc</td>
+                                            <td>
+                                                @if (item.HoiDapLinhVuc1 != null)
+                                                {
+                                                    @item.HoiDapLinhVuc1.TenLinhVuc
+                                                }
+
+                                            </td>
+
+                                            <td>@item.ViTriLinhVuc</td>
+                                            <td>
+                                                @if (@item.Published == true)
+                                                {
+                                                    <span>Mở</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Khóa</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                @Html.RouteLink("Sửa", "SuaLinhVucHoiDap", new { id = item.LinhVucId }, htmlAttributes: new { @class = "btn btn-primary" })
+                                            </td>
+                                        </tr>
+                                                i++;
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6">
+                                            Chưa có lĩnh vực.
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                @if (Model != null)
+                {                    
+                    @Html.PagedListPager(Model, page => Url.RouteUrl("DanhSachLinhVucs", new { search = ViewBag.search, pg = page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+﻿@model List<WebTinTuc.Models.Video>
+<style>
+    #listvideo {
+        height: 150px;
+        overflow-y: auto;
+        padding: 0 5px;
+        list-style-type: none;
+        margin-top: 5px;
+    }
+
+        #listvideo > li {
+            margin-bottom: 5px;
+            background: rgba(0, 0, 0, 0) url('/Content/Default/img/icon6.png') no-repeat scroll left 6px;
+            margin: 5px 0;
+            padding: 0 0 0 10px;
+        }
+</style>
+
+@if (Model.Count > 0)
+{
+    <div id="myElement">Loading the player...</div>
+    <ul id="listvideo">
+        @foreach (var item in Model)
+        {
+            <li><a href="#" data-href="@item.VideoUrl" data-image="@item.VideoImage">@item.VideoTitle</a></li>
+        }
+    </ul>
+}
+else
+{
+    <span>Không có video nào.</span>
+}
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("ul#listvideo").children('li:first').css('display', 'block');
+        var playerInstance = jwplayer("myElement");
+        var elFirst = $("ul#listvideo").children('li:first').children('a');
+        var x = elFirst.attr('data-href');
+        $('#listvideo > li > a').on('click', function (e) {
+            e.preventDefault();
+            $(this).parent('li').addClass('acted-v').siblings('li').removeClass('acted-v');
+            x = $(this).attr('data-href');
+            playerInstance.setup({
+                file: x,
+                width: "100%",
+                height: "150px",
+                autostart: true
+            });
+            
+        });
+        //var id = x.split('watch?v=')[1];
+        //var _img = "http://img.youtube.com/vi/" + id + "/0.jpg";
+        var _img = elFirst.attr('data-image');
+        playerInstance.setup({
+            file: x,
+            width: "100%",
+            height: "150px",
+            image: _img,
+        });
+        
+
+    })
+
+
+</script>

@@ -1,0 +1,48 @@
+﻿@model WebTinTuc.Models.Config
+@if (Model != null)
+{
+    <style>
+        #tf-footer {
+            background-color: @Html.Raw(Model.BgColorFooter);
+        }
+
+        #tf-footer > .container > #tf-footer-row1 {
+            background: url('@Html.Raw(Model.BgImageFooter)') no-repeat right;
+            background-size: contain;
+            margin-bottom: 5px;
+        }
+
+        #tf-footer-row1 > .lead {
+            margin-bottom: 0;  
+            line-height: 10px;      
+        }
+    </style>
+    <div id="tf-footer">
+        <div class="container">
+            <div class="row hidden-xs" id="tf-footer-row1">
+                <div class="col-md-12 lead">
+                    @Html.Raw(Model.FooterContent)
+                </div>
+            </div>
+            @*<div class="row" style="padding:5px 0 0;">
+                <div class="col-md-12">
+                    <p class="pull-left">© 2016 <a href="http://dtsoftvn.com">Dtsoftvn.com</a></p> <!-- copyright text here-->
+                    <ul class="list-inline social pull-right">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li> <!-- Change # With your FB Link -->
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li> <!-- Change # With your Twitter Link -->
+                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li> <!-- Change # With your Google Plus Link -->
+                        <li><a href="#"><i class="fa fa-youtube"></i></a></li> <!-- Change # With your Youtube Link -->
+                    </ul>
+                </div>
+            </div>*@
+        </div><!-- end container -->
+    </div>
+}
+else
+{
+    @Html.DisplayName("© 2016 dtsoftvn.com")
+}
+
+
+
+

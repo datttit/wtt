@@ -1,0 +1,5 @@
+﻿@model WebTinTuc.Models.DanhMucTaiLieu
+<select name="DocumentId" class="form-control select-danhmuc" id="DocumentId" data-val="true" data-val-required="Vui lòng chọn danh mục tài liệu" aria-required="true" aria-describedby="DocumentId-error" aria-invalid="false">
+    <option value="">--Chọn danh mục tài liệu--</option>
+    @Html.Partial("_PartialChildDMTaiLieu", @Model)
+</select>

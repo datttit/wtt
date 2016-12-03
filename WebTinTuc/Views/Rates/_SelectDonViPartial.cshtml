@@ -1,0 +1,5 @@
+﻿@model WebTinTuc.Models.DanhMucDonVi
+<select name="DonViId" class="form-control select-danhmuc" id="DonViId" data-val="true" data-val-required="Vui lòng chọn danh mục đơn vị" aria-required="true" aria-describedby="DonViId-error" aria-invalid="false" style="width: 200px;">
+    <option value="">--Chọn danh mục đơn vị--</option>
+    @Html.Partial("_PartialChildSelectDonVi", @Model)
+</select>

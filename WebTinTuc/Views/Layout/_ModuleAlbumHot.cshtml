@@ -1,0 +1,40 @@
+﻿@model WebTinTuc.Models.Album
+
+@if (Model != null)
+{
+    if (Model.AlbumImages.Count > 0)
+    {
+        <div class="module-album">
+            @{int i = 0;}
+            @foreach (var img in Model.AlbumImages)
+            {
+                <a href="@img.ImageUrl" rel="hot-@Helpers.Configs.unicodeToNoMark(Model.AlbumName)" title="@Model.AlbumName" class="album-image thumbnail @if (i > 0) { @Html.DisplayName("hidden") } else { @Html.DisplayName("") }" style="margin-bottom: 0;">
+                    <img src="@img.ImageUrl" alt="@img.ImageFileName">
+                </a>
+                i++;
+            }
+        </div>
+    }
+    else
+    {
+        <div>
+            <p>Chưa có ảnh</p>
+        </div>
+    }
+}
+else
+{
+    <span>Chưa có thư viện nổi bật.</span>
+}
+
+
+<script>
+    $(document).ready(function () {
+        $(".album-image").fancybox({
+            openEffect: 'none',
+            closeEffect: 'none',
+            loop: false
+        });
+    });
+</script>
+

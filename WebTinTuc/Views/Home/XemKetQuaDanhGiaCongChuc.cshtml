@@ -1,0 +1,106 @@
+﻿@model WebTinTuc.Models.CongChuc
+@using Helpers;
+@{
+    ViewBag.Title = "Xem kết quả đánh giá công chức " + ViewBag.TenCongChuc;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles {
+    <style>
+        .info-congchuc img {
+            width: 100px;
+            height: 122px;
+        }
+
+        .info-congchuc {
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+    </style>
+}
+
+
+<div class="category">
+    <div class="page-header cat-name">
+        <h3 style="text-transform: uppercase;">Công chức tiếp nhận và giải quyết hồ sơ</h3>
+    </div>
+    @if (Model != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="info-congchuc">
+                    <div class="row">
+                        <div class="col-md-10 col-md-push-2">
+                            <p><b>Họ và tên: </b> @Model.TenCongChuc</p>
+                            <p><b>Ngày sinh: </b> @string.Format("{0:dd/MM/yyyy}", Model.NgaySinh)</p>
+                            <p><b>Trình độ học vấn: </b> @Model.TrinhDo</p>
+                            <p><b>Chức vụ: </b> @Model.ChucVu</p>
+                            <p><b>Đơn vị: </b> @Model.DonVi.TenDonVi</p>
+                        </div>
+                        <div class="col-md-2 col-md-pull-10">
+                            <div class="thumbnail">
+                                <img class="img-responsive" src="@Model.HinhAnh" alt="@Model.TenCongChuc">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                @{
+                            if (@Model.DanhGiaCongChucs.Count > 0)
+                            {
+                                int SoLuotDanhGia = @Model.DanhGiaCongChucs.Count;
+                                int LuotHaiLong = @Model.DanhGiaCongChucs.Where(x => x.KieuDanhGia == true).Count();
+                                int LuotKoHaiLong = @Model.DanhGiaCongChucs.Where(x => x.KieuDanhGia == false).Count();
+                                ViewBag.LuotKoHaiLong = @Model.DanhGiaCongChucs.Where(x => x.KieuDanhGia == false).SelectMany(x => x.Lydoes).Count();
+                                ViewBag.PhanTramHaiLong = Configs.PercentVote(Convert.ToDouble(LuotHaiLong), Convert.ToDouble(SoLuotDanhGia));
+                                ViewBag.PhanTramKoHaiLong = Configs.PercentVote(Convert.ToDouble(LuotKoHaiLong), Convert.ToDouble(SoLuotDanhGia));
+                            }
+                            else
+                            {
+                                ViewBag.PhanTramHaiLong = "Chưa có đánh giá.";
+                                ViewBag.PhanTramKoHaiLong = "Chưa có đánh giá.";
+                            }                           
+                }
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Số thứ tự</th>
+                                <th>Tiêu chí đánh giá</th>
+                                <th>Kết quả</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td width="80px">1</td>
+                                <td width="300px">1. Đánh giá khảo sát mức độ hài lòng đối với công chức tại Bộ phận tiếp nhận và trả kết quả</td>
+                                <td>
+                                    <p class="text-primary" style="display: block;">Hài Lòng: @ViewBag.PhanTramHaiLong</p>
+                                    <p class="text-success" style="display: block;">Chưa hài lòng: @ViewBag.PhanTramKoHaiLong</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>2.Ông/Bà vui lòng cho biết lý do chưa hài lòng</td>
+                                <td>
+                                    @foreach (var item in Model.DanhGiaCongChucs.Where(x => x.KieuDanhGia == false).SelectMany(a => a.Lydoes).GroupBy(t => t, (k, g) => new { Lydo = k, g = g.Count() }))
+                                    {
+                                        <p>@item.Lydo.TenLyDo <span>: @Configs.PercentVote(Convert.ToDouble(@item.g), Convert.ToDouble(ViewBag.LuotKoHaiLong)) </span></p>
+                                    }
+
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <span>Không tìm thấy công chức.</span>
+    }
+
+</div>

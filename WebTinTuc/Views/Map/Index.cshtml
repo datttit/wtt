@@ -1,0 +1,114 @@
+﻿@model WebTinTuc.Models.MapModel
+@{
+    ViewBag.Title = "Cập nhật bản đồ";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3>@ViewBag.Title</h3>
+        </div>
+        @if (TempData["Updated"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                @Html.Raw(TempData["Updated"])
+            </div>
+        }
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default box box-primary">
+
+            <div class="panel-body">
+                @using (Html.BeginForm("UpdateMap", "Map", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", role = "form", @id = "UpdateMap" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(m => m.MapId)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MapName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.MapName, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.MapName, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Lat, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Lat)
+                            @Html.ValidationMessageFor(model => model.Lat, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Long, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Long)
+                            @Html.ValidationMessageFor(model => model.Long, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MapDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.MapDescription, htmlAttributes: new { @class = "form-control", type = "number", row = 10 })
+                        </div>
+                    </div>
+
+                    <script>
+                        //CKEDITOR.replace('ArticleContent');
+                        var roxyFileman = '/Content/fileman/index.html';
+                        $(function () {
+                            CKEDITOR.replace('MapDescription', {
+                                filebrowserBrowseUrl: roxyFileman,
+                                filebrowserImageBrowseUrl: roxyFileman + '?type=image',
+                                removeDialogTabs: 'link:upload;image:upload'
+                            });
+                        });
+                    </script>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ApiKey, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.ApiKey, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Published, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                <label>@Html.CheckBoxFor(model => model.Published) Mở/khóa</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button class="btn btn-primary" type="submit">Cập nhật bản đồ</button>
+                            @Html.ActionLink("Xóa bản đồ", "DeleteMap", "Map", new { id = @Model.MapId }, htmlAttributes: new { @class = "btn btn-danger" })
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

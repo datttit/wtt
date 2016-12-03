@@ -1,0 +1,28 @@
+﻿@model WebTinTuc.Models.DanhMucBaiViet
+
+
+@foreach (var item in Model.DanhMucBaiViets)
+{
+    if (item != null)
+    {
+        <option value="@item.CatId" class="@if(item.DanhMucBaiViets.Count > 0) {@Html.DisplayName("bold-option")} else {}">@item.CatName</option>
+        if (item.DanhMucBaiViets.Count > 0)
+        {
+            @Html.Partial("_PartialChildCategories", item)
+        }
+    }
+}
+
+
+    
+
+
+@* <optgroup label="Swedish Cars">
+        <option value="">Swedish Cars</option>
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+    </optgroup>
+    <optgroup label="German Cars">
+        <option value="mercedes">Mercedes</option>
+        <option value="audi">Audi</option>
+    </optgroup> *@

@@ -1,0 +1,25 @@
+﻿@model WebTinTuc.Models.DanhMucTaiLieu
+
+
+@foreach (var item in Model.DanhMucTaiLieus)
+{
+    if (item != null)
+    {
+        @*if (item.DanhMucTaiLieus.Count > 0)
+        {
+            <optgroup label="@item.CatName">
+                @Html.Partial("_PartialChildDMTaiLieu", item)
+            </optgroup>
+        }
+        else
+        {
+            <option value="@item.CatId">@item.CatName</option>
+        }*@
+
+        <option value="@item.CatId" class="@if(item.DanhMucTaiLieus.Count > 0) {@Html.DisplayName("bold-option")} else {}">@item.CatName</option>
+        if (item.DanhMucTaiLieus.Count > 0)
+        {
+            @Html.Partial("_PartialChildDMTaiLieu", item)
+        }
+    }
+}

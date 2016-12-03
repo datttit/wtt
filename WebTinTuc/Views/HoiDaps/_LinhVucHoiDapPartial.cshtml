@@ -1,0 +1,6 @@
+﻿@model WebTinTuc.Models.DanhMucLinhVucHoiDap
+<select class="form-control select-danhmuc" onchange="getDanhMuc(this);" id="LinhVucChaId" data-val="true" data-val-required="Vui lòng chọn một danh mục cha" name="LinhVucChaId" aria-required="true" aria-describedby="LinhVucChaId-error" aria-invalid="false">
+    <option value="">--Chọn danh mục lĩnh vực--</option>
+    <option value="1">--Là Danh mục cha--</option>
+    @Html.Partial("_PartialChildLinhVucHoiDap", @Model)
+</select>

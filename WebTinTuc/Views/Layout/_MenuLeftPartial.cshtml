@@ -1,0 +1,57 @@
+﻿@model WebTinTuc.Models.DanhMuc
+<div class="menu-left">
+    @Html.Partial("_PartialChildMenu", @Model)
+</div>
+
+<script>
+    $('.child').hide(); //Hide children by default
+
+    $('.parent').children().click(function () {
+        event.preventDefault();
+        $(this).children('.child').slideToggle('slow');
+        $(this).find('span').toggle();
+    });
+</script>
+
+
+@*<div class="menu-left">
+        <ul class="">
+            <li class="">
+                <a tabindex="-1" href="#">Giới thiệu</a>
+                <ul class="">
+                    <li class=""><a tabindex="-1" href="#">Pre-advice</a></li>
+                    <li class=""><a href="#">Strategy & Technical</a></li>
+                    <li class=""><a href="#">Research</a></li>
+                    <li class="">
+                        <a href="#">APL & Products</a>
+                        <ul class="parent">
+                            <li>
+                                <a href="#">
+                                    Approved Product List
+                                </a>
+                                <ul class="child">
+                                    <li>Platforms</li>
+                                    <li>Managed Funds</li>
+                                    <li>Wealth Protection</li>
+                                    <li>Listed Securities</li>
+                                    <li>Wealth Protection</li>
+                                    <li>Listed Securities</li>
+                                    <li>Listed Securities</li>
+                                </ul>
+
+                            </li>
+                            <li><a href="#">Model Portfolios</a></li>
+                            <li><a href="#">Non-approved Products</a></li>
+                        </ul>
+                    </li>
+                    <li class=""><a href="#">Implementation</a></li>
+                    <li class=""><a href="#">Review</a></li>
+                    <li class=""><a href="#">Execution Only</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Tin tức sự kiện</a></li>
+            <li><a href="#">Du lịch</a></li>
+            <li><a href="#">Quy hoạch phát triển</a></li>
+        </ul>
+
+    </div>*@

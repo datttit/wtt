@@ -1,0 +1,27 @@
+﻿@model List<WebTinTuc.Models.LienKet>
+
+@if (Model.Count > 0)
+{
+    <select id="module-lienketlink1" style="width: 100%; height: 30px; padding: 0 5px;">
+        <option value="">--Chọn liên kết web--</option>
+        @foreach (var item in Model)
+	    {
+		    <option value="@item.LienKetUrl">@item.LienKetName</option>
+	    }
+    </select>
+}
+else
+{
+    <span>Chưa có liên kết</span>
+}
+
+<script>
+    $(document).ready(function () {
+        $('select#module-lienketlink1').change(function () {
+            var $val = $(this).val();
+            if ($val != "") {
+                window.open($val, '_blank');
+            }
+        })
+    })
+</script>

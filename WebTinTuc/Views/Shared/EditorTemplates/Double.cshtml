@@ -1,0 +1,10 @@
+﻿@model Double?
+@{
+    var value = "";
+    if (Model.HasValue)
+    {
+        value = Model.Value.ToString("00.0000000").Replace(',', '.');
+    }
+    @Html.TextBox("", value, new { @class = "form-control", type = "text", data_val_number = "Giá trị nhập phải là số." })
+
+}

@@ -1,0 +1,16 @@
+﻿@model WebTinTuc.Models.NgayThangModel
+
+<div class="form-group">
+    <div class="col-md-6">
+        <label for="NgayDen">Từ ngày: </label>
+        @Html.EditorFor(m => m.fromdate)
+        @Html.ValidationMessageFor(model => model.fromdate, "", new { @class = "text-danger has-error" })
+    </div>
+
+    <div class="col-md-6">
+        <label for="NgayDi">Đến ngày: </label>
+        @Html.EditorFor(m => m.todate)
+        @Html.ValidationMessageFor(model => model.todate, "", new { @class = "text-danger has-error" })
+    </div>
+    
+</div>      

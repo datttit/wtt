@@ -1,0 +1,71 @@
+﻿@model WebTinTuc.Models.ManageUserEditModel
+@{
+    ViewBag.Title = "Sửa quyền người dùng";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-header">
+            <h3><i class="fa fa-user fa-2x fa-color-red"></i> @ViewBag.Title</h3>
+        </div>
+    </div>
+
+    <!-- /.col-lg-12 -->
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default box box-primary">
+            <div class="panel-body">
+                @if (Model != null)
+                {
+                    using (Html.BeginForm("EditUser", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form", @id = "EditUser" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(m=>m.UserId)
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.FullName, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Họ và tên" })
+                                @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.RoomUser, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.RoomUser, new { @class = "form-control", placeholder = "Nhập phòng" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.RolesName, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @if (ViewBag.Roles != null)
+                                {
+                                    @Html.DropDownListFor(m => m.RolesName, new SelectList(ViewBag.Roles, "Value", "Text"), "-Chọn quyền người dùng-", new { @class = "form-control" })
+                                }
+                                @Html.ValidationMessageFor(m => m.RolesName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" class="btn btn-primary" value="Sửa tài khoản" />
+                                <a href="#" class="btn btn-info" onclick="goBack()">Hủy sửa</a>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

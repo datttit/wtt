@@ -1,0 +1,28 @@
+﻿@model WebTinTuc.Models.DanhMucDonVi
+@foreach (var item in Model.DanhMucDonVis)
+{
+    if (item != null)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="@item.SlugDonVi-@item.DonViId">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#@item.SlugDonVi" aria-expanded="true" aria-controls="@item.SlugDonVi">
+                        @Html.Raw(item.TenDonVi)
+                    </a>
+                </h4>
+            </div>
+            <div id="@item.SlugDonVi" class="accordion-body panel-collapse collapse" role="tabpanel" aria-labelledby="@item.SlugDonVi-@item.DonViId">
+                @if (item.DanhMucDonVis.Count > 0)
+                {
+                    <div class="list-group">
+                        @foreach (var item2 in item.DanhMucDonVis)
+                        {
+                            <a href="@string.Format("/khaosat/donvi/{0}-{1}", @item2.SlugDonVi, @item2.DonViId)" class="list-group-item">@item2.TenDonVi</a>
+                        }
+                    </div>
+                }
+
+            </div>
+        </div>
+    }
+}
